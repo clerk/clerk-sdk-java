@@ -54,6 +54,9 @@ import com.clerk.backend_api.models.operations.GetUsersCountResponse;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequest;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsRequestBuilder;
 import com.clerk.backend_api.models.operations.InstanceGetOrganizationMembershipsResponse;
+import com.clerk.backend_api.models.operations.ListUserBiometricCredentialsRequest;
+import com.clerk.backend_api.models.operations.ListUserBiometricCredentialsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListUserBiometricCredentialsResponse;
 import com.clerk.backend_api.models.operations.ListUserTrustedDevicesRequest;
 import com.clerk.backend_api.models.operations.ListUserTrustedDevicesRequestBuilder;
 import com.clerk.backend_api.models.operations.ListUserTrustedDevicesResponse;
@@ -69,6 +72,9 @@ import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequest;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBody;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataRequestBuilder;
 import com.clerk.backend_api.models.operations.ReplaceUserMetadataResponse;
+import com.clerk.backend_api.models.operations.RevokeUserBiometricCredentialRequest;
+import com.clerk.backend_api.models.operations.RevokeUserBiometricCredentialRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeUserBiometricCredentialResponse;
 import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceRequest;
 import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeUserTrustedDeviceResponse;
@@ -139,10 +145,12 @@ import com.clerk.backend_api.operations.GetUserBillingSubscription;
 import com.clerk.backend_api.operations.GetUserList;
 import com.clerk.backend_api.operations.GetUsersCount;
 import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
+import com.clerk.backend_api.operations.ListUserBiometricCredentials;
 import com.clerk.backend_api.operations.ListUserTrustedDevices;
 import com.clerk.backend_api.operations.LockUser;
 import com.clerk.backend_api.operations.RemoveUserPassword;
 import com.clerk.backend_api.operations.ReplaceUserMetadata;
+import com.clerk.backend_api.operations.RevokeUserBiometricCredential;
 import com.clerk.backend_api.operations.RevokeUserTrustedDevice;
 import com.clerk.backend_api.operations.SetUserPasswordCompromised;
 import com.clerk.backend_api.operations.SetUserProfileImage;
@@ -161,6 +169,7 @@ import com.clerk.backend_api.operations.VerifyPassword;
 import com.clerk.backend_api.operations.VerifyTOTP;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
+import java.lang.Deprecated;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
@@ -180,6 +189,11 @@ public class Users {
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
      * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
+     * 
      * @return The call builder
      */
     public GetUserListRequestBuilder list() {
@@ -191,6 +205,11 @@ public class Users {
      * 
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
+     * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -205,6 +224,11 @@ public class Users {
      * 
      * <p>Returns a list of all users.
      * The users are returned sorted by creation date, with the newest users appearing first.
+     * 
+     * <p>To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+     * A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+     * has to walk and discard every row before it, so it gets progressively slower and eventually
+     * times out. Cursor pagination requires the `created_at` ordering, which is the default.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -1662,7 +1686,9 @@ public class Users {
      * <p>Returns the active trusted devices enrolled by the user.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListUserTrustedDevicesRequestBuilder listTrustedDevices() {
         return new ListUserTrustedDevicesRequestBuilder(sdkConfiguration);
     }
@@ -1675,7 +1701,9 @@ public class Users {
      * @param userId The ID of the user whose trusted devices are returned
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListUserTrustedDevicesResponse listTrustedDevices(String userId) {
         return listTrustedDevices(userId, Optional.empty());
     }
@@ -1689,7 +1717,9 @@ public class Users {
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ListUserTrustedDevicesResponse listTrustedDevices(String userId, Optional<Options> options) {
         ListUserTrustedDevicesRequest request =
             ListUserTrustedDevicesRequest
@@ -1707,7 +1737,9 @@ public class Users {
      * <p>Revokes an active trusted device enrolled by the user.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public RevokeUserTrustedDeviceRequestBuilder revokeTrustedDevice() {
         return new RevokeUserTrustedDeviceRequestBuilder(sdkConfiguration);
     }
@@ -1721,7 +1753,9 @@ public class Users {
      * @param trustedDeviceId The ID of the trusted device to revoke
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public RevokeUserTrustedDeviceResponse revokeTrustedDevice(String userId, String trustedDeviceId) {
         return revokeTrustedDevice(userId, trustedDeviceId, Optional.empty());
     }
@@ -1736,7 +1770,9 @@ public class Users {
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public RevokeUserTrustedDeviceResponse revokeTrustedDevice(
             String userId, String trustedDeviceId,
             Optional<Options> options) {
@@ -1748,6 +1784,101 @@ public class Users {
                 .build();
         RequestOperation<RevokeUserTrustedDeviceRequest, RevokeUserTrustedDeviceResponse> operation
               = new RevokeUserTrustedDevice.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List a user's biometric credentials
+     * 
+     * <p>Returns the active biometric credentials enrolled by the user.
+     * 
+     * @return The call builder
+     */
+    public ListUserBiometricCredentialsRequestBuilder listBiometricCredentials() {
+        return new ListUserBiometricCredentialsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List a user's biometric credentials
+     * 
+     * <p>Returns the active biometric credentials enrolled by the user.
+     * 
+     * @param userId The ID of the user whose biometric credentials are returned
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListUserBiometricCredentialsResponse listBiometricCredentials(String userId) {
+        return listBiometricCredentials(userId, Optional.empty());
+    }
+
+    /**
+     * List a user's biometric credentials
+     * 
+     * <p>Returns the active biometric credentials enrolled by the user.
+     * 
+     * @param userId The ID of the user whose biometric credentials are returned
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListUserBiometricCredentialsResponse listBiometricCredentials(String userId, Optional<Options> options) {
+        ListUserBiometricCredentialsRequest request =
+            ListUserBiometricCredentialsRequest
+                .builder()
+                .userId(userId)
+                .build();
+        RequestOperation<ListUserBiometricCredentialsRequest, ListUserBiometricCredentialsResponse> operation
+              = new ListUserBiometricCredentials.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Revoke a user's biometric credential
+     * 
+     * <p>Revokes an active biometric credential enrolled by the user.
+     * 
+     * @return The call builder
+     */
+    public RevokeUserBiometricCredentialRequestBuilder revokeBiometricCredential() {
+        return new RevokeUserBiometricCredentialRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Revoke a user's biometric credential
+     * 
+     * <p>Revokes an active biometric credential enrolled by the user.
+     * 
+     * @param userId The ID of the user that owns the biometric credential
+     * @param biometricCredentialId The ID of the biometric credential to revoke
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeUserBiometricCredentialResponse revokeBiometricCredential(String userId, String biometricCredentialId) {
+        return revokeBiometricCredential(userId, biometricCredentialId, Optional.empty());
+    }
+
+    /**
+     * Revoke a user's biometric credential
+     * 
+     * <p>Revokes an active biometric credential enrolled by the user.
+     * 
+     * @param userId The ID of the user that owns the biometric credential
+     * @param biometricCredentialId The ID of the biometric credential to revoke
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeUserBiometricCredentialResponse revokeBiometricCredential(
+            String userId, String biometricCredentialId,
+            Optional<Options> options) {
+        RevokeUserBiometricCredentialRequest request =
+            RevokeUserBiometricCredentialRequest
+                .builder()
+                .userId(userId)
+                .biometricCredentialId(biometricCredentialId)
+                .build();
+        RequestOperation<RevokeUserBiometricCredentialRequest, RevokeUserBiometricCredentialResponse> operation
+              = new RevokeUserBiometricCredential.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -5,9 +5,13 @@ package com.clerk.backend_api;
 
 import static com.clerk.backend_api.operations.Operations.RequestOperation;
 
+import com.clerk.backend_api.models.components.ApplyCommerceDiscountRequest;
 import com.clerk.backend_api.models.components.CreateBillingPriceRequest;
 import com.clerk.backend_api.models.components.ExtendFreeTrialRequest;
 import com.clerk.backend_api.models.components.PriceTransitionRequest;
+import com.clerk.backend_api.models.operations.ApplyBillingSubscriptionItemDiscountRequest;
+import com.clerk.backend_api.models.operations.ApplyBillingSubscriptionItemDiscountRequestBuilder;
+import com.clerk.backend_api.models.operations.ApplyBillingSubscriptionItemDiscountResponse;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequest;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemRequestBuilder;
 import com.clerk.backend_api.models.operations.CancelCommerceSubscriptionItemResponse;
@@ -38,6 +42,10 @@ import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListRe
 import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetCommerceSubscriptionItemListResponse;
 import com.clerk.backend_api.models.operations.PayerType;
+import com.clerk.backend_api.models.operations.RemoveBillingSubscriptionItemDiscountRequest;
+import com.clerk.backend_api.models.operations.RemoveBillingSubscriptionItemDiscountRequestBuilder;
+import com.clerk.backend_api.models.operations.RemoveBillingSubscriptionItemDiscountResponse;
+import com.clerk.backend_api.operations.ApplyBillingSubscriptionItemDiscount;
 import com.clerk.backend_api.operations.CancelCommerceSubscriptionItem;
 import com.clerk.backend_api.operations.CreateBillingPrice;
 import com.clerk.backend_api.operations.CreateBillingPriceTransition;
@@ -48,6 +56,7 @@ import com.clerk.backend_api.operations.GetBillingStatementList;
 import com.clerk.backend_api.operations.GetBillingStatementPaymentAttempts;
 import com.clerk.backend_api.operations.GetCommercePlanList;
 import com.clerk.backend_api.operations.GetCommerceSubscriptionItemList;
+import com.clerk.backend_api.operations.RemoveBillingSubscriptionItemDiscount;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.Boolean;
@@ -462,6 +471,118 @@ public class Billing {
                 .build();
         RequestOperation<CreateBillingPriceTransitionRequest, CreateBillingPriceTransitionResponse> operation
               = new CreateBillingPriceTransition.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Apply a discount to a subscription item
+     * 
+     * <p>Applies an existing discount to a subscription item.
+     * Manual application is an override path: self-serve distribution rules are not enforced.
+     * At most one active discount is allowed per subscription item; applying a different
+     * discount replaces the currently active one. Re-applying the same active discount returns a conflict.
+     * 
+     * @return The call builder
+     */
+    public ApplyBillingSubscriptionItemDiscountRequestBuilder applySubscriptionItemDiscount() {
+        return new ApplyBillingSubscriptionItemDiscountRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Apply a discount to a subscription item
+     * 
+     * <p>Applies an existing discount to a subscription item.
+     * Manual application is an override path: self-serve distribution rules are not enforced.
+     * At most one active discount is allowed per subscription item; applying a different
+     * discount replaces the currently active one. Re-applying the same active discount returns a conflict.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to apply the discount to
+     * @param applyCommerceDiscountRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ApplyBillingSubscriptionItemDiscountResponse applySubscriptionItemDiscount(String subscriptionItemId, ApplyCommerceDiscountRequest applyCommerceDiscountRequest) {
+        return applySubscriptionItemDiscount(subscriptionItemId, applyCommerceDiscountRequest, Optional.empty());
+    }
+
+    /**
+     * Apply a discount to a subscription item
+     * 
+     * <p>Applies an existing discount to a subscription item.
+     * Manual application is an override path: self-serve distribution rules are not enforced.
+     * At most one active discount is allowed per subscription item; applying a different
+     * discount replaces the currently active one. Re-applying the same active discount returns a conflict.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to apply the discount to
+     * @param applyCommerceDiscountRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ApplyBillingSubscriptionItemDiscountResponse applySubscriptionItemDiscount(
+            String subscriptionItemId, ApplyCommerceDiscountRequest applyCommerceDiscountRequest,
+            Optional<Options> options) {
+        ApplyBillingSubscriptionItemDiscountRequest request =
+            ApplyBillingSubscriptionItemDiscountRequest
+                .builder()
+                .subscriptionItemId(subscriptionItemId)
+                .applyCommerceDiscountRequest(applyCommerceDiscountRequest)
+                .build();
+        RequestOperation<ApplyBillingSubscriptionItemDiscountRequest, ApplyBillingSubscriptionItemDiscountResponse> operation
+              = new ApplyBillingSubscriptionItemDiscount.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Remove a discount from a subscription item
+     * 
+     * <p>Removes the active discount from a subscription item.
+     * The discount_id must match the subscription item's currently active discount.
+     * 
+     * @return The call builder
+     */
+    public RemoveBillingSubscriptionItemDiscountRequestBuilder removeSubscriptionItemDiscount() {
+        return new RemoveBillingSubscriptionItemDiscountRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Remove a discount from a subscription item
+     * 
+     * <p>Removes the active discount from a subscription item.
+     * The discount_id must match the subscription item's currently active discount.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to remove the discount from
+     * @param discountId The ID of the discount to remove
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RemoveBillingSubscriptionItemDiscountResponse removeSubscriptionItemDiscount(String subscriptionItemId, String discountId) {
+        return removeSubscriptionItemDiscount(subscriptionItemId, discountId, Optional.empty());
+    }
+
+    /**
+     * Remove a discount from a subscription item
+     * 
+     * <p>Removes the active discount from a subscription item.
+     * The discount_id must match the subscription item's currently active discount.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to remove the discount from
+     * @param discountId The ID of the discount to remove
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RemoveBillingSubscriptionItemDiscountResponse removeSubscriptionItemDiscount(
+            String subscriptionItemId, String discountId,
+            Optional<Options> options) {
+        RemoveBillingSubscriptionItemDiscountRequest request =
+            RemoveBillingSubscriptionItemDiscountRequest
+                .builder()
+                .subscriptionItemId(subscriptionItemId)
+                .discountId(discountId)
+                .build();
+        RequestOperation<RemoveBillingSubscriptionItemDiscountRequest, RemoveBillingSubscriptionItemDiscountResponse> operation
+              = new RemoveBillingSubscriptionItemDiscount.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

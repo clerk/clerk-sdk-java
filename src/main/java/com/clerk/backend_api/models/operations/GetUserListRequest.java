@@ -221,6 +221,23 @@ public class GetUserListRequest {
     private Optional<Long> offset;
 
     /**
+     * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+     * follow it.
+     * 
+     * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+     * `+created_at`
+     * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+     * value
+     * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+     * 
+     * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+     * identical
+     * across requests, and stop when a page returns fewer than `limit` users.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=starting_after")
+    private Optional<String> startingAfter;
+
+    /**
      * Allows to return users in a particular order.
      * At the moment, you can order the returned users by their
      * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -232,6 +249,8 @@ public class GetUserListRequest {
      * multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
      * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+     * parameter.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=order_by")
     private Optional<String> orderBy;
@@ -262,6 +281,7 @@ public class GetUserListRequest {
             Optional<? extends List<String>> providerUserId,
             Optional<Long> limit,
             Optional<Long> offset,
+            Optional<String> startingAfter,
             Optional<String> orderBy) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -287,6 +307,7 @@ public class GetUserListRequest {
         Utils.checkNotNull(providerUserId, "providerUserId");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
+        Utils.checkNotNull(startingAfter, "startingAfter");
         Utils.checkNotNull(orderBy, "orderBy");
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
@@ -312,6 +333,7 @@ public class GetUserListRequest {
         this.providerUserId = providerUserId;
         this.limit = limit;
         this.offset = offset;
+        this.startingAfter = startingAfter;
         this.orderBy = orderBy;
     }
     
@@ -324,7 +346,7 @@ public class GetUserListRequest {
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -584,6 +606,25 @@ public class GetUserListRequest {
     }
 
     /**
+     * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+     * follow it.
+     * 
+     * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+     * `+created_at`
+     * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+     * value
+     * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+     * 
+     * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+     * identical
+     * across requests, and stop when a page returns fewer than `limit` users.
+     */
+    @JsonIgnore
+    public Optional<String> startingAfter() {
+        return startingAfter;
+    }
+
+    /**
      * Allows to return users in a particular order.
      * At the moment, you can order the returned users by their
      * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -595,6 +636,8 @@ public class GetUserListRequest {
      * multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
      * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+     * parameter.
      */
     @JsonIgnore
     public Optional<String> orderBy() {
@@ -1175,6 +1218,47 @@ public class GetUserListRequest {
     }
 
     /**
+     * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+     * follow it.
+     * 
+     * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+     * `+created_at`
+     * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+     * value
+     * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+     * 
+     * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+     * identical
+     * across requests, and stop when a page returns fewer than `limit` users.
+     */
+    public GetUserListRequest withStartingAfter(String startingAfter) {
+        Utils.checkNotNull(startingAfter, "startingAfter");
+        this.startingAfter = Optional.ofNullable(startingAfter);
+        return this;
+    }
+
+
+    /**
+     * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+     * follow it.
+     * 
+     * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+     * `+created_at`
+     * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+     * value
+     * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+     * 
+     * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+     * identical
+     * across requests, and stop when a page returns fewer than `limit` users.
+     */
+    public GetUserListRequest withStartingAfter(Optional<String> startingAfter) {
+        Utils.checkNotNull(startingAfter, "startingAfter");
+        this.startingAfter = startingAfter;
+        return this;
+    }
+
+    /**
      * Allows to return users in a particular order.
      * At the moment, you can order the returned users by their
      * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -1186,6 +1270,8 @@ public class GetUserListRequest {
      * multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
      * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+     * parameter.
      */
     public GetUserListRequest withOrderBy(String orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -1206,6 +1292,8 @@ public class GetUserListRequest {
      * multiple `order_by` parameters are provided, we will only keep the first one. For example,
      * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
      * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+     * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+     * parameter.
      */
     public GetUserListRequest withOrderBy(Optional<String> orderBy) {
         Utils.checkNotNull(orderBy, "orderBy");
@@ -1247,6 +1335,7 @@ public class GetUserListRequest {
             Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.offset, other.offset) &&
+            Utils.enhancedDeepEquals(this.startingAfter, other.startingAfter) &&
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy);
     }
     
@@ -1261,7 +1350,7 @@ public class GetUserListRequest {
             lastActiveAtSince, createdAtBefore, createdAtAfter,
             lastSignInAtBefore, lastSignInAtAfter, provider,
             providerUserId, limit, offset,
-            orderBy);
+            startingAfter, orderBy);
     }
     
     @Override
@@ -1291,6 +1380,7 @@ public class GetUserListRequest {
                 "providerUserId", providerUserId,
                 "limit", limit,
                 "offset", offset,
+                "startingAfter", startingAfter,
                 "orderBy", orderBy);
     }
 
@@ -1345,6 +1435,8 @@ public class GetUserListRequest {
         private Optional<Long> limit;
 
         private Optional<Long> offset;
+
+        private Optional<String> startingAfter = Optional.empty();
 
         private Optional<String> orderBy;
 
@@ -1922,6 +2014,47 @@ public class GetUserListRequest {
 
 
         /**
+         * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+         * follow it.
+         * 
+         * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+         * `+created_at`
+         * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+         * value
+         * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+         * 
+         * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+         * identical
+         * across requests, and stop when a page returns fewer than `limit` users.
+         */
+        public Builder startingAfter(String startingAfter) {
+            Utils.checkNotNull(startingAfter, "startingAfter");
+            this.startingAfter = Optional.ofNullable(startingAfter);
+            return this;
+        }
+
+        /**
+         * A cursor for pagination: the `id` of the last user on the previous page. Returns the users that
+         * follow it.
+         * 
+         * <p>**Requires ordering by `created_at`** — that is, `order_by` omitted, or set to `created_at`,
+         * `+created_at`
+         * or `-created_at`. Any other `order_by` value is rejected with a 422: the other orderings sort by a
+         * value
+         * that is neither unique per user nor immutable, so a cursor over them would skip or repeat users.
+         * 
+         * <p>Cannot be combined with a non-zero `offset`, which is also a 422. Keep every other parameter
+         * identical
+         * across requests, and stop when a page returns fewer than `limit` users.
+         */
+        public Builder startingAfter(Optional<String> startingAfter) {
+            Utils.checkNotNull(startingAfter, "startingAfter");
+            this.startingAfter = startingAfter;
+            return this;
+        }
+
+
+        /**
          * Allows to return users in a particular order.
          * At the moment, you can order the returned users by their
          * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -1933,6 +2066,8 @@ public class GetUserListRequest {
          * multiple `order_by` parameters are provided, we will only keep the first one. For example,
          * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
          * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+         * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+         * parameter.
          */
         public Builder orderBy(String orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -1952,6 +2087,8 @@ public class GetUserListRequest {
          * multiple `order_by` parameters are provided, we will only keep the first one. For example,
          * if you pass `order_by=username&amp;order_by=created_at`, we will consider only the first `order_by`
          * parameter, which is `username`. The `created_at` parameter will be ignored in this case.
+         * Only the `created_at` orderings can be combined with `starting_after` cursor pagination; see that
+         * parameter.
          */
         public Builder orderBy(Optional<String> orderBy) {
             Utils.checkNotNull(orderBy, "orderBy");
@@ -1979,7 +2116,7 @@ public class GetUserListRequest {
                 lastActiveAtSince, createdAtBefore, createdAtAfter,
                 lastSignInAtBefore, lastSignInAtAfter, provider,
                 providerUserId, limit, offset,
-                orderBy);
+                startingAfter, orderBy);
         }
 
 

@@ -32,8 +32,10 @@
 * [disableMfa](#disablemfa) - Disable a user's MFA methods
 * [deleteBackupCodes](#deletebackupcodes) - Disable all user's Backup codes
 * [deletePasskey](#deletepasskey) - Delete a user passkey
-* [listTrustedDevices](#listtrusteddevices) - List a user's trusted devices
-* [revokeTrustedDevice](#revoketrusteddevice) - Revoke a user's trusted device
+* [~~listTrustedDevices~~](#listtrusteddevices) - List a user's trusted devices :warning: **Deprecated**
+* [~~revokeTrustedDevice~~](#revoketrusteddevice) - Revoke a user's trusted device :warning: **Deprecated**
+* [listBiometricCredentials](#listbiometriccredentials) - List a user's biometric credentials
+* [revokeBiometricCredential](#revokebiometriccredential) - Revoke a user's biometric credential
 * [deleteWeb3Wallet](#deleteweb3wallet) - Delete a user web3 wallet
 * [deleteTOTP](#deletetotp) - Delete all the user's TOTPs
 * [deleteExternalAccount](#deleteexternalaccount) - Delete External Account
@@ -45,6 +47,11 @@
 
 Returns a list of all users.
 The users are returned sorted by creation date, with the newest users appearing first.
+
+To walk more than a few pages, paginate with `starting_after` rather than `offset`.
+A cursor page costs the same no matter how far into the list it sits, while a large `offset`
+has to walk and discard every row before it, so it gets progressively slower and eventually
+times out. Cursor pagination requires the `created_at` ordering, which is the default.
 
 ### Example Usage
 
@@ -1598,9 +1605,11 @@ public class Application {
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## listTrustedDevices
+## ~~listTrustedDevices~~
 
 Returns the active trusted devices enrolled by the user.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -1650,9 +1659,11 @@ public class Application {
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
-## revokeTrustedDevice
+## ~~revokeTrustedDevice~~
 
 Revokes an active trusted device enrolled by the user.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -1695,6 +1706,112 @@ public class Application {
 ### Response
 
 **[RevokeUserTrustedDeviceResponse](../../models/operations/RevokeUserTrustedDeviceResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## listBiometricCredentials
+
+Returns the active biometric credentials enrolled by the user.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ListUserBiometricCredentials" method="get" path="/users/{user_id}/biometric_credentials" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListUserBiometricCredentialsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ListUserBiometricCredentialsResponse res = sdk.users().listBiometricCredentials()
+                .userId("<id>")
+                .call();
+
+        if (res.biometricCredentialList().isPresent()) {
+            System.out.println(res.biometricCredentialList().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `userId`                                                    | *String*                                                    | :heavy_check_mark:                                          | The ID of the user whose biometric credentials are returned |
+
+### Response
+
+**[ListUserBiometricCredentialsResponse](../../models/operations/ListUserBiometricCredentialsResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 403, 404                  | application/json          |
+| models/errors/ClerkErrors | 500                       | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## revokeBiometricCredential
+
+Revokes an active biometric credential enrolled by the user.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RevokeUserBiometricCredential" method="delete" path="/users/{user_id}/biometric_credentials/{biometric_credential_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RevokeUserBiometricCredentialResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RevokeUserBiometricCredentialResponse res = sdk.users().revokeBiometricCredential()
+                .userId("<id>")
+                .biometricCredentialId("<id>")
+                .call();
+
+        if (res.biometricCredential().isPresent()) {
+            System.out.println(res.biometricCredential().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `userId`                                              | *String*                                              | :heavy_check_mark:                                    | The ID of the user that owns the biometric credential |
+| `biometricCredentialId`                               | *String*                                              | :heavy_check_mark:                                    | The ID of the biometric credential to revoke          |
+
+### Response
+
+**[RevokeUserBiometricCredentialResponse](../../models/operations/RevokeUserBiometricCredentialResponse.md)**
 
 ### Errors
 

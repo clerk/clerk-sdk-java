@@ -3,14 +3,12 @@
  */
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Override;
@@ -47,9 +45,11 @@ public class UpdateOAuthApplicationRequestBody {
     private JsonNullable<String> callbackUrl;
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+     * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+     * 
+     * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+     * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
@@ -71,6 +71,15 @@ public class UpdateOAuthApplicationRequestBody {
     private JsonNullable<Boolean> pkceRequired;
 
     /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+     * the setting unchanged.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("device_authorization_grant_enabled")
+    private JsonNullable<Boolean> deviceAuthorizationGrantEnabled;
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -85,6 +94,7 @@ public class UpdateOAuthApplicationRequestBody {
             @JsonProperty("scopes") JsonNullable<String> scopes,
             @JsonProperty("consent_screen_enabled") JsonNullable<Boolean> consentScreenEnabled,
             @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
+            @JsonProperty("device_authorization_grant_enabled") JsonNullable<Boolean> deviceAuthorizationGrantEnabled,
             @JsonProperty("public") JsonNullable<Boolean> public_) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(redirectUris, "redirectUris");
@@ -92,6 +102,7 @@ public class UpdateOAuthApplicationRequestBody {
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         Utils.checkNotNull(public_, "public_");
         this.name = name;
         this.redirectUris = redirectUris;
@@ -99,13 +110,14 @@ public class UpdateOAuthApplicationRequestBody {
         this.scopes = scopes;
         this.consentScreenEnabled = consentScreenEnabled;
         this.pkceRequired = pkceRequired;
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
         this.public_ = public_;
     }
     
     public UpdateOAuthApplicationRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -138,9 +150,11 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+     * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+     * 
+     * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+     * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
      */
     @JsonIgnore
     public JsonNullable<String> scopes() {
@@ -162,6 +176,16 @@ public class UpdateOAuthApplicationRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> pkceRequired() {
         return pkceRequired;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+     * the setting unchanged.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> deviceAuthorizationGrantEnabled() {
+        return deviceAuthorizationGrantEnabled;
     }
 
     /**
@@ -240,9 +264,11 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+     * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+     * 
+     * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+     * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
      */
     public UpdateOAuthApplicationRequestBody withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -251,9 +277,11 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+     * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+     * 
+     * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+     * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
      */
     public UpdateOAuthApplicationRequestBody withScopes(JsonNullable<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -300,6 +328,28 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+     * the setting unchanged.
+     */
+    public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+        this.deviceAuthorizationGrantEnabled = JsonNullable.of(deviceAuthorizationGrantEnabled);
+        return this;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+     * the setting unchanged.
+     */
+    public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+        return this;
+    }
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     public UpdateOAuthApplicationRequestBody withPublic(boolean public_) {
@@ -333,6 +383,7 @@ public class UpdateOAuthApplicationRequestBody {
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
             Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
+            Utils.enhancedDeepEquals(this.deviceAuthorizationGrantEnabled, other.deviceAuthorizationGrantEnabled) &&
             Utils.enhancedDeepEquals(this.public_, other.public_);
     }
     
@@ -341,7 +392,7 @@ public class UpdateOAuthApplicationRequestBody {
         return Utils.enhancedHash(
             name, redirectUris, callbackUrl,
             scopes, consentScreenEnabled, pkceRequired,
-            public_);
+            deviceAuthorizationGrantEnabled, public_);
     }
     
     @Override
@@ -353,6 +404,7 @@ public class UpdateOAuthApplicationRequestBody {
                 "scopes", scopes,
                 "consentScreenEnabled", consentScreenEnabled,
                 "pkceRequired", pkceRequired,
+                "deviceAuthorizationGrantEnabled", deviceAuthorizationGrantEnabled,
                 "public_", public_);
     }
 
@@ -366,11 +418,13 @@ public class UpdateOAuthApplicationRequestBody {
         @Deprecated
         private JsonNullable<String> callbackUrl = JsonNullable.undefined();
 
-        private JsonNullable<String> scopes;
+        private JsonNullable<String> scopes = JsonNullable.undefined();
 
         private JsonNullable<Boolean> consentScreenEnabled = JsonNullable.undefined();
 
         private JsonNullable<Boolean> pkceRequired = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> deviceAuthorizationGrantEnabled = JsonNullable.undefined();
 
         private JsonNullable<Boolean> public_ = JsonNullable.undefined();
 
@@ -445,9 +499,11 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-         * Provide the requested scopes as a string, separated by spaces.
+         * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+         * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+         * 
+         * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+         * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
          */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -456,9 +512,11 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-         * Provide the requested scopes as a string, separated by spaces.
+         * Replace the application's complete built-in and custom scope ceiling. Provide scope keys as a
+         * space-delimited string. Custom keys must exist in the instance OAuth scope catalog.
+         * 
+         * <p>Required built-in scopes, such as `offline_access`, must be included in the replacement set,
+         * otherwise the request is rejected. Omit this field to leave all scope assignments unchanged.
          */
         public Builder scopes(JsonNullable<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -508,6 +566,29 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+         * the setting unchanged.
+         */
+        public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+            Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+            this.deviceAuthorizationGrantEnabled = JsonNullable.of(deviceAuthorizationGrantEnabled);
+            return this;
+        }
+
+        /**
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
+         * the setting unchanged.
+         */
+        public Builder deviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
+            Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+            this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+            return this;
+        }
+
+
+        /**
          * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
          */
         public Builder public_(boolean public_) {
@@ -526,21 +607,12 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         public UpdateOAuthApplicationRequestBody build() {
-            if (scopes == null) {
-                scopes = _SINGLETON_VALUE_Scopes.value();
-            }
 
             return new UpdateOAuthApplicationRequestBody(
                 name, redirectUris, callbackUrl,
                 scopes, consentScreenEnabled, pkceRequired,
-                public_);
+                deviceAuthorizationGrantEnabled, public_);
         }
 
-
-        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_Scopes =
-                new LazySingletonValue<>(
-                        "scopes",
-                        "\"profile email\"",
-                        new TypeReference<JsonNullable<String>>() {});
     }
 }

@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class RotateSCIMDirectoryAPIKeyRequest {
     /**
-     * The ID of the SCIM directory whose API key to rotate
+     * The ID of the directory whose API key to rotate
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=scim_directory_id")
     private String scimDirectoryId;
@@ -26,7 +26,7 @@ public class RotateSCIMDirectoryAPIKeyRequest {
     }
 
     /**
-     * The ID of the SCIM directory whose API key to rotate
+     * The ID of the directory whose API key to rotate
      */
     @JsonIgnore
     public String scimDirectoryId() {
@@ -39,7 +39,7 @@ public class RotateSCIMDirectoryAPIKeyRequest {
 
 
     /**
-     * The ID of the SCIM directory whose API key to rotate
+     * The ID of the directory whose API key to rotate
      */
     public RotateSCIMDirectoryAPIKeyRequest withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
@@ -83,7 +83,7 @@ public class RotateSCIMDirectoryAPIKeyRequest {
 
 
         /**
-         * The ID of the SCIM directory whose API key to rotate
+         * The ID of the directory whose API key to rotate
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");

@@ -54,10 +54,20 @@ public class Domain {
     @JsonProperty("development_origin")
     private String developmentOrigin;
 
-
+    /**
+     * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("cname_targets")
     private JsonNullable<? extends List<CNameTarget>> cnameTargets;
+
+    /**
+     * The complete typed DNS contract. Consumers should use this field instead of merging it with
+     * `cname_targets`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("dns_targets")
+    private JsonNullable<? extends List<DNSTarget>> dnsTargets;
 
     @JsonCreator
     public Domain(
@@ -69,7 +79,8 @@ public class Domain {
             @JsonProperty("accounts_portal_url") JsonNullable<String> accountsPortalUrl,
             @JsonProperty("proxy_url") JsonNullable<String> proxyUrl,
             @JsonProperty("development_origin") String developmentOrigin,
-            @JsonProperty("cname_targets") JsonNullable<? extends List<CNameTarget>> cnameTargets) {
+            @JsonProperty("cname_targets") JsonNullable<? extends List<CNameTarget>> cnameTargets,
+            @JsonProperty("dns_targets") JsonNullable<? extends List<DNSTarget>> dnsTargets) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -79,6 +90,7 @@ public class Domain {
         Utils.checkNotNull(proxyUrl, "proxyUrl");
         Utils.checkNotNull(developmentOrigin, "developmentOrigin");
         Utils.checkNotNull(cnameTargets, "cnameTargets");
+        Utils.checkNotNull(dnsTargets, "dnsTargets");
         this.object = object;
         this.id = id;
         this.name = name;
@@ -88,6 +100,7 @@ public class Domain {
         this.proxyUrl = proxyUrl;
         this.developmentOrigin = developmentOrigin;
         this.cnameTargets = cnameTargets;
+        this.dnsTargets = dnsTargets;
     }
     
     public Domain(
@@ -99,7 +112,8 @@ public class Domain {
             String developmentOrigin) {
         this(object, id, name,
             isSatellite, frontendApiUrl, JsonNullable.undefined(),
-            JsonNullable.undefined(), developmentOrigin, JsonNullable.undefined());
+            JsonNullable.undefined(), developmentOrigin, JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -145,10 +159,23 @@ public class Domain {
         return developmentOrigin;
     }
 
+    /**
+     * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<List<CNameTarget>> cnameTargets() {
         return (JsonNullable<List<CNameTarget>>) cnameTargets;
+    }
+
+    /**
+     * The complete typed DNS contract. Consumers should use this field instead of merging it with
+     * `cname_targets`.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<DNSTarget>> dnsTargets() {
+        return (JsonNullable<List<DNSTarget>>) dnsTargets;
     }
 
     public static Builder builder() {
@@ -222,15 +249,41 @@ public class Domain {
         return this;
     }
 
+    /**
+     * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+     */
     public Domain withCnameTargets(List<CNameTarget> cnameTargets) {
         Utils.checkNotNull(cnameTargets, "cnameTargets");
         this.cnameTargets = JsonNullable.of(cnameTargets);
         return this;
     }
 
+    /**
+     * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+     */
     public Domain withCnameTargets(JsonNullable<? extends List<CNameTarget>> cnameTargets) {
         Utils.checkNotNull(cnameTargets, "cnameTargets");
         this.cnameTargets = cnameTargets;
+        return this;
+    }
+
+    /**
+     * The complete typed DNS contract. Consumers should use this field instead of merging it with
+     * `cname_targets`.
+     */
+    public Domain withDnsTargets(List<DNSTarget> dnsTargets) {
+        Utils.checkNotNull(dnsTargets, "dnsTargets");
+        this.dnsTargets = JsonNullable.of(dnsTargets);
+        return this;
+    }
+
+    /**
+     * The complete typed DNS contract. Consumers should use this field instead of merging it with
+     * `cname_targets`.
+     */
+    public Domain withDnsTargets(JsonNullable<? extends List<DNSTarget>> dnsTargets) {
+        Utils.checkNotNull(dnsTargets, "dnsTargets");
+        this.dnsTargets = dnsTargets;
         return this;
     }
 
@@ -252,7 +305,8 @@ public class Domain {
             Utils.enhancedDeepEquals(this.accountsPortalUrl, other.accountsPortalUrl) &&
             Utils.enhancedDeepEquals(this.proxyUrl, other.proxyUrl) &&
             Utils.enhancedDeepEquals(this.developmentOrigin, other.developmentOrigin) &&
-            Utils.enhancedDeepEquals(this.cnameTargets, other.cnameTargets);
+            Utils.enhancedDeepEquals(this.cnameTargets, other.cnameTargets) &&
+            Utils.enhancedDeepEquals(this.dnsTargets, other.dnsTargets);
     }
     
     @Override
@@ -260,7 +314,8 @@ public class Domain {
         return Utils.enhancedHash(
             object, id, name,
             isSatellite, frontendApiUrl, accountsPortalUrl,
-            proxyUrl, developmentOrigin, cnameTargets);
+            proxyUrl, developmentOrigin, cnameTargets,
+            dnsTargets);
     }
     
     @Override
@@ -274,7 +329,8 @@ public class Domain {
                 "accountsPortalUrl", accountsPortalUrl,
                 "proxyUrl", proxyUrl,
                 "developmentOrigin", developmentOrigin,
-                "cnameTargets", cnameTargets);
+                "cnameTargets", cnameTargets,
+                "dnsTargets", dnsTargets);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -297,6 +353,8 @@ public class Domain {
         private String developmentOrigin;
 
         private JsonNullable<? extends List<CNameTarget>> cnameTargets = JsonNullable.undefined();
+
+        private JsonNullable<? extends List<DNSTarget>> dnsTargets = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -377,15 +435,42 @@ public class Domain {
         }
 
 
+        /**
+         * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+         */
         public Builder cnameTargets(List<CNameTarget> cnameTargets) {
             Utils.checkNotNull(cnameTargets, "cnameTargets");
             this.cnameTargets = JsonNullable.of(cnameTargets);
             return this;
         }
 
+        /**
+         * Legacy CNAME-only DNS targets. Prefer `dns_targets` when present.
+         */
         public Builder cnameTargets(JsonNullable<? extends List<CNameTarget>> cnameTargets) {
             Utils.checkNotNull(cnameTargets, "cnameTargets");
             this.cnameTargets = cnameTargets;
+            return this;
+        }
+
+
+        /**
+         * The complete typed DNS contract. Consumers should use this field instead of merging it with
+         * `cname_targets`.
+         */
+        public Builder dnsTargets(List<DNSTarget> dnsTargets) {
+            Utils.checkNotNull(dnsTargets, "dnsTargets");
+            this.dnsTargets = JsonNullable.of(dnsTargets);
+            return this;
+        }
+
+        /**
+         * The complete typed DNS contract. Consumers should use this field instead of merging it with
+         * `cname_targets`.
+         */
+        public Builder dnsTargets(JsonNullable<? extends List<DNSTarget>> dnsTargets) {
+            Utils.checkNotNull(dnsTargets, "dnsTargets");
+            this.dnsTargets = dnsTargets;
             return this;
         }
 
@@ -394,7 +479,8 @@ public class Domain {
             return new Domain(
                 object, id, name,
                 isSatellite, frontendApiUrl, accountsPortalUrl,
-                proxyUrl, developmentOrigin, cnameTargets);
+                proxyUrl, developmentOrigin, cnameTargets,
+                dnsTargets);
         }
 
     }

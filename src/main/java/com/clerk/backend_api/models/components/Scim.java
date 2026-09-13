@@ -17,26 +17,26 @@ import java.util.Optional;
 /**
  * Scim
  * 
- * <p>Metadata describing a user's linkage to a SCIM directory. This object is only delivered on
- * `user.created` and `user.updated` webhook events, and only when the user is provisioned through a
- * SCIM directory. Its absence does not necessarily mean the user is not SCIM-managed.
+ * <p>Metadata describing a user's linkage to a directory. This object is only delivered on `user.created`
+ * and `user.updated` webhook events, and only when the user is provisioned through a directory. Its
+ * absence does not necessarily mean the user is not managed by a directory.
  */
 public class Scim {
     /**
-     * The ID of the SCIM directory the user is provisioned from.
+     * The ID of the directory the user is provisioned from.
      */
     @JsonProperty("directory_id")
     private String directoryId;
 
     /**
-     * Whether the SCIM directory is currently enabled. Omitted when false.
+     * Whether the directory is currently enabled. Omitted when false.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("directory_enabled")
     private Optional<Boolean> directoryEnabled;
 
     /**
-     * The user's external ID as reported by the SCIM directory, if any.
+     * The user's external ID as reported by the directory, if any.
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("external_id")
@@ -61,7 +61,7 @@ public class Scim {
     }
 
     /**
-     * The ID of the SCIM directory the user is provisioned from.
+     * The ID of the directory the user is provisioned from.
      */
     @JsonIgnore
     public String directoryId() {
@@ -69,7 +69,7 @@ public class Scim {
     }
 
     /**
-     * Whether the SCIM directory is currently enabled. Omitted when false.
+     * Whether the directory is currently enabled. Omitted when false.
      */
     @JsonIgnore
     public Optional<Boolean> directoryEnabled() {
@@ -77,7 +77,7 @@ public class Scim {
     }
 
     /**
-     * The user's external ID as reported by the SCIM directory, if any.
+     * The user's external ID as reported by the directory, if any.
      */
     @JsonIgnore
     public Optional<String> externalId() {
@@ -90,7 +90,7 @@ public class Scim {
 
 
     /**
-     * The ID of the SCIM directory the user is provisioned from.
+     * The ID of the directory the user is provisioned from.
      */
     public Scim withDirectoryId(String directoryId) {
         Utils.checkNotNull(directoryId, "directoryId");
@@ -99,7 +99,7 @@ public class Scim {
     }
 
     /**
-     * Whether the SCIM directory is currently enabled. Omitted when false.
+     * Whether the directory is currently enabled. Omitted when false.
      */
     public Scim withDirectoryEnabled(boolean directoryEnabled) {
         Utils.checkNotNull(directoryEnabled, "directoryEnabled");
@@ -109,7 +109,7 @@ public class Scim {
 
 
     /**
-     * Whether the SCIM directory is currently enabled. Omitted when false.
+     * Whether the directory is currently enabled. Omitted when false.
      */
     public Scim withDirectoryEnabled(Optional<Boolean> directoryEnabled) {
         Utils.checkNotNull(directoryEnabled, "directoryEnabled");
@@ -118,7 +118,7 @@ public class Scim {
     }
 
     /**
-     * The user's external ID as reported by the SCIM directory, if any.
+     * The user's external ID as reported by the directory, if any.
      */
     public Scim withExternalId(String externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -128,7 +128,7 @@ public class Scim {
 
 
     /**
-     * The user's external ID as reported by the SCIM directory, if any.
+     * The user's external ID as reported by the directory, if any.
      */
     public Scim withExternalId(Optional<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
@@ -180,7 +180,7 @@ public class Scim {
 
 
         /**
-         * The ID of the SCIM directory the user is provisioned from.
+         * The ID of the directory the user is provisioned from.
          */
         public Builder directoryId(String directoryId) {
             Utils.checkNotNull(directoryId, "directoryId");
@@ -190,7 +190,7 @@ public class Scim {
 
 
         /**
-         * Whether the SCIM directory is currently enabled. Omitted when false.
+         * Whether the directory is currently enabled. Omitted when false.
          */
         public Builder directoryEnabled(boolean directoryEnabled) {
             Utils.checkNotNull(directoryEnabled, "directoryEnabled");
@@ -199,7 +199,7 @@ public class Scim {
         }
 
         /**
-         * Whether the SCIM directory is currently enabled. Omitted when false.
+         * Whether the directory is currently enabled. Omitted when false.
          */
         public Builder directoryEnabled(Optional<Boolean> directoryEnabled) {
             Utils.checkNotNull(directoryEnabled, "directoryEnabled");
@@ -209,7 +209,7 @@ public class Scim {
 
 
         /**
-         * The user's external ID as reported by the SCIM directory, if any.
+         * The user's external ID as reported by the directory, if any.
          */
         public Builder externalId(String externalId) {
             Utils.checkNotNull(externalId, "externalId");
@@ -218,7 +218,7 @@ public class Scim {
         }
 
         /**
-         * The user's external ID as reported by the SCIM directory, if any.
+         * The user's external ID as reported by the directory, if any.
          */
         public Builder externalId(Optional<String> externalId) {
             Utils.checkNotNull(externalId, "externalId");

@@ -34,14 +34,16 @@ public class CreateBillingPriceRequest {
     private Optional<String> currency;
 
     /**
-     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+     * (100 cents).
      */
     @JsonInclude(Include.ALWAYS)
     @JsonProperty("amount")
     private Optional<Long> amount;
 
     /**
-     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+     * amounts must be at least $1 (100 cents).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("annual_monthly_amount")
@@ -106,7 +108,8 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+     * (100 cents).
      */
     @JsonIgnore
     public Optional<Long> amount() {
@@ -114,7 +117,8 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+     * amounts must be at least $1 (100 cents).
      */
     @JsonIgnore
     public JsonNullable<Long> annualMonthlyAmount() {
@@ -172,7 +176,8 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+     * (100 cents).
      */
     public CreateBillingPriceRequest withAmount(long amount) {
         Utils.checkNotNull(amount, "amount");
@@ -182,7 +187,8 @@ public class CreateBillingPriceRequest {
 
 
     /**
-     * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+     * (100 cents).
      */
     public CreateBillingPriceRequest withAmount(Optional<Long> amount) {
         Utils.checkNotNull(amount, "amount");
@@ -191,7 +197,8 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+     * amounts must be at least $1 (100 cents).
      */
     public CreateBillingPriceRequest withAnnualMonthlyAmount(long annualMonthlyAmount) {
         Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
@@ -200,7 +207,8 @@ public class CreateBillingPriceRequest {
     }
 
     /**
-     * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+     * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+     * amounts must be at least $1 (100 cents).
      */
     public CreateBillingPriceRequest withAnnualMonthlyAmount(JsonNullable<Long> annualMonthlyAmount) {
         Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
@@ -332,7 +340,8 @@ public class CreateBillingPriceRequest {
 
 
         /**
-         * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+         * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+         * (100 cents).
          */
         public Builder amount(long amount) {
             Utils.checkNotNull(amount, "amount");
@@ -341,7 +350,8 @@ public class CreateBillingPriceRequest {
         }
 
         /**
-         * The monthly amount in cents. Must be at least $1 (100 cents) if not null.
+         * The monthly amount in cents. Use `0` for a complimentary price. Positive amounts must be at least $1
+         * (100 cents).
          */
         public Builder amount(Optional<Long> amount) {
             Utils.checkNotNull(amount, "amount");
@@ -351,7 +361,8 @@ public class CreateBillingPriceRequest {
 
 
         /**
-         * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+         * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+         * amounts must be at least $1 (100 cents).
          */
         public Builder annualMonthlyAmount(long annualMonthlyAmount) {
             Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
@@ -360,7 +371,8 @@ public class CreateBillingPriceRequest {
         }
 
         /**
-         * The monthly amount in cents when billed annually. Must be at least $1 (100 cents) if not null.
+         * The monthly amount in cents when billed annually. Use `0` for a complimentary price. Positive
+         * amounts must be at least $1 (100 cents).
          */
         public Builder annualMonthlyAmount(JsonNullable<Long> annualMonthlyAmount) {
             Utils.checkNotNull(annualMonthlyAmount, "annualMonthlyAmount");
