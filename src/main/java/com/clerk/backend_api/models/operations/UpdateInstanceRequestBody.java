@@ -15,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -57,10 +56,36 @@ public class UpdateInstanceRequestBody {
      * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
      * 
      * <p>For Capacitor, the origin is capacitor://localhost.
+     * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("allowed_origins")
-    private Optional<? extends List<String>> allowedOrigins;
+    private JsonNullable<? extends List<String>> allowedOrigins;
+
+    /**
+     * Subdomains of the instance's own domains that may originate requests while
+     * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+     * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+     * covers every host under that anchor but not the anchor itself.
+     * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+     * compares against, so entries differing only in those respects are one entry. Entries already stored
+     * are not validated again, so a list read back from the instance can always be written again
+     * unchanged. Send an empty array to remove all entries.
+     * 
+     * <p>A null value leaves the current list unchanged. Production instances only.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("allowed_subdomains")
+    private JsonNullable<? extends List<String>> allowedSubdomains;
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("subdomain_allowlist_enabled")
+    private JsonNullable<Boolean> subdomainAllowlistEnabled;
 
     /**
      * Whether the instance should operate in cookieless development mode (i.e. without third-party
@@ -99,7 +124,9 @@ public class UpdateInstanceRequestBody {
             @JsonProperty("support_email") JsonNullable<String> supportEmail,
             @JsonProperty("clerk_js_version") JsonNullable<String> clerkJsVersion,
             @JsonProperty("development_origin") JsonNullable<String> developmentOrigin,
-            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
+            @JsonProperty("allowed_origins") JsonNullable<? extends List<String>> allowedOrigins,
+            @JsonProperty("allowed_subdomains") JsonNullable<? extends List<String>> allowedSubdomains,
+            @JsonProperty("subdomain_allowlist_enabled") JsonNullable<Boolean> subdomainAllowlistEnabled,
             @JsonProperty("cookieless_dev") JsonNullable<Boolean> cookielessDev,
             @JsonProperty("url_based_session_syncing") JsonNullable<Boolean> urlBasedSessionSyncing,
             @JsonProperty("preferred_sign_in_strategy_when_password_required") JsonNullable<? extends PreferredSignInStrategyWhenPasswordRequired> preferredSignInStrategyWhenPasswordRequired) {
@@ -109,6 +136,8 @@ public class UpdateInstanceRequestBody {
         Utils.checkNotNull(clerkJsVersion, "clerkJsVersion");
         Utils.checkNotNull(developmentOrigin, "developmentOrigin");
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
+        Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+        Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
         Utils.checkNotNull(cookielessDev, "cookielessDev");
         Utils.checkNotNull(urlBasedSessionSyncing, "urlBasedSessionSyncing");
         Utils.checkNotNull(preferredSignInStrategyWhenPasswordRequired, "preferredSignInStrategyWhenPasswordRequired");
@@ -118,6 +147,8 @@ public class UpdateInstanceRequestBody {
         this.clerkJsVersion = clerkJsVersion;
         this.developmentOrigin = developmentOrigin;
         this.allowedOrigins = allowedOrigins;
+        this.allowedSubdomains = allowedSubdomains;
+        this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
         this.cookielessDev = cookielessDev;
         this.urlBasedSessionSyncing = urlBasedSessionSyncing;
         this.preferredSignInStrategyWhenPasswordRequired = preferredSignInStrategyWhenPasswordRequired;
@@ -125,8 +156,9 @@ public class UpdateInstanceRequestBody {
     
     public UpdateInstanceRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -168,11 +200,40 @@ public class UpdateInstanceRequestBody {
      * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
      * 
      * <p>For Capacitor, the origin is capacitor://localhost.
+     * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<String>> allowedOrigins() {
-        return (Optional<List<String>>) allowedOrigins;
+    public JsonNullable<List<String>> allowedOrigins() {
+        return (JsonNullable<List<String>>) allowedOrigins;
+    }
+
+    /**
+     * Subdomains of the instance's own domains that may originate requests while
+     * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+     * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+     * covers every host under that anchor but not the anchor itself.
+     * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+     * compares against, so entries differing only in those respects are one entry. Entries already stored
+     * are not validated again, so a list read back from the instance can always be written again
+     * unchanged. Send an empty array to remove all entries.
+     * 
+     * <p>A null value leaves the current list unchanged. Production instances only.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<String>> allowedSubdomains() {
+        return (JsonNullable<List<String>>) allowedSubdomains;
+    }
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> subdomainAllowlistEnabled() {
+        return subdomainAllowlistEnabled;
     }
 
     /**
@@ -295,13 +356,13 @@ public class UpdateInstanceRequestBody {
      * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
      * 
      * <p>For Capacitor, the origin is capacitor://localhost.
+     * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
      */
     public UpdateInstanceRequestBody withAllowedOrigins(List<String> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
-        this.allowedOrigins = Optional.ofNullable(allowedOrigins);
+        this.allowedOrigins = JsonNullable.of(allowedOrigins);
         return this;
     }
-
 
     /**
      * For browser-like stacks such as browser extensions, Electron (not officially supported), or
@@ -310,10 +371,69 @@ public class UpdateInstanceRequestBody {
      * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
      * 
      * <p>For Capacitor, the origin is capacitor://localhost.
+     * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
      */
-    public UpdateInstanceRequestBody withAllowedOrigins(Optional<? extends List<String>> allowedOrigins) {
+    public UpdateInstanceRequestBody withAllowedOrigins(JsonNullable<? extends List<String>> allowedOrigins) {
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
         this.allowedOrigins = allowedOrigins;
+        return this;
+    }
+
+    /**
+     * Subdomains of the instance's own domains that may originate requests while
+     * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+     * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+     * covers every host under that anchor but not the anchor itself.
+     * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+     * compares against, so entries differing only in those respects are one entry. Entries already stored
+     * are not validated again, so a list read back from the instance can always be written again
+     * unchanged. Send an empty array to remove all entries.
+     * 
+     * <p>A null value leaves the current list unchanged. Production instances only.
+     */
+    public UpdateInstanceRequestBody withAllowedSubdomains(List<String> allowedSubdomains) {
+        Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+        this.allowedSubdomains = JsonNullable.of(allowedSubdomains);
+        return this;
+    }
+
+    /**
+     * Subdomains of the instance's own domains that may originate requests while
+     * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+     * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+     * covers every host under that anchor but not the anchor itself.
+     * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+     * compares against, so entries differing only in those respects are one entry. Entries already stored
+     * are not validated again, so a list read back from the instance can always be written again
+     * unchanged. Send an empty array to remove all entries.
+     * 
+     * <p>A null value leaves the current list unchanged. Production instances only.
+     */
+    public UpdateInstanceRequestBody withAllowedSubdomains(JsonNullable<? extends List<String>> allowedSubdomains) {
+        Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+        this.allowedSubdomains = allowedSubdomains;
+        return this;
+    }
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only.
+     */
+    public UpdateInstanceRequestBody withSubdomainAllowlistEnabled(boolean subdomainAllowlistEnabled) {
+        Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+        this.subdomainAllowlistEnabled = JsonNullable.of(subdomainAllowlistEnabled);
+        return this;
+    }
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only.
+     */
+    public UpdateInstanceRequestBody withSubdomainAllowlistEnabled(JsonNullable<Boolean> subdomainAllowlistEnabled) {
+        Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+        this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
         return this;
     }
 
@@ -405,6 +525,8 @@ public class UpdateInstanceRequestBody {
             Utils.enhancedDeepEquals(this.clerkJsVersion, other.clerkJsVersion) &&
             Utils.enhancedDeepEquals(this.developmentOrigin, other.developmentOrigin) &&
             Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins) &&
+            Utils.enhancedDeepEquals(this.allowedSubdomains, other.allowedSubdomains) &&
+            Utils.enhancedDeepEquals(this.subdomainAllowlistEnabled, other.subdomainAllowlistEnabled) &&
             Utils.enhancedDeepEquals(this.cookielessDev, other.cookielessDev) &&
             Utils.enhancedDeepEquals(this.urlBasedSessionSyncing, other.urlBasedSessionSyncing) &&
             Utils.enhancedDeepEquals(this.preferredSignInStrategyWhenPasswordRequired, other.preferredSignInStrategyWhenPasswordRequired);
@@ -415,7 +537,8 @@ public class UpdateInstanceRequestBody {
         return Utils.enhancedHash(
             testMode, hibp, supportEmail,
             clerkJsVersion, developmentOrigin, allowedOrigins,
-            cookielessDev, urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
+            allowedSubdomains, subdomainAllowlistEnabled, cookielessDev,
+            urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
     }
     
     @Override
@@ -427,6 +550,8 @@ public class UpdateInstanceRequestBody {
                 "clerkJsVersion", clerkJsVersion,
                 "developmentOrigin", developmentOrigin,
                 "allowedOrigins", allowedOrigins,
+                "allowedSubdomains", allowedSubdomains,
+                "subdomainAllowlistEnabled", subdomainAllowlistEnabled,
                 "cookielessDev", cookielessDev,
                 "urlBasedSessionSyncing", urlBasedSessionSyncing,
                 "preferredSignInStrategyWhenPasswordRequired", preferredSignInStrategyWhenPasswordRequired);
@@ -445,7 +570,11 @@ public class UpdateInstanceRequestBody {
 
         private JsonNullable<String> developmentOrigin = JsonNullable.undefined();
 
-        private Optional<? extends List<String>> allowedOrigins = Optional.empty();
+        private JsonNullable<? extends List<String>> allowedOrigins = JsonNullable.undefined();
+
+        private JsonNullable<? extends List<String>> allowedSubdomains = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> subdomainAllowlistEnabled = JsonNullable.undefined();
 
         @Deprecated
         private JsonNullable<Boolean> cookielessDev = JsonNullable.undefined();
@@ -545,10 +674,11 @@ public class UpdateInstanceRequestBody {
          * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
          * 
          * <p>For Capacitor, the origin is capacitor://localhost.
+         * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
          */
         public Builder allowedOrigins(List<String> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
-            this.allowedOrigins = Optional.ofNullable(allowedOrigins);
+            this.allowedOrigins = JsonNullable.of(allowedOrigins);
             return this;
         }
 
@@ -559,10 +689,71 @@ public class UpdateInstanceRequestBody {
          * is chrome-extension://extension_uuid. For Electron apps the default origin is http://localhost:3000.
          * 
          * <p>For Capacitor, the origin is capacitor://localhost.
+         * Send an empty array to remove all allowed origins. A null value leaves the current list unchanged.
          */
-        public Builder allowedOrigins(Optional<? extends List<String>> allowedOrigins) {
+        public Builder allowedOrigins(JsonNullable<? extends List<String>> allowedOrigins) {
             Utils.checkNotNull(allowedOrigins, "allowedOrigins");
             this.allowedOrigins = allowedOrigins;
+            return this;
+        }
+
+
+        /**
+         * Subdomains of the instance's own domains that may originate requests while
+         * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+         * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+         * covers every host under that anchor but not the anchor itself.
+         * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+         * compares against, so entries differing only in those respects are one entry. Entries already stored
+         * are not validated again, so a list read back from the instance can always be written again
+         * unchanged. Send an empty array to remove all entries.
+         * 
+         * <p>A null value leaves the current list unchanged. Production instances only.
+         */
+        public Builder allowedSubdomains(List<String> allowedSubdomains) {
+            Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+            this.allowedSubdomains = JsonNullable.of(allowedSubdomains);
+            return this;
+        }
+
+        /**
+         * Subdomains of the instance's own domains that may originate requests while
+         * `subdomain_allowlist_enabled` is true. Each entry is either an exact host (`app.example.com`) or a
+         * wildcard anchored on a host beneath one of the instance's domains (`*.preview.example.com`), which
+         * covers every host under that anchor but not the anchor itself.
+         * Entries are stored folded to lower case with any trailing dot removed, the form the origin check
+         * compares against, so entries differing only in those respects are one entry. Entries already stored
+         * are not validated again, so a list read back from the instance can always be written again
+         * unchanged. Send an empty array to remove all entries.
+         * 
+         * <p>A null value leaves the current list unchanged. Production instances only.
+         */
+        public Builder allowedSubdomains(JsonNullable<? extends List<String>> allowedSubdomains) {
+            Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+            this.allowedSubdomains = allowedSubdomains;
+            return this;
+        }
+
+
+        /**
+         * Whether requests from subdomains of the instance's own domains are restricted to
+         * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+         * instances only.
+         */
+        public Builder subdomainAllowlistEnabled(boolean subdomainAllowlistEnabled) {
+            Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+            this.subdomainAllowlistEnabled = JsonNullable.of(subdomainAllowlistEnabled);
+            return this;
+        }
+
+        /**
+         * Whether requests from subdomains of the instance's own domains are restricted to
+         * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+         * instances only.
+         */
+        public Builder subdomainAllowlistEnabled(JsonNullable<Boolean> subdomainAllowlistEnabled) {
+            Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+            this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
             return this;
         }
 
@@ -646,7 +837,8 @@ public class UpdateInstanceRequestBody {
             return new UpdateInstanceRequestBody(
                 testMode, hibp, supportEmail,
                 clerkJsVersion, developmentOrigin, allowedOrigins,
-                cookielessDev, urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
+                allowedSubdomains, subdomainAllowlistEnabled, cookielessDev,
+                urlBasedSessionSyncing, preferredSignInStrategyWhenPasswordRequired);
         }
 
     }

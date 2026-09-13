@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -40,27 +41,62 @@ public class Instance {
     @JsonProperty("allowed_origins")
     private Optional<? extends List<String>> allowedOrigins;
 
+    /**
+     * Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist
+     * is enabled. Production instances only; always empty on a development instance.
+     */
+    @JsonProperty("allowed_subdomains")
+    private List<String> allowedSubdomains;
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only; always false on a development instance.
+     */
+    @JsonProperty("subdomain_allowlist_enabled")
+    private boolean subdomainAllowlistEnabled;
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("workspace_id")
+    private Optional<String> workspaceId;
+
     @JsonCreator
     public Instance(
             @JsonProperty("object") InstanceObject object,
             @JsonProperty("id") String id,
             @JsonProperty("environment_type") String environmentType,
-            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins) {
+            @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
+            @JsonProperty("allowed_subdomains") List<String> allowedSubdomains,
+            @JsonProperty("subdomain_allowlist_enabled") boolean subdomainAllowlistEnabled,
+            @JsonProperty("workspace_id") Optional<String> workspaceId) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(environmentType, "environmentType");
         Utils.checkNotNull(allowedOrigins, "allowedOrigins");
+        Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+        Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+        Utils.checkNotNull(workspaceId, "workspaceId");
         this.object = object;
         this.id = id;
         this.environmentType = environmentType;
         this.allowedOrigins = allowedOrigins;
+        this.allowedSubdomains = allowedSubdomains;
+        this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
+        this.workspaceId = workspaceId;
     }
     
     public Instance(
             InstanceObject object,
             String id,
-            String environmentType) {
+            String environmentType,
+            List<String> allowedSubdomains,
+            boolean subdomainAllowlistEnabled) {
         this(object, id, environmentType,
+            Optional.empty(), allowedSubdomains, subdomainAllowlistEnabled,
             Optional.empty());
     }
 
@@ -86,6 +122,34 @@ public class Instance {
     @JsonIgnore
     public Optional<List<String>> allowedOrigins() {
         return (Optional<List<String>>) allowedOrigins;
+    }
+
+    /**
+     * Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist
+     * is enabled. Production instances only; always empty on a development instance.
+     */
+    @JsonIgnore
+    public List<String> allowedSubdomains() {
+        return allowedSubdomains;
+    }
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only; always false on a development instance.
+     */
+    @JsonIgnore
+    public boolean subdomainAllowlistEnabled() {
+        return subdomainAllowlistEnabled;
+    }
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    @JsonIgnore
+    public Optional<String> workspaceId() {
+        return workspaceId;
     }
 
     public static Builder builder() {
@@ -127,6 +191,48 @@ public class Instance {
         return this;
     }
 
+    /**
+     * Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist
+     * is enabled. Production instances only; always empty on a development instance.
+     */
+    public Instance withAllowedSubdomains(List<String> allowedSubdomains) {
+        Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+        this.allowedSubdomains = allowedSubdomains;
+        return this;
+    }
+
+    /**
+     * Whether requests from subdomains of the instance's own domains are restricted to
+     * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+     * instances only; always false on a development instance.
+     */
+    public Instance withSubdomainAllowlistEnabled(boolean subdomainAllowlistEnabled) {
+        Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+        this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
+        return this;
+    }
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    public Instance withWorkspaceId(String workspaceId) {
+        Utils.checkNotNull(workspaceId, "workspaceId");
+        this.workspaceId = Optional.ofNullable(workspaceId);
+        return this;
+    }
+
+
+    /**
+     * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+     * has no owner.
+     */
+    public Instance withWorkspaceId(Optional<String> workspaceId) {
+        Utils.checkNotNull(workspaceId, "workspaceId");
+        this.workspaceId = workspaceId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -140,14 +246,18 @@ public class Instance {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.environmentType, other.environmentType) &&
-            Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins);
+            Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins) &&
+            Utils.enhancedDeepEquals(this.allowedSubdomains, other.allowedSubdomains) &&
+            Utils.enhancedDeepEquals(this.subdomainAllowlistEnabled, other.subdomainAllowlistEnabled) &&
+            Utils.enhancedDeepEquals(this.workspaceId, other.workspaceId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, environmentType,
-            allowedOrigins);
+            allowedOrigins, allowedSubdomains, subdomainAllowlistEnabled,
+            workspaceId);
     }
     
     @Override
@@ -156,7 +266,10 @@ public class Instance {
                 "object", object,
                 "id", id,
                 "environmentType", environmentType,
-                "allowedOrigins", allowedOrigins);
+                "allowedOrigins", allowedOrigins,
+                "allowedSubdomains", allowedSubdomains,
+                "subdomainAllowlistEnabled", subdomainAllowlistEnabled,
+                "workspaceId", workspaceId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -169,6 +282,12 @@ public class Instance {
         private String environmentType;
 
         private Optional<? extends List<String>> allowedOrigins = Optional.empty();
+
+        private List<String> allowedSubdomains;
+
+        private Boolean subdomainAllowlistEnabled;
+
+        private Optional<String> workspaceId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -211,11 +330,56 @@ public class Instance {
             return this;
         }
 
+
+        /**
+         * Subdomains of the instance's own domains that may originate requests, when the subdomain allowlist
+         * is enabled. Production instances only; always empty on a development instance.
+         */
+        public Builder allowedSubdomains(List<String> allowedSubdomains) {
+            Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
+            this.allowedSubdomains = allowedSubdomains;
+            return this;
+        }
+
+
+        /**
+         * Whether requests from subdomains of the instance's own domains are restricted to
+         * `allowed_subdomains`. When false, every subdomain of the instance's domain is accepted. Production
+         * instances only; always false on a development instance.
+         */
+        public Builder subdomainAllowlistEnabled(boolean subdomainAllowlistEnabled) {
+            Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
+            this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
+            return this;
+        }
+
+
+        /**
+         * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+         * has no owner.
+         */
+        public Builder workspaceId(String workspaceId) {
+            Utils.checkNotNull(workspaceId, "workspaceId");
+            this.workspaceId = Optional.ofNullable(workspaceId);
+            return this;
+        }
+
+        /**
+         * The ID of the Clerk workspace that owns the instance's application. It is null when the application
+         * has no owner.
+         */
+        public Builder workspaceId(Optional<String> workspaceId) {
+            Utils.checkNotNull(workspaceId, "workspaceId");
+            this.workspaceId = workspaceId;
+            return this;
+        }
+
         public Instance build() {
 
             return new Instance(
                 object, id, environmentType,
-                allowedOrigins);
+                allowedOrigins, allowedSubdomains, subdomainAllowlistEnabled,
+                workspaceId);
         }
 
     }

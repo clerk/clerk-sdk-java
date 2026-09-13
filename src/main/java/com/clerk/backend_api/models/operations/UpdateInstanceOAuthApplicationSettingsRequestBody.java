@@ -26,7 +26,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     private JsonNullable<Boolean> dynamicOauthClientRegistration;
 
     /**
-     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+     * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+     * 
+     * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+     * Clerk-provided defaults.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("default_scopes")
@@ -39,6 +43,20 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("oauth_jwt_access_tokens")
     private JsonNullable<Boolean> oauthJwtAccessTokens;
+
+    /**
+     * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("aud_claim_enabled")
+    private JsonNullable<Boolean> audClaimEnabled;
+
+    /**
+     * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("pkce_required")
+    private JsonNullable<Boolean> pkceRequired;
 
     /**
      * Whether the instance advertises support for Client ID Metadata Documents in its OAuth authorization
@@ -69,18 +87,24 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
             @JsonProperty("dynamic_oauth_client_registration") JsonNullable<Boolean> dynamicOauthClientRegistration,
             @JsonProperty("default_scopes") JsonNullable<? extends List<String>> defaultScopes,
             @JsonProperty("oauth_jwt_access_tokens") JsonNullable<Boolean> oauthJwtAccessTokens,
+            @JsonProperty("aud_claim_enabled") JsonNullable<Boolean> audClaimEnabled,
+            @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
             @JsonProperty("client_id_metadata_documents_advertised") JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised,
             @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients") JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
             @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients") JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
         Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
         Utils.checkNotNull(defaultScopes, "defaultScopes");
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
+        Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
         Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
         Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
         Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
         this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
         this.defaultScopes = defaultScopes;
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+        this.audClaimEnabled = audClaimEnabled;
+        this.pkceRequired = pkceRequired;
         this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
         this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
         this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients = clientIdMetadataDocumentsBlockImplicitlyAllowedClients;
@@ -88,7 +112,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     
     public UpdateInstanceOAuthApplicationSettingsRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -100,7 +125,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     }
 
     /**
-     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+     * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+     * 
+     * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+     * Clerk-provided defaults.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -115,6 +144,22 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> oauthJwtAccessTokens() {
         return oauthJwtAccessTokens;
+    }
+
+    /**
+     * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> audClaimEnabled() {
+        return audClaimEnabled;
+    }
+
+    /**
+     * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> pkceRequired() {
+        return pkceRequired;
     }
 
     /**
@@ -168,7 +213,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     }
 
     /**
-     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+     * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+     * 
+     * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+     * Clerk-provided defaults.
      */
     public UpdateInstanceOAuthApplicationSettingsRequestBody withDefaultScopes(List<String> defaultScopes) {
         Utils.checkNotNull(defaultScopes, "defaultScopes");
@@ -177,7 +226,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     }
 
     /**
-     * Default scopes. Set to null to reset to Clerk-provided defaults.
+     * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+     * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+     * 
+     * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+     * Clerk-provided defaults.
      */
     public UpdateInstanceOAuthApplicationSettingsRequestBody withDefaultScopes(JsonNullable<? extends List<String>> defaultScopes) {
         Utils.checkNotNull(defaultScopes, "defaultScopes");
@@ -202,6 +255,42 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     public UpdateInstanceOAuthApplicationSettingsRequestBody withOauthJwtAccessTokens(JsonNullable<Boolean> oauthJwtAccessTokens) {
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+        return this;
+    }
+
+    /**
+     * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withAudClaimEnabled(boolean audClaimEnabled) {
+        Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+        this.audClaimEnabled = JsonNullable.of(audClaimEnabled);
+        return this;
+    }
+
+    /**
+     * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withAudClaimEnabled(JsonNullable<Boolean> audClaimEnabled) {
+        Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+        this.audClaimEnabled = audClaimEnabled;
+        return this;
+    }
+
+    /**
+     * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withPkceRequired(boolean pkceRequired) {
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
+        this.pkceRequired = JsonNullable.of(pkceRequired);
+        return this;
+    }
+
+    /**
+     * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withPkceRequired(JsonNullable<Boolean> pkceRequired) {
+        Utils.checkNotNull(pkceRequired, "pkceRequired");
+        this.pkceRequired = pkceRequired;
         return this;
     }
 
@@ -278,6 +367,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
             Utils.enhancedDeepEquals(this.dynamicOauthClientRegistration, other.dynamicOauthClientRegistration) &&
             Utils.enhancedDeepEquals(this.defaultScopes, other.defaultScopes) &&
             Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens) &&
+            Utils.enhancedDeepEquals(this.audClaimEnabled, other.audClaimEnabled) &&
+            Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
             Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsAdvertised, other.clientIdMetadataDocumentsAdvertised) &&
             Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, other.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) &&
             Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsBlockImplicitlyAllowedClients, other.clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
@@ -287,7 +378,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
-            clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+            audClaimEnabled, pkceRequired, clientIdMetadataDocumentsAdvertised,
+            clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
@@ -296,6 +388,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
                 "dynamicOauthClientRegistration", dynamicOauthClientRegistration,
                 "defaultScopes", defaultScopes,
                 "oauthJwtAccessTokens", oauthJwtAccessTokens,
+                "audClaimEnabled", audClaimEnabled,
+                "pkceRequired", pkceRequired,
                 "clientIdMetadataDocumentsAdvertised", clientIdMetadataDocumentsAdvertised,
                 "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients", clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
                 "clientIdMetadataDocumentsBlockImplicitlyAllowedClients", clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
@@ -309,6 +403,10 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         private JsonNullable<? extends List<String>> defaultScopes = JsonNullable.undefined();
 
         private JsonNullable<Boolean> oauthJwtAccessTokens = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> audClaimEnabled = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> pkceRequired = JsonNullable.undefined();
 
         private JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised = JsonNullable.undefined();
 
@@ -341,7 +439,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
 
 
         /**
-         * Default scopes. Set to null to reset to Clerk-provided defaults.
+         * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+         * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+         * 
+         * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+         * Clerk-provided defaults.
          */
         public Builder defaultScopes(List<String> defaultScopes) {
             Utils.checkNotNull(defaultScopes, "defaultScopes");
@@ -350,7 +452,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         }
 
         /**
-         * Default scopes. Set to null to reset to Clerk-provided defaults.
+         * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
+         * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
+         * 
+         * <p>Duplicate keys, unknown keys, and `offline_access` are rejected. An empty array or null resets to
+         * Clerk-provided defaults.
          */
         public Builder defaultScopes(JsonNullable<? extends List<String>> defaultScopes) {
             Utils.checkNotNull(defaultScopes, "defaultScopes");
@@ -376,6 +482,44 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         public Builder oauthJwtAccessTokens(JsonNullable<Boolean> oauthJwtAccessTokens) {
             Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
             this.oauthJwtAccessTokens = oauthJwtAccessTokens;
+            return this;
+        }
+
+
+        /**
+         * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+         */
+        public Builder audClaimEnabled(boolean audClaimEnabled) {
+            Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+            this.audClaimEnabled = JsonNullable.of(audClaimEnabled);
+            return this;
+        }
+
+        /**
+         * Whether OAuth access tokens can include an aud claim derived from the RFC 8707 resource parameter.
+         */
+        public Builder audClaimEnabled(JsonNullable<Boolean> audClaimEnabled) {
+            Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+            this.audClaimEnabled = audClaimEnabled;
+            return this;
+        }
+
+
+        /**
+         * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+         */
+        public Builder pkceRequired(boolean pkceRequired) {
+            Utils.checkNotNull(pkceRequired, "pkceRequired");
+            this.pkceRequired = JsonNullable.of(pkceRequired);
+            return this;
+        }
+
+        /**
+         * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
+         */
+        public Builder pkceRequired(JsonNullable<Boolean> pkceRequired) {
+            Utils.checkNotNull(pkceRequired, "pkceRequired");
+            this.pkceRequired = pkceRequired;
             return this;
         }
 
@@ -446,7 +590,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
 
             return new UpdateInstanceOAuthApplicationSettingsRequestBody(
                 dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
-                clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+                audClaimEnabled, pkceRequired, clientIdMetadataDocumentsAdvertised,
+                clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
         }
 
     }

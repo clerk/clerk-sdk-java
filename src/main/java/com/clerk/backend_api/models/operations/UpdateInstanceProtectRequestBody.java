@@ -16,7 +16,11 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateInstanceProtectRequestBody {
-
+    /**
+     * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+     * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+     * This does not remove the instance from Protect.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("rules_enabled")
     private JsonNullable<Boolean> rulesEnabled;
@@ -40,6 +44,11 @@ public class UpdateInstanceProtectRequestBody {
         this(JsonNullable.undefined(), JsonNullable.undefined());
     }
 
+    /**
+     * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+     * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+     * This does not remove the instance from Protect.
+     */
     @JsonIgnore
     public JsonNullable<Boolean> rulesEnabled() {
         return rulesEnabled;
@@ -55,12 +64,22 @@ public class UpdateInstanceProtectRequestBody {
     }
 
 
+    /**
+     * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+     * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+     * This does not remove the instance from Protect.
+     */
     public UpdateInstanceProtectRequestBody withRulesEnabled(boolean rulesEnabled) {
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
         this.rulesEnabled = JsonNullable.of(rulesEnabled);
         return this;
     }
 
+    /**
+     * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+     * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+     * This does not remove the instance from Protect.
+     */
     public UpdateInstanceProtectRequestBody withRulesEnabled(JsonNullable<Boolean> rulesEnabled) {
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
         this.rulesEnabled = rulesEnabled;
@@ -118,12 +137,22 @@ public class UpdateInstanceProtectRequestBody {
         }
 
 
+        /**
+         * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+         * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+         * This does not remove the instance from Protect.
+         */
         public Builder rulesEnabled(boolean rulesEnabled) {
             Utils.checkNotNull(rulesEnabled, "rulesEnabled");
             this.rulesEnabled = JsonNullable.of(rulesEnabled);
             return this;
         }
 
+        /**
+         * Set true to enforce Protect rules on this instance. Set false to stop enforcing and return the
+         * instance to its default posture, where traffic is still evaluated in shadow but nothing is blocked.
+         * This does not remove the instance from Protect.
+         */
         public Builder rulesEnabled(JsonNullable<Boolean> rulesEnabled) {
             Utils.checkNotNull(rulesEnabled, "rulesEnabled");
             this.rulesEnabled = rulesEnabled;
