@@ -272,7 +272,7 @@ public class User {
     private Optional<Long> legalAcceptedAt;
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bypass_client_trust")
@@ -751,7 +751,7 @@ public class User {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonIgnore
     public Optional<Boolean> bypassClientTrust() {
@@ -1292,7 +1292,7 @@ public class User {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public User withBypassClientTrust(boolean bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1302,7 +1302,7 @@ public class User {
 
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public User withBypassClientTrust(Optional<Boolean> bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -2101,7 +2101,7 @@ public class User {
 
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(boolean bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -2110,7 +2110,7 @@ public class User {
         }
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(Optional<Boolean> bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");

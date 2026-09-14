@@ -43,12 +43,17 @@ public class VerifyM2MTokenResponseBody extends ClerkError {
     * the resulting VerifyM2MTokenResponseBody instance will have a null data() value and a non-null deserializationException().
     */
     public static VerifyM2MTokenResponseBody from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new VerifyM2MTokenResponseBody(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new VerifyM2MTokenResponseBody(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new VerifyM2MTokenResponseBody(response.statusCode(), null, response, null, e);
+            return new VerifyM2MTokenResponseBody(response.statusCode(), bytes, response, null, e);
         }
     }
 

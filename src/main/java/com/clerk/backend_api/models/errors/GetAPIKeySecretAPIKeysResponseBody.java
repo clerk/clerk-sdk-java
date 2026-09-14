@@ -43,12 +43,17 @@ public class GetAPIKeySecretAPIKeysResponseBody extends ClerkError {
     * the resulting GetAPIKeySecretAPIKeysResponseBody instance will have a null data() value and a non-null deserializationException().
     */
     public static GetAPIKeySecretAPIKeysResponseBody from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new GetAPIKeySecretAPIKeysResponseBody(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new GetAPIKeySecretAPIKeysResponseBody(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new GetAPIKeySecretAPIKeysResponseBody(response.statusCode(), null, response, null, e);
+            return new GetAPIKeySecretAPIKeysResponseBody(response.statusCode(), bytes, response, null, e);
         }
     }
 

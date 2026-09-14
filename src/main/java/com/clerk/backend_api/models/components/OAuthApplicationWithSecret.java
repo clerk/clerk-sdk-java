@@ -62,10 +62,17 @@ public class OAuthApplicationWithSecret {
     private boolean pkceRequired;
 
 
+    @JsonProperty("device_authorization_grant_enabled")
+    private boolean deviceAuthorizationGrantEnabled;
+
+
     @JsonProperty("public")
     private boolean public_;
 
-
+    /**
+     * The complete scope ceiling for the OAuth application, as a space-delimited list of built-in and
+     * assigned custom scope keys.
+     */
     @JsonProperty("scopes")
     private String scopes;
 
@@ -133,6 +140,7 @@ public class OAuthApplicationWithSecret {
             @JsonProperty("dynamically_registered") boolean dynamicallyRegistered,
             @JsonProperty("consent_screen_enabled") boolean consentScreenEnabled,
             @JsonProperty("pkce_required") boolean pkceRequired,
+            @JsonProperty("device_authorization_grant_enabled") boolean deviceAuthorizationGrantEnabled,
             @JsonProperty("public") boolean public_,
             @JsonProperty("scopes") String scopes,
             @JsonProperty("redirect_uris") List<String> redirectUris,
@@ -155,6 +163,7 @@ public class OAuthApplicationWithSecret {
         Utils.checkNotNull(dynamicallyRegistered, "dynamicallyRegistered");
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         Utils.checkNotNull(public_, "public_");
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(redirectUris, "redirectUris");
@@ -177,6 +186,7 @@ public class OAuthApplicationWithSecret {
         this.dynamicallyRegistered = dynamicallyRegistered;
         this.consentScreenEnabled = consentScreenEnabled;
         this.pkceRequired = pkceRequired;
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
         this.public_ = public_;
         this.scopes = scopes;
         this.redirectUris = redirectUris;
@@ -200,6 +210,7 @@ public class OAuthApplicationWithSecret {
             boolean dynamicallyRegistered,
             boolean consentScreenEnabled,
             boolean pkceRequired,
+            boolean deviceAuthorizationGrantEnabled,
             boolean public_,
             String scopes,
             List<String> redirectUris,
@@ -214,11 +225,11 @@ public class OAuthApplicationWithSecret {
         this(object, id, instanceId,
             name, clientId, Optional.empty(),
             Optional.empty(), dynamicallyRegistered, consentScreenEnabled,
-            pkceRequired, public_, scopes,
-            redirectUris, callbackUrl, authorizeUrl,
-            tokenFetchUrl, userInfoUrl, discoveryUrl,
-            tokenIntrospectionUrl, createdAt, updatedAt,
-            Optional.empty());
+            pkceRequired, deviceAuthorizationGrantEnabled, public_,
+            scopes, redirectUris, callbackUrl,
+            authorizeUrl, tokenFetchUrl, userInfoUrl,
+            discoveryUrl, tokenIntrospectionUrl, createdAt,
+            updatedAt, Optional.empty());
     }
 
     @JsonIgnore
@@ -272,10 +283,19 @@ public class OAuthApplicationWithSecret {
     }
 
     @JsonIgnore
+    public boolean deviceAuthorizationGrantEnabled() {
+        return deviceAuthorizationGrantEnabled;
+    }
+
+    @JsonIgnore
     public boolean public_() {
         return public_;
     }
 
+    /**
+     * The complete scope ceiling for the OAuth application, as a space-delimited list of built-in and
+     * assigned custom scope keys.
+     */
     @JsonIgnore
     public String scopes() {
         return scopes;
@@ -425,12 +445,22 @@ public class OAuthApplicationWithSecret {
         return this;
     }
 
+    public OAuthApplicationWithSecret withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+        return this;
+    }
+
     public OAuthApplicationWithSecret withPublic(boolean public_) {
         Utils.checkNotNull(public_, "public_");
         this.public_ = public_;
         return this;
     }
 
+    /**
+     * The complete scope ceiling for the OAuth application, as a space-delimited list of built-in and
+     * assigned custom scope keys.
+     */
     public OAuthApplicationWithSecret withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
@@ -542,6 +572,7 @@ public class OAuthApplicationWithSecret {
             Utils.enhancedDeepEquals(this.dynamicallyRegistered, other.dynamicallyRegistered) &&
             Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
+            Utils.enhancedDeepEquals(this.deviceAuthorizationGrantEnabled, other.deviceAuthorizationGrantEnabled) &&
             Utils.enhancedDeepEquals(this.public_, other.public_) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
             Utils.enhancedDeepEquals(this.redirectUris, other.redirectUris) &&
@@ -562,11 +593,11 @@ public class OAuthApplicationWithSecret {
             object, id, instanceId,
             name, clientId, clientUri,
             clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
-            pkceRequired, public_, scopes,
-            redirectUris, callbackUrl, authorizeUrl,
-            tokenFetchUrl, userInfoUrl, discoveryUrl,
-            tokenIntrospectionUrl, createdAt, updatedAt,
-            clientSecret);
+            pkceRequired, deviceAuthorizationGrantEnabled, public_,
+            scopes, redirectUris, callbackUrl,
+            authorizeUrl, tokenFetchUrl, userInfoUrl,
+            discoveryUrl, tokenIntrospectionUrl, createdAt,
+            updatedAt, clientSecret);
     }
     
     @Override
@@ -582,6 +613,7 @@ public class OAuthApplicationWithSecret {
                 "dynamicallyRegistered", dynamicallyRegistered,
                 "consentScreenEnabled", consentScreenEnabled,
                 "pkceRequired", pkceRequired,
+                "deviceAuthorizationGrantEnabled", deviceAuthorizationGrantEnabled,
                 "public_", public_,
                 "scopes", scopes,
                 "redirectUris", redirectUris,
@@ -618,6 +650,8 @@ public class OAuthApplicationWithSecret {
         private Boolean consentScreenEnabled;
 
         private Boolean pkceRequired;
+
+        private Boolean deviceAuthorizationGrantEnabled;
 
         private Boolean public_;
 
@@ -731,6 +765,13 @@ public class OAuthApplicationWithSecret {
         }
 
 
+        public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+            Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+            this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+            return this;
+        }
+
+
         public Builder public_(boolean public_) {
             Utils.checkNotNull(public_, "public_");
             this.public_ = public_;
@@ -738,6 +779,10 @@ public class OAuthApplicationWithSecret {
         }
 
 
+        /**
+         * The complete scope ceiling for the OAuth application, as a space-delimited list of built-in and
+         * assigned custom scope keys.
+         */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
@@ -844,11 +889,11 @@ public class OAuthApplicationWithSecret {
                 object, id, instanceId,
                 name, clientId, clientUri,
                 clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
-                pkceRequired, public_, scopes,
-                redirectUris, callbackUrl, authorizeUrl,
-                tokenFetchUrl, userInfoUrl, discoveryUrl,
-                tokenIntrospectionUrl, createdAt, updatedAt,
-                clientSecret);
+                pkceRequired, deviceAuthorizationGrantEnabled, public_,
+                scopes, redirectUris, callbackUrl,
+                authorizeUrl, tokenFetchUrl, userInfoUrl,
+                discoveryUrl, tokenIntrospectionUrl, createdAt,
+                updatedAt, clientSecret);
         }
 
     }

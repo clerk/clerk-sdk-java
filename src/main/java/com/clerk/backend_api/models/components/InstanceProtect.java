@@ -21,7 +21,11 @@ public class InstanceProtect {
     @JsonProperty("object")
     private InstanceProtectObject object;
 
-
+    /**
+     * Whether Protect rules are enforced on this instance. False does not mean the instance is outside
+     * Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never
+     * block.
+     */
     @JsonProperty("rules_enabled")
     private boolean rulesEnabled;
 
@@ -36,20 +40,40 @@ public class InstanceProtect {
     @JsonProperty("checks_bypassed")
     private boolean checksBypassed;
 
+    /**
+     * Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated
+     * on checks being verified, bypassed or exempt.
+     */
+    @JsonProperty("checks_verified")
+    private boolean checksVerified;
+
+    /**
+     * Whether the instance was created into Protect and so was never subject to the prerequisite checks at
+     * all.
+     */
+    @JsonProperty("checks_exempt")
+    private boolean checksExempt;
+
     @JsonCreator
     public InstanceProtect(
             @JsonProperty("object") InstanceProtectObject object,
             @JsonProperty("rules_enabled") boolean rulesEnabled,
             @JsonProperty("specter_enabled") boolean specterEnabled,
-            @JsonProperty("checks_bypassed") boolean checksBypassed) {
+            @JsonProperty("checks_bypassed") boolean checksBypassed,
+            @JsonProperty("checks_verified") boolean checksVerified,
+            @JsonProperty("checks_exempt") boolean checksExempt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
         Utils.checkNotNull(specterEnabled, "specterEnabled");
         Utils.checkNotNull(checksBypassed, "checksBypassed");
+        Utils.checkNotNull(checksVerified, "checksVerified");
+        Utils.checkNotNull(checksExempt, "checksExempt");
         this.object = object;
         this.rulesEnabled = rulesEnabled;
         this.specterEnabled = specterEnabled;
         this.checksBypassed = checksBypassed;
+        this.checksVerified = checksVerified;
+        this.checksExempt = checksExempt;
     }
 
     @JsonIgnore
@@ -57,6 +81,11 @@ public class InstanceProtect {
         return object;
     }
 
+    /**
+     * Whether Protect rules are enforced on this instance. False does not mean the instance is outside
+     * Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never
+     * block.
+     */
     @JsonIgnore
     public boolean rulesEnabled() {
         return rulesEnabled;
@@ -76,6 +105,24 @@ public class InstanceProtect {
         return checksBypassed;
     }
 
+    /**
+     * Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated
+     * on checks being verified, bypassed or exempt.
+     */
+    @JsonIgnore
+    public boolean checksVerified() {
+        return checksVerified;
+    }
+
+    /**
+     * Whether the instance was created into Protect and so was never subject to the prerequisite checks at
+     * all.
+     */
+    @JsonIgnore
+    public boolean checksExempt() {
+        return checksExempt;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -87,6 +134,11 @@ public class InstanceProtect {
         return this;
     }
 
+    /**
+     * Whether Protect rules are enforced on this instance. False does not mean the instance is outside
+     * Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never
+     * block.
+     */
     public InstanceProtect withRulesEnabled(boolean rulesEnabled) {
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
         this.rulesEnabled = rulesEnabled;
@@ -109,6 +161,26 @@ public class InstanceProtect {
         return this;
     }
 
+    /**
+     * Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated
+     * on checks being verified, bypassed or exempt.
+     */
+    public InstanceProtect withChecksVerified(boolean checksVerified) {
+        Utils.checkNotNull(checksVerified, "checksVerified");
+        this.checksVerified = checksVerified;
+        return this;
+    }
+
+    /**
+     * Whether the instance was created into Protect and so was never subject to the prerequisite checks at
+     * all.
+     */
+    public InstanceProtect withChecksExempt(boolean checksExempt) {
+        Utils.checkNotNull(checksExempt, "checksExempt");
+        this.checksExempt = checksExempt;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -122,14 +194,16 @@ public class InstanceProtect {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.rulesEnabled, other.rulesEnabled) &&
             Utils.enhancedDeepEquals(this.specterEnabled, other.specterEnabled) &&
-            Utils.enhancedDeepEquals(this.checksBypassed, other.checksBypassed);
+            Utils.enhancedDeepEquals(this.checksBypassed, other.checksBypassed) &&
+            Utils.enhancedDeepEquals(this.checksVerified, other.checksVerified) &&
+            Utils.enhancedDeepEquals(this.checksExempt, other.checksExempt);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             object, rulesEnabled, specterEnabled,
-            checksBypassed);
+            checksBypassed, checksVerified, checksExempt);
     }
     
     @Override
@@ -138,7 +212,9 @@ public class InstanceProtect {
                 "object", object,
                 "rulesEnabled", rulesEnabled,
                 "specterEnabled", specterEnabled,
-                "checksBypassed", checksBypassed);
+                "checksBypassed", checksBypassed,
+                "checksVerified", checksVerified,
+                "checksExempt", checksExempt);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -152,6 +228,10 @@ public class InstanceProtect {
 
         private Boolean checksBypassed;
 
+        private Boolean checksVerified;
+
+        private Boolean checksExempt;
+
         private Builder() {
           // force use of static builder() method
         }
@@ -164,6 +244,11 @@ public class InstanceProtect {
         }
 
 
+        /**
+         * Whether Protect rules are enforced on this instance. False does not mean the instance is outside
+         * Protect — by default it is still evaluated in shadow, where rules are scored and recorded but never
+         * block.
+         */
         public Builder rulesEnabled(boolean rulesEnabled) {
             Utils.checkNotNull(rulesEnabled, "rulesEnabled");
             this.rulesEnabled = rulesEnabled;
@@ -188,11 +273,33 @@ public class InstanceProtect {
             return this;
         }
 
+
+        /**
+         * Whether the Protect system has verified the instance's prerequisite checks. Protect rules are gated
+         * on checks being verified, bypassed or exempt.
+         */
+        public Builder checksVerified(boolean checksVerified) {
+            Utils.checkNotNull(checksVerified, "checksVerified");
+            this.checksVerified = checksVerified;
+            return this;
+        }
+
+
+        /**
+         * Whether the instance was created into Protect and so was never subject to the prerequisite checks at
+         * all.
+         */
+        public Builder checksExempt(boolean checksExempt) {
+            Utils.checkNotNull(checksExempt, "checksExempt");
+            this.checksExempt = checksExempt;
+            return this;
+        }
+
         public InstanceProtect build() {
 
             return new InstanceProtect(
                 object, rulesEnabled, specterEnabled,
-                checksBypassed);
+                checksBypassed, checksVerified, checksExempt);
         }
 
     }

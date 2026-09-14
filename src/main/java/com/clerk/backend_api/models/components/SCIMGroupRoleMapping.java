@@ -35,10 +35,16 @@ public class SCIMGroupRoleMapping {
     private String id;
 
     /**
-     * The ID of the SCIM directory this mapping belongs to.
+     * The ID of the directory this mapping belongs to.
      */
     @JsonProperty("scim_directory_id")
     private String scimDirectoryId;
+
+    /**
+     * The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
+     */
+    @JsonProperty("directory_id")
+    private String directoryId;
 
     /**
      * The SCIM group ID from the identity provider.
@@ -47,10 +53,23 @@ public class SCIMGroupRoleMapping {
     private String scimGroupId;
 
     /**
+     * The group ID from the identity provider. Same value as `scim_group_id`.
+     */
+    @JsonProperty("directory_group_id")
+    private String directoryGroupId;
+
+    /**
      * The display name of the SCIM group, as reported by the identity provider.
      */
     @JsonProperty("scim_group_display_name")
     private String scimGroupDisplayName;
+
+    /**
+     * The display name of the group, as reported by the identity provider. Same value as
+     * `scim_group_display_name`.
+     */
+    @JsonProperty("directory_group_display_name")
+    private String directoryGroupDisplayName;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -81,8 +100,11 @@ public class SCIMGroupRoleMapping {
             @JsonProperty("object") SCIMGroupRoleMappingObject object,
             @JsonProperty("id") String id,
             @JsonProperty("scim_directory_id") String scimDirectoryId,
+            @JsonProperty("directory_id") String directoryId,
             @JsonProperty("scim_group_id") String scimGroupId,
+            @JsonProperty("directory_group_id") String directoryGroupId,
             @JsonProperty("scim_group_display_name") String scimGroupDisplayName,
+            @JsonProperty("directory_group_display_name") String directoryGroupDisplayName,
             @JsonProperty("role") Optional<? extends Role> role,
             @JsonProperty("precedence") long precedence,
             @JsonProperty("created_at") long createdAt,
@@ -90,8 +112,11 @@ public class SCIMGroupRoleMapping {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
+        Utils.checkNotNull(directoryId, "directoryId");
         Utils.checkNotNull(scimGroupId, "scimGroupId");
+        Utils.checkNotNull(directoryGroupId, "directoryGroupId");
         Utils.checkNotNull(scimGroupDisplayName, "scimGroupDisplayName");
+        Utils.checkNotNull(directoryGroupDisplayName, "directoryGroupDisplayName");
         Utils.checkNotNull(role, "role");
         Utils.checkNotNull(precedence, "precedence");
         Utils.checkNotNull(createdAt, "createdAt");
@@ -99,8 +124,11 @@ public class SCIMGroupRoleMapping {
         this.object = object;
         this.id = id;
         this.scimDirectoryId = scimDirectoryId;
+        this.directoryId = directoryId;
         this.scimGroupId = scimGroupId;
+        this.directoryGroupId = directoryGroupId;
         this.scimGroupDisplayName = scimGroupDisplayName;
+        this.directoryGroupDisplayName = directoryGroupDisplayName;
         this.role = role;
         this.precedence = precedence;
         this.createdAt = createdAt;
@@ -111,13 +139,17 @@ public class SCIMGroupRoleMapping {
             SCIMGroupRoleMappingObject object,
             String id,
             String scimDirectoryId,
+            String directoryId,
             String scimGroupId,
+            String directoryGroupId,
             String scimGroupDisplayName,
+            String directoryGroupDisplayName,
             long precedence,
             long createdAt,
             long updatedAt) {
         this(object, id, scimDirectoryId,
-            scimGroupId, scimGroupDisplayName, Optional.empty(),
+            directoryId, scimGroupId, directoryGroupId,
+            scimGroupDisplayName, directoryGroupDisplayName, Optional.empty(),
             precedence, createdAt, updatedAt);
     }
 
@@ -138,11 +170,19 @@ public class SCIMGroupRoleMapping {
     }
 
     /**
-     * The ID of the SCIM directory this mapping belongs to.
+     * The ID of the directory this mapping belongs to.
      */
     @JsonIgnore
     public String scimDirectoryId() {
         return scimDirectoryId;
+    }
+
+    /**
+     * The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
+     */
+    @JsonIgnore
+    public String directoryId() {
+        return directoryId;
     }
 
     /**
@@ -154,11 +194,28 @@ public class SCIMGroupRoleMapping {
     }
 
     /**
+     * The group ID from the identity provider. Same value as `scim_group_id`.
+     */
+    @JsonIgnore
+    public String directoryGroupId() {
+        return directoryGroupId;
+    }
+
+    /**
      * The display name of the SCIM group, as reported by the identity provider.
      */
     @JsonIgnore
     public String scimGroupDisplayName() {
         return scimGroupDisplayName;
+    }
+
+    /**
+     * The display name of the group, as reported by the identity provider. Same value as
+     * `scim_group_display_name`.
+     */
+    @JsonIgnore
+    public String directoryGroupDisplayName() {
+        return directoryGroupDisplayName;
     }
 
     @SuppressWarnings("unchecked")
@@ -216,11 +273,20 @@ public class SCIMGroupRoleMapping {
     }
 
     /**
-     * The ID of the SCIM directory this mapping belongs to.
+     * The ID of the directory this mapping belongs to.
      */
     public SCIMGroupRoleMapping withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
         this.scimDirectoryId = scimDirectoryId;
+        return this;
+    }
+
+    /**
+     * The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
+     */
+    public SCIMGroupRoleMapping withDirectoryId(String directoryId) {
+        Utils.checkNotNull(directoryId, "directoryId");
+        this.directoryId = directoryId;
         return this;
     }
 
@@ -234,11 +300,30 @@ public class SCIMGroupRoleMapping {
     }
 
     /**
+     * The group ID from the identity provider. Same value as `scim_group_id`.
+     */
+    public SCIMGroupRoleMapping withDirectoryGroupId(String directoryGroupId) {
+        Utils.checkNotNull(directoryGroupId, "directoryGroupId");
+        this.directoryGroupId = directoryGroupId;
+        return this;
+    }
+
+    /**
      * The display name of the SCIM group, as reported by the identity provider.
      */
     public SCIMGroupRoleMapping withScimGroupDisplayName(String scimGroupDisplayName) {
         Utils.checkNotNull(scimGroupDisplayName, "scimGroupDisplayName");
         this.scimGroupDisplayName = scimGroupDisplayName;
+        return this;
+    }
+
+    /**
+     * The display name of the group, as reported by the identity provider. Same value as
+     * `scim_group_display_name`.
+     */
+    public SCIMGroupRoleMapping withDirectoryGroupDisplayName(String directoryGroupDisplayName) {
+        Utils.checkNotNull(directoryGroupDisplayName, "directoryGroupDisplayName");
+        this.directoryGroupDisplayName = directoryGroupDisplayName;
         return this;
     }
 
@@ -296,8 +381,11 @@ public class SCIMGroupRoleMapping {
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.scimDirectoryId, other.scimDirectoryId) &&
+            Utils.enhancedDeepEquals(this.directoryId, other.directoryId) &&
             Utils.enhancedDeepEquals(this.scimGroupId, other.scimGroupId) &&
+            Utils.enhancedDeepEquals(this.directoryGroupId, other.directoryGroupId) &&
             Utils.enhancedDeepEquals(this.scimGroupDisplayName, other.scimGroupDisplayName) &&
+            Utils.enhancedDeepEquals(this.directoryGroupDisplayName, other.directoryGroupDisplayName) &&
             Utils.enhancedDeepEquals(this.role, other.role) &&
             Utils.enhancedDeepEquals(this.precedence, other.precedence) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
@@ -308,7 +396,8 @@ public class SCIMGroupRoleMapping {
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, scimDirectoryId,
-            scimGroupId, scimGroupDisplayName, role,
+            directoryId, scimGroupId, directoryGroupId,
+            scimGroupDisplayName, directoryGroupDisplayName, role,
             precedence, createdAt, updatedAt);
     }
     
@@ -318,8 +407,11 @@ public class SCIMGroupRoleMapping {
                 "object", object,
                 "id", id,
                 "scimDirectoryId", scimDirectoryId,
+                "directoryId", directoryId,
                 "scimGroupId", scimGroupId,
+                "directoryGroupId", directoryGroupId,
                 "scimGroupDisplayName", scimGroupDisplayName,
+                "directoryGroupDisplayName", directoryGroupDisplayName,
                 "role", role,
                 "precedence", precedence,
                 "createdAt", createdAt,
@@ -335,9 +427,15 @@ public class SCIMGroupRoleMapping {
 
         private String scimDirectoryId;
 
+        private String directoryId;
+
         private String scimGroupId;
 
+        private String directoryGroupId;
+
         private String scimGroupDisplayName;
+
+        private String directoryGroupDisplayName;
 
         private Optional<? extends Role> role = Optional.empty();
 
@@ -373,11 +471,21 @@ public class SCIMGroupRoleMapping {
 
 
         /**
-         * The ID of the SCIM directory this mapping belongs to.
+         * The ID of the directory this mapping belongs to.
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
             this.scimDirectoryId = scimDirectoryId;
+            return this;
+        }
+
+
+        /**
+         * The ID of the directory this mapping belongs to. Same value as `scim_directory_id`.
+         */
+        public Builder directoryId(String directoryId) {
+            Utils.checkNotNull(directoryId, "directoryId");
+            this.directoryId = directoryId;
             return this;
         }
 
@@ -393,11 +501,32 @@ public class SCIMGroupRoleMapping {
 
 
         /**
+         * The group ID from the identity provider. Same value as `scim_group_id`.
+         */
+        public Builder directoryGroupId(String directoryGroupId) {
+            Utils.checkNotNull(directoryGroupId, "directoryGroupId");
+            this.directoryGroupId = directoryGroupId;
+            return this;
+        }
+
+
+        /**
          * The display name of the SCIM group, as reported by the identity provider.
          */
         public Builder scimGroupDisplayName(String scimGroupDisplayName) {
             Utils.checkNotNull(scimGroupDisplayName, "scimGroupDisplayName");
             this.scimGroupDisplayName = scimGroupDisplayName;
+            return this;
+        }
+
+
+        /**
+         * The display name of the group, as reported by the identity provider. Same value as
+         * `scim_group_display_name`.
+         */
+        public Builder directoryGroupDisplayName(String directoryGroupDisplayName) {
+            Utils.checkNotNull(directoryGroupDisplayName, "directoryGroupDisplayName");
+            this.directoryGroupDisplayName = directoryGroupDisplayName;
             return this;
         }
 
@@ -449,7 +578,8 @@ public class SCIMGroupRoleMapping {
 
             return new SCIMGroupRoleMapping(
                 object, id, scimDirectoryId,
-                scimGroupId, scimGroupDisplayName, role,
+                directoryId, scimGroupId, directoryGroupId,
+                scimGroupDisplayName, directoryGroupDisplayName, role,
                 precedence, createdAt, updatedAt);
         }
 

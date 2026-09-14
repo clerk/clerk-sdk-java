@@ -11,6 +11,8 @@
 * [cancelSubscriptionItem](#cancelsubscriptionitem) - Cancel a subscription item
 * [extendSubscriptionItemFreeTrial](#extendsubscriptionitemfreetrial) - Extend free trial for a subscription item
 * [createPriceTransition](#createpricetransition) - Create a price transition for a subscription item
+* [applySubscriptionItemDiscount](#applysubscriptionitemdiscount) - Apply a discount to a subscription item
+* [removeSubscriptionItemDiscount](#removesubscriptionitemdiscount) - Remove a discount from a subscription item
 * [listStatements](#liststatements) - List all billing statements
 * [getStatement](#getstatement) - Retrieve a billing statement
 * [getStatementPaymentAttempts](#getstatementpaymentattempts) - List payment attempts for a billing statement
@@ -410,6 +412,121 @@ public class Application {
 ### Response
 
 **[CreateBillingPriceTransitionResponse](../../models/operations/CreateBillingPriceTransitionResponse.md)**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 401, 403, 404, 409, 422 | application/json             |
+| models/errors/ClerkErrors    | 500                          | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
+
+## applySubscriptionItemDiscount
+
+Applies an existing discount to a subscription item.
+Manual application is an override path: self-serve distribution rules are not enforced.
+At most one active discount is allowed per subscription item; applying a different
+discount replaces the currently active one. Re-applying the same active discount returns a conflict.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ApplyBillingSubscriptionItemDiscount" method="post" path="/billing/subscription_items/{subscription_item_id}/discounts" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.components.ApplyCommerceDiscountRequest;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ApplyBillingSubscriptionItemDiscountResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ApplyBillingSubscriptionItemDiscountResponse res = sdk.billing().applySubscriptionItemDiscount()
+                .subscriptionItemId("<id>")
+                .applyCommerceDiscountRequest(ApplyCommerceDiscountRequest.builder()
+                    .discountId("<id>")
+                    .build())
+                .call();
+
+        if (res.commerceDiscountRedemptionResponse().isPresent()) {
+            System.out.println(res.commerceDiscountRedemptionResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `subscriptionItemId`                                                                    | *String*                                                                                | :heavy_check_mark:                                                                      | The ID of the subscription item to apply the discount to                                |
+| `applyCommerceDiscountRequest`                                                          | [ApplyCommerceDiscountRequest](../../models/components/ApplyCommerceDiscountRequest.md) | :heavy_check_mark:                                                                      | Parameters for applying the discount                                                    |
+
+### Response
+
+**[ApplyBillingSubscriptionItemDiscountResponse](../../models/operations/ApplyBillingSubscriptionItemDiscountResponse.md)**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 401, 403, 404, 409, 422 | application/json             |
+| models/errors/ClerkErrors    | 500                          | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
+
+## removeSubscriptionItemDiscount
+
+Removes the active discount from a subscription item.
+The discount_id must match the subscription item's currently active discount.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RemoveBillingSubscriptionItemDiscount" method="delete" path="/billing/subscription_items/{subscription_item_id}/discounts/{discount_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RemoveBillingSubscriptionItemDiscountResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RemoveBillingSubscriptionItemDiscountResponse res = sdk.billing().removeSubscriptionItemDiscount()
+                .subscriptionItemId("<id>")
+                .discountId("<id>")
+                .call();
+
+        if (res.commerceDiscountRedemptionResponse().isPresent()) {
+            System.out.println(res.commerceDiscountRedemptionResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `subscriptionItemId`                                        | *String*                                                    | :heavy_check_mark:                                          | The ID of the subscription item to remove the discount from |
+| `discountId`                                                | *String*                                                    | :heavy_check_mark:                                          | The ID of the discount to remove                            |
+
+### Response
+
+**[RemoveBillingSubscriptionItemDiscountResponse](../../models/operations/RemoveBillingSubscriptionItemDiscountResponse.md)**
 
 ### Errors
 

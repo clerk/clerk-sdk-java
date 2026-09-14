@@ -45,6 +45,14 @@ public class SCIMDirectoryCustomAttributes {
     private Optional<String> scimPath;
 
     /**
+     * GJSON path to extract the attribute value from directory sync user resources. Same value as
+     * `scim_path`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("directory_path")
+    private Optional<String> directoryPath;
+
+    /**
      * When true, the attribute supports multiple values; values from the IdP are written to
      * public_metadata as an array. Defaults to false.
      */
@@ -58,22 +66,25 @@ public class SCIMDirectoryCustomAttributes {
             @JsonProperty("key") Optional<String> key,
             @JsonProperty("sso_path") Optional<String> ssoPath,
             @JsonProperty("scim_path") Optional<String> scimPath,
+            @JsonProperty("directory_path") Optional<String> directoryPath,
             @JsonProperty("multi_valued") Optional<Boolean> multiValued) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(key, "key");
         Utils.checkNotNull(ssoPath, "ssoPath");
         Utils.checkNotNull(scimPath, "scimPath");
+        Utils.checkNotNull(directoryPath, "directoryPath");
         Utils.checkNotNull(multiValued, "multiValued");
         this.name = name;
         this.key = key;
         this.ssoPath = ssoPath;
         this.scimPath = scimPath;
+        this.directoryPath = directoryPath;
         this.multiValued = multiValued;
     }
     
     public SCIMDirectoryCustomAttributes() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -106,6 +117,15 @@ public class SCIMDirectoryCustomAttributes {
     @JsonIgnore
     public Optional<String> scimPath() {
         return scimPath;
+    }
+
+    /**
+     * GJSON path to extract the attribute value from directory sync user resources. Same value as
+     * `scim_path`.
+     */
+    @JsonIgnore
+    public Optional<String> directoryPath() {
+        return directoryPath;
     }
 
     /**
@@ -199,6 +219,27 @@ public class SCIMDirectoryCustomAttributes {
     }
 
     /**
+     * GJSON path to extract the attribute value from directory sync user resources. Same value as
+     * `scim_path`.
+     */
+    public SCIMDirectoryCustomAttributes withDirectoryPath(String directoryPath) {
+        Utils.checkNotNull(directoryPath, "directoryPath");
+        this.directoryPath = Optional.ofNullable(directoryPath);
+        return this;
+    }
+
+
+    /**
+     * GJSON path to extract the attribute value from directory sync user resources. Same value as
+     * `scim_path`.
+     */
+    public SCIMDirectoryCustomAttributes withDirectoryPath(Optional<String> directoryPath) {
+        Utils.checkNotNull(directoryPath, "directoryPath");
+        this.directoryPath = directoryPath;
+        return this;
+    }
+
+    /**
      * When true, the attribute supports multiple values; values from the IdP are written to
      * public_metadata as an array. Defaults to false.
      */
@@ -233,6 +274,7 @@ public class SCIMDirectoryCustomAttributes {
             Utils.enhancedDeepEquals(this.key, other.key) &&
             Utils.enhancedDeepEquals(this.ssoPath, other.ssoPath) &&
             Utils.enhancedDeepEquals(this.scimPath, other.scimPath) &&
+            Utils.enhancedDeepEquals(this.directoryPath, other.directoryPath) &&
             Utils.enhancedDeepEquals(this.multiValued, other.multiValued);
     }
     
@@ -240,7 +282,7 @@ public class SCIMDirectoryCustomAttributes {
     public int hashCode() {
         return Utils.enhancedHash(
             name, key, ssoPath,
-            scimPath, multiValued);
+            scimPath, directoryPath, multiValued);
     }
     
     @Override
@@ -250,6 +292,7 @@ public class SCIMDirectoryCustomAttributes {
                 "key", key,
                 "ssoPath", ssoPath,
                 "scimPath", scimPath,
+                "directoryPath", directoryPath,
                 "multiValued", multiValued);
     }
 
@@ -263,6 +306,8 @@ public class SCIMDirectoryCustomAttributes {
         private Optional<String> ssoPath = Optional.empty();
 
         private Optional<String> scimPath = Optional.empty();
+
+        private Optional<String> directoryPath = Optional.empty();
 
         private Optional<Boolean> multiValued = Optional.empty();
 
@@ -348,6 +393,27 @@ public class SCIMDirectoryCustomAttributes {
 
 
         /**
+         * GJSON path to extract the attribute value from directory sync user resources. Same value as
+         * `scim_path`.
+         */
+        public Builder directoryPath(String directoryPath) {
+            Utils.checkNotNull(directoryPath, "directoryPath");
+            this.directoryPath = Optional.ofNullable(directoryPath);
+            return this;
+        }
+
+        /**
+         * GJSON path to extract the attribute value from directory sync user resources. Same value as
+         * `scim_path`.
+         */
+        public Builder directoryPath(Optional<String> directoryPath) {
+            Utils.checkNotNull(directoryPath, "directoryPath");
+            this.directoryPath = directoryPath;
+            return this;
+        }
+
+
+        /**
          * When true, the attribute supports multiple values; values from the IdP are written to
          * public_metadata as an array. Defaults to false.
          */
@@ -371,7 +437,7 @@ public class SCIMDirectoryCustomAttributes {
 
             return new SCIMDirectoryCustomAttributes(
                 name, key, ssoPath,
-                scimPath, multiValued);
+                scimPath, directoryPath, multiValued);
         }
 
     }

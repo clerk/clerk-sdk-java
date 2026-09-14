@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class DeleteSCIMGroupRoleMappingRequest {
     /**
-     * The ID of the SCIM directory.
+     * The ID of the directory.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=scim_directory_id")
     private String scimDirectoryId;
@@ -35,7 +35,7 @@ public class DeleteSCIMGroupRoleMappingRequest {
     }
 
     /**
-     * The ID of the SCIM directory.
+     * The ID of the directory.
      */
     @JsonIgnore
     public String scimDirectoryId() {
@@ -56,7 +56,7 @@ public class DeleteSCIMGroupRoleMappingRequest {
 
 
     /**
-     * The ID of the SCIM directory.
+     * The ID of the directory.
      */
     public DeleteSCIMGroupRoleMappingRequest withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
@@ -113,7 +113,7 @@ public class DeleteSCIMGroupRoleMappingRequest {
 
 
         /**
-         * The ID of the SCIM directory.
+         * The ID of the directory.
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");

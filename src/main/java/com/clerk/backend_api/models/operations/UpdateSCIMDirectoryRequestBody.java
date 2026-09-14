@@ -19,21 +19,21 @@ import java.util.Optional;
 
 public class UpdateSCIMDirectoryRequestBody {
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
     private Optional<String> name;
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("enabled")
     private Optional<Boolean> enabled;
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provider")
@@ -48,7 +48,7 @@ public class UpdateSCIMDirectoryRequestBody {
     private Optional<? extends Map<String, String>> attributeMapping;
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("group_role_mapping_enabled")
@@ -79,7 +79,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     @JsonIgnore
     public Optional<String> name() {
@@ -87,7 +87,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     @JsonIgnore
     public Optional<Boolean> enabled() {
@@ -95,7 +95,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     @JsonIgnore
     public Optional<String> provider() {
@@ -113,7 +113,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     @JsonIgnore
     public Optional<Boolean> groupRoleMappingEnabled() {
@@ -126,7 +126,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     public UpdateSCIMDirectoryRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
@@ -136,7 +136,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
     /**
-     * A human-friendly name for the SCIM directory.
+     * A human-friendly name for the directory.
      */
     public UpdateSCIMDirectoryRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
@@ -145,7 +145,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     public UpdateSCIMDirectoryRequestBody withEnabled(boolean enabled) {
         Utils.checkNotNull(enabled, "enabled");
@@ -155,7 +155,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
     /**
-     * Whether the SCIM directory is enabled.
+     * Whether the directory is enabled.
      */
     public UpdateSCIMDirectoryRequestBody withEnabled(Optional<Boolean> enabled) {
         Utils.checkNotNull(enabled, "enabled");
@@ -164,7 +164,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     public UpdateSCIMDirectoryRequestBody withProvider(String provider) {
         Utils.checkNotNull(provider, "provider");
@@ -174,7 +174,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
     /**
-     * The identity provider for this SCIM directory.
+     * The identity provider for this directory.
      */
     public UpdateSCIMDirectoryRequestBody withProvider(Optional<String> provider) {
         Utils.checkNotNull(provider, "provider");
@@ -204,7 +204,7 @@ public class UpdateSCIMDirectoryRequestBody {
     }
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     public UpdateSCIMDirectoryRequestBody withGroupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
         Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
@@ -214,7 +214,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
     /**
-     * Whether group-to-role mapping is enabled for this SCIM directory.
+     * Whether group-to-role mapping is enabled for this directory.
      */
     public UpdateSCIMDirectoryRequestBody withGroupRoleMappingEnabled(Optional<Boolean> groupRoleMappingEnabled) {
         Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
@@ -275,7 +275,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
         /**
-         * A human-friendly name for the SCIM directory.
+         * A human-friendly name for the directory.
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
@@ -284,7 +284,7 @@ public class UpdateSCIMDirectoryRequestBody {
         }
 
         /**
-         * A human-friendly name for the SCIM directory.
+         * A human-friendly name for the directory.
          */
         public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
@@ -294,7 +294,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
         /**
-         * Whether the SCIM directory is enabled.
+         * Whether the directory is enabled.
          */
         public Builder enabled(boolean enabled) {
             Utils.checkNotNull(enabled, "enabled");
@@ -303,7 +303,7 @@ public class UpdateSCIMDirectoryRequestBody {
         }
 
         /**
-         * Whether the SCIM directory is enabled.
+         * Whether the directory is enabled.
          */
         public Builder enabled(Optional<Boolean> enabled) {
             Utils.checkNotNull(enabled, "enabled");
@@ -313,7 +313,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
         /**
-         * The identity provider for this SCIM directory.
+         * The identity provider for this directory.
          */
         public Builder provider(String provider) {
             Utils.checkNotNull(provider, "provider");
@@ -322,7 +322,7 @@ public class UpdateSCIMDirectoryRequestBody {
         }
 
         /**
-         * The identity provider for this SCIM directory.
+         * The identity provider for this directory.
          */
         public Builder provider(Optional<String> provider) {
             Utils.checkNotNull(provider, "provider");
@@ -353,7 +353,7 @@ public class UpdateSCIMDirectoryRequestBody {
 
 
         /**
-         * Whether group-to-role mapping is enabled for this SCIM directory.
+         * Whether group-to-role mapping is enabled for this directory.
          */
         public Builder groupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
             Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
@@ -362,7 +362,7 @@ public class UpdateSCIMDirectoryRequestBody {
         }
 
         /**
-         * Whether group-to-role mapping is enabled for this SCIM directory.
+         * Whether group-to-role mapping is enabled for this directory.
          */
         public Builder groupRoleMappingEnabled(Optional<Boolean> groupRoleMappingEnabled) {
             Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");

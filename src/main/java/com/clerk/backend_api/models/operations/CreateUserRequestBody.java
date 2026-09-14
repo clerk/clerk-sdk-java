@@ -174,6 +174,17 @@ public class CreateUserRequestBody {
     private JsonNullable<Boolean> skipPasswordRequirement;
 
     /**
+     * When set to `true`, the instance's restrictions are not applied to this user.
+     * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+     * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+     * Use this when your backend is creating a user it already trusts, such as during a migration or from
+     * an admin tool.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("skip_restriction_checks")
+    private JsonNullable<Boolean> skipRestrictionChecks;
+
+    /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
      * created user without the need to reset it.
      * Please note that currently the supported options are:
@@ -274,7 +285,7 @@ public class CreateUserRequestBody {
     private JsonNullable<String> createdAt;
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bypass_client_trust")
@@ -313,6 +324,7 @@ public class CreateUserRequestBody {
             @JsonProperty("password_hasher") Optional<String> passwordHasher,
             @JsonProperty("skip_password_checks") JsonNullable<Boolean> skipPasswordChecks,
             @JsonProperty("skip_password_requirement") JsonNullable<Boolean> skipPasswordRequirement,
+            @JsonProperty("skip_restriction_checks") JsonNullable<Boolean> skipRestrictionChecks,
             @JsonProperty("totp_secret") JsonNullable<String> totpSecret,
             @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
             @JsonProperty("public_metadata") Optional<? extends Map<String, Object>> publicMetadata,
@@ -343,6 +355,7 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
         Utils.checkNotNull(skipPasswordRequirement, "skipPasswordRequirement");
+        Utils.checkNotNull(skipRestrictionChecks, "skipRestrictionChecks");
         Utils.checkNotNull(totpSecret, "totpSecret");
         Utils.checkNotNull(backupCodes, "backupCodes");
         Utils.checkNotNull(publicMetadata, "publicMetadata");
@@ -373,6 +386,7 @@ public class CreateUserRequestBody {
         this.passwordHasher = passwordHasher;
         this.skipPasswordChecks = skipPasswordChecks;
         this.skipPasswordRequirement = skipPasswordRequirement;
+        this.skipRestrictionChecks = skipRestrictionChecks;
         this.totpSecret = totpSecret;
         this.backupCodes = backupCodes;
         this.publicMetadata = publicMetadata;
@@ -396,11 +410,12 @@ public class CreateUserRequestBody {
             Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -575,6 +590,18 @@ public class CreateUserRequestBody {
     }
 
     /**
+     * When set to `true`, the instance's restrictions are not applied to this user.
+     * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+     * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+     * Use this when your backend is creating a user it already trusts, such as during a migration or from
+     * an admin tool.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> skipRestrictionChecks() {
+        return skipRestrictionChecks;
+    }
+
+    /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
      * created user without the need to reset it.
      * Please note that currently the supported options are:
@@ -691,7 +718,7 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonIgnore
     public JsonNullable<Boolean> bypassClientTrust() {
@@ -1090,6 +1117,32 @@ public class CreateUserRequestBody {
     }
 
     /**
+     * When set to `true`, the instance's restrictions are not applied to this user.
+     * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+     * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+     * Use this when your backend is creating a user it already trusts, such as during a migration or from
+     * an admin tool.
+     */
+    public CreateUserRequestBody withSkipRestrictionChecks(boolean skipRestrictionChecks) {
+        Utils.checkNotNull(skipRestrictionChecks, "skipRestrictionChecks");
+        this.skipRestrictionChecks = JsonNullable.of(skipRestrictionChecks);
+        return this;
+    }
+
+    /**
+     * When set to `true`, the instance's restrictions are not applied to this user.
+     * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+     * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+     * Use this when your backend is creating a user it already trusts, such as during a migration or from
+     * an admin tool.
+     */
+    public CreateUserRequestBody withSkipRestrictionChecks(JsonNullable<Boolean> skipRestrictionChecks) {
+        Utils.checkNotNull(skipRestrictionChecks, "skipRestrictionChecks");
+        this.skipRestrictionChecks = skipRestrictionChecks;
+        return this;
+    }
+
+    /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
      * created user without the need to reset it.
      * Please note that currently the supported options are:
@@ -1342,7 +1395,7 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public CreateUserRequestBody withBypassClientTrust(boolean bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1351,7 +1404,7 @@ public class CreateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public CreateUserRequestBody withBypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1424,6 +1477,7 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.passwordHasher, other.passwordHasher) &&
             Utils.enhancedDeepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
             Utils.enhancedDeepEquals(this.skipPasswordRequirement, other.skipPasswordRequirement) &&
+            Utils.enhancedDeepEquals(this.skipRestrictionChecks, other.skipRestrictionChecks) &&
             Utils.enhancedDeepEquals(this.totpSecret, other.totpSecret) &&
             Utils.enhancedDeepEquals(this.backupCodes, other.backupCodes) &&
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
@@ -1449,11 +1503,12 @@ public class CreateUserRequestBody {
             phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
             username, password, passwordDigest,
             passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-            totpSecret, backupCodes, publicMetadata,
-            privateMetadata, unsafeMetadata, deleteSelfEnabled,
-            legalAcceptedAt, skipLegalChecks, skipUserRequirement,
-            createOrganizationEnabled, createOrganizationsLimit, createdAt,
-            bypassClientTrust, banned, locked);
+            skipRestrictionChecks, totpSecret, backupCodes,
+            publicMetadata, privateMetadata, unsafeMetadata,
+            deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
+            skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
+            createdAt, bypassClientTrust, banned,
+            locked);
     }
     
     @Override
@@ -1474,6 +1529,7 @@ public class CreateUserRequestBody {
                 "passwordHasher", passwordHasher,
                 "skipPasswordChecks", skipPasswordChecks,
                 "skipPasswordRequirement", skipPasswordRequirement,
+                "skipRestrictionChecks", skipRestrictionChecks,
                 "totpSecret", totpSecret,
                 "backupCodes", backupCodes,
                 "publicMetadata", publicMetadata,
@@ -1523,6 +1579,8 @@ public class CreateUserRequestBody {
         private JsonNullable<Boolean> skipPasswordChecks = JsonNullable.undefined();
 
         private JsonNullable<Boolean> skipPasswordRequirement = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> skipRestrictionChecks = JsonNullable.undefined();
 
         private JsonNullable<String> totpSecret = JsonNullable.undefined();
 
@@ -1937,6 +1995,33 @@ public class CreateUserRequestBody {
 
 
         /**
+         * When set to `true`, the instance's restrictions are not applied to this user.
+         * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+         * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+         * Use this when your backend is creating a user it already trusts, such as during a migration or from
+         * an admin tool.
+         */
+        public Builder skipRestrictionChecks(boolean skipRestrictionChecks) {
+            Utils.checkNotNull(skipRestrictionChecks, "skipRestrictionChecks");
+            this.skipRestrictionChecks = JsonNullable.of(skipRestrictionChecks);
+            return this;
+        }
+
+        /**
+         * When set to `true`, the instance's restrictions are not applied to this user.
+         * Those settings are the allowlist, the blocklist, blocked disposable email domains and blocked email
+         * subaddresses, and they normally reject a matching identifier here just as they do at sign-up.
+         * Use this when your backend is creating a user it already trusts, such as during a migration or from
+         * an admin tool.
+         */
+        public Builder skipRestrictionChecks(JsonNullable<Boolean> skipRestrictionChecks) {
+            Utils.checkNotNull(skipRestrictionChecks, "skipRestrictionChecks");
+            this.skipRestrictionChecks = skipRestrictionChecks;
+            return this;
+        }
+
+
+        /**
          * In case TOTP is configured on the instance, you can provide the secret to enable it on the newly
          * created user without the need to reset it.
          * Please note that currently the supported options are:
@@ -2197,7 +2282,7 @@ public class CreateUserRequestBody {
 
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(boolean bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -2206,7 +2291,7 @@ public class CreateUserRequestBody {
         }
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -2264,11 +2349,12 @@ public class CreateUserRequestBody {
                 phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
                 username, password, passwordDigest,
                 passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-                totpSecret, backupCodes, publicMetadata,
-                privateMetadata, unsafeMetadata, deleteSelfEnabled,
-                legalAcceptedAt, skipLegalChecks, skipUserRequirement,
-                createOrganizationEnabled, createOrganizationsLimit, createdAt,
-                bypassClientTrust, banned, locked);
+                skipRestrictionChecks, totpSecret, backupCodes,
+                publicMetadata, privateMetadata, unsafeMetadata,
+                deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
+                skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
+                createdAt, bypassClientTrust, banned,
+                locked);
         }
 
     }
