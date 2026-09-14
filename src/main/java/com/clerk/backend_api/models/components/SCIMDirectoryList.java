@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * SCIMDirectoryList
  * 
- * <p>A list of SCIM directories
+ * <p>A list of directories
  */
 public class SCIMDirectoryList {
 
@@ -23,7 +23,7 @@ public class SCIMDirectoryList {
     private List<SCIMDirectory> data;
 
     /**
-     * Total number of SCIM directories.
+     * Total number of directories.
      */
     @JsonProperty("total_count")
     private long totalCount;
@@ -44,7 +44,7 @@ public class SCIMDirectoryList {
     }
 
     /**
-     * Total number of SCIM directories.
+     * Total number of directories.
      */
     @JsonIgnore
     public long totalCount() {
@@ -63,7 +63,7 @@ public class SCIMDirectoryList {
     }
 
     /**
-     * Total number of SCIM directories.
+     * Total number of directories.
      */
     public SCIMDirectoryList withTotalCount(long totalCount) {
         Utils.checkNotNull(totalCount, "totalCount");
@@ -118,7 +118,7 @@ public class SCIMDirectoryList {
 
 
         /**
-         * Total number of SCIM directories.
+         * Total number of directories.
          */
         public Builder totalCount(long totalCount) {
             Utils.checkNotNull(totalCount, "totalCount");

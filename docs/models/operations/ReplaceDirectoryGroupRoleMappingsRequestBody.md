@@ -1,0 +1,8 @@
+# ReplaceDirectoryGroupRoleMappingsRequestBody
+
+
+## Fields
+
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `mappings`                                                                                                               | List\<[ReplaceDirectoryGroupRoleMappingsMappings](../../models/operations/ReplaceDirectoryGroupRoleMappingsMappings.md)> | :heavy_check_mark:                                                                                                       | The desired set of mappings. Array order sets precedence (1-indexed). An empty array clears all mappings.                |

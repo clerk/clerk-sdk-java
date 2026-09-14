@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class DeleteSCIMDirectoryRequest {
     /**
-     * The ID of the SCIM directory to delete
+     * The ID of the directory to delete
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=scim_directory_id")
     private String scimDirectoryId;
@@ -26,7 +26,7 @@ public class DeleteSCIMDirectoryRequest {
     }
 
     /**
-     * The ID of the SCIM directory to delete
+     * The ID of the directory to delete
      */
     @JsonIgnore
     public String scimDirectoryId() {
@@ -39,7 +39,7 @@ public class DeleteSCIMDirectoryRequest {
 
 
     /**
-     * The ID of the SCIM directory to delete
+     * The ID of the directory to delete
      */
     public DeleteSCIMDirectoryRequest withScimDirectoryId(String scimDirectoryId) {
         Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");
@@ -83,7 +83,7 @@ public class DeleteSCIMDirectoryRequest {
 
 
         /**
-         * The ID of the SCIM directory to delete
+         * The ID of the directory to delete
          */
         public Builder scimDirectoryId(String scimDirectoryId) {
             Utils.checkNotNull(scimDirectoryId, "scimDirectoryId");

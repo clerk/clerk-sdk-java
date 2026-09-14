@@ -215,7 +215,7 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> createdAt;
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bypass_client_trust")
@@ -525,7 +525,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     @JsonIgnore
     public JsonNullable<Boolean> bypassClientTrust() {
@@ -1017,7 +1017,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public UpdateUserRequestBody withBypassClientTrust(boolean bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1026,7 +1026,7 @@ public class UpdateUserRequestBody {
     }
 
     /**
-     * When set to `true`, the user will bypass client trust checks during sign-in.
+     * When set to `true`, the user will bypass Device Trust checks during sign-in.
      */
     public UpdateUserRequestBody withBypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1668,7 +1668,7 @@ public class UpdateUserRequestBody {
 
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(boolean bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
@@ -1677,7 +1677,7 @@ public class UpdateUserRequestBody {
         }
 
         /**
-         * When set to `true`, the user will bypass client trust checks during sign-in.
+         * When set to `true`, the user will bypass Device Trust checks during sign-in.
          */
         public Builder bypassClientTrust(JsonNullable<Boolean> bypassClientTrust) {
             Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");

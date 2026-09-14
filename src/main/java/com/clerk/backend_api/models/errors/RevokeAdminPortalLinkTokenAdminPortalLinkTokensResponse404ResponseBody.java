@@ -43,12 +43,17 @@ public class RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseB
     * the resulting RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody instance will have a null data() value and a non-null deserializationException().
     */
     public static RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody(response.statusCode(), null, response, null, e);
+            return new RevokeAdminPortalLinkTokenAdminPortalLinkTokensResponse404ResponseBody(response.statusCode(), bytes, response, null, e);
         }
     }
 

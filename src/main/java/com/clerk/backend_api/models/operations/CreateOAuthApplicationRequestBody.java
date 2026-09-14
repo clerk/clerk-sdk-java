@@ -46,9 +46,8 @@ public class CreateOAuthApplicationRequestBody {
     private JsonNullable<String> callbackUrl;
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+     * string. Custom keys must exist in the instance OAuth scope catalog.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scopes")
@@ -69,6 +68,14 @@ public class CreateOAuthApplicationRequestBody {
     private JsonNullable<Boolean> pkceRequired;
 
     /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("device_authorization_grant_enabled")
+    private JsonNullable<Boolean> deviceAuthorizationGrantEnabled;
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -83,6 +90,7 @@ public class CreateOAuthApplicationRequestBody {
             @JsonProperty("scopes") JsonNullable<String> scopes,
             @JsonProperty("consent_screen_enabled") JsonNullable<Boolean> consentScreenEnabled,
             @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
+            @JsonProperty("device_authorization_grant_enabled") JsonNullable<Boolean> deviceAuthorizationGrantEnabled,
             @JsonProperty("public") JsonNullable<Boolean> public_) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(redirectUris, "redirectUris");
@@ -90,6 +98,7 @@ public class CreateOAuthApplicationRequestBody {
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         Utils.checkNotNull(public_, "public_");
         this.name = name;
         this.redirectUris = redirectUris;
@@ -97,6 +106,7 @@ public class CreateOAuthApplicationRequestBody {
         this.scopes = scopes;
         this.consentScreenEnabled = consentScreenEnabled;
         this.pkceRequired = pkceRequired;
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
         this.public_ = public_;
     }
     
@@ -104,7 +114,7 @@ public class CreateOAuthApplicationRequestBody {
             String name) {
         this(name, JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -137,9 +147,8 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+     * string. Custom keys must exist in the instance OAuth scope catalog.
      */
     @JsonIgnore
     public JsonNullable<String> scopes() {
@@ -160,6 +169,15 @@ public class CreateOAuthApplicationRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> pkceRequired() {
         return pkceRequired;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> deviceAuthorizationGrantEnabled() {
+        return deviceAuthorizationGrantEnabled;
     }
 
     /**
@@ -228,9 +246,8 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+     * string. Custom keys must exist in the instance OAuth scope catalog.
      */
     public CreateOAuthApplicationRequestBody withScopes(String scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -239,9 +256,8 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
-     * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-     * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-     * Provide the requested scopes as a string, separated by spaces.
+     * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+     * string. Custom keys must exist in the instance OAuth scope catalog.
      */
     public CreateOAuthApplicationRequestBody withScopes(JsonNullable<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
@@ -286,6 +302,26 @@ public class CreateOAuthApplicationRequestBody {
     }
 
     /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance.
+     */
+    public CreateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+        this.deviceAuthorizationGrantEnabled = JsonNullable.of(deviceAuthorizationGrantEnabled);
+        return this;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+     * OAuth Device Authorization Grant feature to be enabled for the instance.
+     */
+    public CreateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
+        Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+        this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+        return this;
+    }
+
+    /**
      * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
      */
     public CreateOAuthApplicationRequestBody withPublic(boolean public_) {
@@ -319,6 +355,7 @@ public class CreateOAuthApplicationRequestBody {
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
             Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
+            Utils.enhancedDeepEquals(this.deviceAuthorizationGrantEnabled, other.deviceAuthorizationGrantEnabled) &&
             Utils.enhancedDeepEquals(this.public_, other.public_);
     }
     
@@ -327,7 +364,7 @@ public class CreateOAuthApplicationRequestBody {
         return Utils.enhancedHash(
             name, redirectUris, callbackUrl,
             scopes, consentScreenEnabled, pkceRequired,
-            public_);
+            deviceAuthorizationGrantEnabled, public_);
     }
     
     @Override
@@ -339,6 +376,7 @@ public class CreateOAuthApplicationRequestBody {
                 "scopes", scopes,
                 "consentScreenEnabled", consentScreenEnabled,
                 "pkceRequired", pkceRequired,
+                "deviceAuthorizationGrantEnabled", deviceAuthorizationGrantEnabled,
                 "public_", public_);
     }
 
@@ -357,6 +395,8 @@ public class CreateOAuthApplicationRequestBody {
         private JsonNullable<Boolean> consentScreenEnabled;
 
         private JsonNullable<Boolean> pkceRequired;
+
+        private JsonNullable<Boolean> deviceAuthorizationGrantEnabled;
 
         private JsonNullable<Boolean> public_ = JsonNullable.undefined();
 
@@ -421,9 +461,8 @@ public class CreateOAuthApplicationRequestBody {
 
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-         * Provide the requested scopes as a string, separated by spaces.
+         * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+         * string. Custom keys must exist in the instance OAuth scope catalog.
          */
         public Builder scopes(String scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -432,9 +471,8 @@ public class CreateOAuthApplicationRequestBody {
         }
 
         /**
-         * Define the allowed scopes for the new OAuth applications that dictate the user payload of the OAuth
-         * user info endpoint. Available scopes are `profile`, `email`, `public_metadata`, `private_metadata`.
-         * Provide the requested scopes as a string, separated by spaces.
+         * Define the application's built-in and custom scope ceiling. Provide scope keys as a space-delimited
+         * string. Custom keys must exist in the instance OAuth scope catalog.
          */
         public Builder scopes(JsonNullable<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
@@ -482,6 +520,27 @@ public class CreateOAuthApplicationRequestBody {
 
 
         /**
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+         * OAuth Device Authorization Grant feature to be enabled for the instance.
+         */
+        public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
+            Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+            this.deviceAuthorizationGrantEnabled = JsonNullable.of(deviceAuthorizationGrantEnabled);
+            return this;
+        }
+
+        /**
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
+         * OAuth Device Authorization Grant feature to be enabled for the instance.
+         */
+        public Builder deviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
+            Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
+            this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
+            return this;
+        }
+
+
+        /**
          * If true, this client is public and you can use the Proof Key of Code Exchange (PKCE) flow.
          */
         public Builder public_(boolean public_) {
@@ -509,11 +568,14 @@ public class CreateOAuthApplicationRequestBody {
             if (pkceRequired == null) {
                 pkceRequired = _SINGLETON_VALUE_PkceRequired.value();
             }
+            if (deviceAuthorizationGrantEnabled == null) {
+                deviceAuthorizationGrantEnabled = _SINGLETON_VALUE_DeviceAuthorizationGrantEnabled.value();
+            }
 
             return new CreateOAuthApplicationRequestBody(
                 name, redirectUris, callbackUrl,
                 scopes, consentScreenEnabled, pkceRequired,
-                public_);
+                deviceAuthorizationGrantEnabled, public_);
         }
 
 
@@ -532,6 +594,12 @@ public class CreateOAuthApplicationRequestBody {
         private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_PkceRequired =
                 new LazySingletonValue<>(
                         "pkce_required",
+                        "false",
+                        new TypeReference<JsonNullable<Boolean>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Boolean>> _SINGLETON_VALUE_DeviceAuthorizationGrantEnabled =
+                new LazySingletonValue<>(
+                        "device_authorization_grant_enabled",
                         "false",
                         new TypeReference<JsonNullable<Boolean>>() {});
     }

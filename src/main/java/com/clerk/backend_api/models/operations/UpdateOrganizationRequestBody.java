@@ -48,6 +48,14 @@ public class UpdateOrganizationRequestBody {
     private JsonNullable<Boolean> adminDeleteEnabled;
 
     /**
+     * Whether this organization can configure self-serve enterprise SSO.
+     * Requires the instance to have the self-serve SSO entitlement enabled.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("self_serve_sso_enabled")
+    private JsonNullable<Boolean> selfServeSsoEnabled;
+
+    /**
      * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
      * `2012-10-20T07:15:20.902Z`).
      */
@@ -69,25 +77,29 @@ public class UpdateOrganizationRequestBody {
             @JsonProperty("slug") JsonNullable<String> slug,
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled,
+            @JsonProperty("self_serve_sso_enabled") JsonNullable<Boolean> selfServeSsoEnabled,
             @JsonProperty("created_at") JsonNullable<String> createdAt,
             @JsonProperty("role_set_key") JsonNullable<String> roleSetKey) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
+        Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(roleSetKey, "roleSetKey");
         this.name = name;
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.adminDeleteEnabled = adminDeleteEnabled;
+        this.selfServeSsoEnabled = selfServeSsoEnabled;
         this.createdAt = createdAt;
         this.roleSetKey = roleSetKey;
     }
     
     public UpdateOrganizationRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -122,6 +134,15 @@ public class UpdateOrganizationRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> adminDeleteEnabled() {
         return adminDeleteEnabled;
+    }
+
+    /**
+     * Whether this organization can configure self-serve enterprise SSO.
+     * Requires the instance to have the self-serve SSO entitlement enabled.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> selfServeSsoEnabled() {
+        return selfServeSsoEnabled;
     }
 
     /**
@@ -224,6 +245,26 @@ public class UpdateOrganizationRequestBody {
     }
 
     /**
+     * Whether this organization can configure self-serve enterprise SSO.
+     * Requires the instance to have the self-serve SSO entitlement enabled.
+     */
+    public UpdateOrganizationRequestBody withSelfServeSsoEnabled(boolean selfServeSsoEnabled) {
+        Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+        this.selfServeSsoEnabled = JsonNullable.of(selfServeSsoEnabled);
+        return this;
+    }
+
+    /**
+     * Whether this organization can configure self-serve enterprise SSO.
+     * Requires the instance to have the self-serve SSO entitlement enabled.
+     */
+    public UpdateOrganizationRequestBody withSelfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
+        Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+        this.selfServeSsoEnabled = selfServeSsoEnabled;
+        return this;
+    }
+
+    /**
      * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
      * `2012-10-20T07:15:20.902Z`).
      */
@@ -277,6 +318,7 @@ public class UpdateOrganizationRequestBody {
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
+            Utils.enhancedDeepEquals(this.selfServeSsoEnabled, other.selfServeSsoEnabled) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey);
     }
@@ -285,7 +327,8 @@ public class UpdateOrganizationRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             name, slug, maxAllowedMemberships,
-            adminDeleteEnabled, createdAt, roleSetKey);
+            adminDeleteEnabled, selfServeSsoEnabled, createdAt,
+            roleSetKey);
     }
     
     @Override
@@ -295,6 +338,7 @@ public class UpdateOrganizationRequestBody {
                 "slug", slug,
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "adminDeleteEnabled", adminDeleteEnabled,
+                "selfServeSsoEnabled", selfServeSsoEnabled,
                 "createdAt", createdAt,
                 "roleSetKey", roleSetKey);
     }
@@ -309,6 +353,8 @@ public class UpdateOrganizationRequestBody {
         private JsonNullable<Long> maxAllowedMemberships = JsonNullable.undefined();
 
         private JsonNullable<Boolean> adminDeleteEnabled = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> selfServeSsoEnabled = JsonNullable.undefined();
 
         private JsonNullable<String> createdAt = JsonNullable.undefined();
 
@@ -400,6 +446,27 @@ public class UpdateOrganizationRequestBody {
 
 
         /**
+         * Whether this organization can configure self-serve enterprise SSO.
+         * Requires the instance to have the self-serve SSO entitlement enabled.
+         */
+        public Builder selfServeSsoEnabled(boolean selfServeSsoEnabled) {
+            Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+            this.selfServeSsoEnabled = JsonNullable.of(selfServeSsoEnabled);
+            return this;
+        }
+
+        /**
+         * Whether this organization can configure self-serve enterprise SSO.
+         * Requires the instance to have the self-serve SSO entitlement enabled.
+         */
+        public Builder selfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
+            Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+            this.selfServeSsoEnabled = selfServeSsoEnabled;
+            return this;
+        }
+
+
+        /**
          * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
          * `2012-10-20T07:15:20.902Z`).
          */
@@ -444,7 +511,8 @@ public class UpdateOrganizationRequestBody {
 
             return new UpdateOrganizationRequestBody(
                 name, slug, maxAllowedMemberships,
-                adminDeleteEnabled, createdAt, roleSetKey);
+                adminDeleteEnabled, selfServeSsoEnabled, createdAt,
+                roleSetKey);
         }
 
     }

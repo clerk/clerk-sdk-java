@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field                                    | Type                                     | Required                                 | Description                              |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `scimDirectoryId`                        | *String*                                 | :heavy_check_mark:                       | The ID of the SCIM directory to retrieve |
+| Field                               | Type                                | Required                            | Description                         |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| `scimDirectoryId`                   | *String*                            | :heavy_check_mark:                  | The ID of the directory to retrieve |

@@ -43,12 +43,17 @@ public class VerifyOAuthAccessTokenOauthAccessTokensResponseBody extends ClerkEr
     * the resulting VerifyOAuthAccessTokenOauthAccessTokensResponseBody instance will have a null data() value and a non-null deserializationException().
     */
     public static VerifyOAuthAccessTokenOauthAccessTokensResponseBody from(HttpResponse<InputStream> response) {
+        byte[] bytes;
         try {
-            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            bytes = Utils.extractByteArrayFromBody(response);
+        } catch (Exception e) {
+            return new VerifyOAuthAccessTokenOauthAccessTokensResponseBody(response.statusCode(), null, response, null, e);
+        }
+        try {
             Data data = Utils.mapper().readValue(bytes, Data.class);
             return new VerifyOAuthAccessTokenOauthAccessTokensResponseBody(response.statusCode(), bytes, response, data, null);
         } catch (Exception e) {
-            return new VerifyOAuthAccessTokenOauthAccessTokensResponseBody(response.statusCode(), null, response, null, e);
+            return new VerifyOAuthAccessTokenOauthAccessTokensResponseBody(response.statusCode(), bytes, response, null, e);
         }
     }
 
