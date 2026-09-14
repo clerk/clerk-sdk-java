@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class JwtSessionTokenVerifierTest {
 
@@ -424,6 +427,115 @@ class JwtSessionTokenVerifierTest {
             () -> JwtSessionTokenVerifier.verify(invalidToken, options)
         );
         assertEquals(TokenVerificationErrorReason.TOKEN_INVALID, exception.reason());
+    }
+
+    @Test
+    void verify_WithDifferentRemoteOptions_ShouldResolveKeysSeparately() throws Exception {
+        VerifyTokenOptions original = VerifyTokenOptions.secretKey("sk_test_first")
+            .apiUrl("https://api.clerk.test").build();
+        List<VerifyTokenOptions> alternatives = List.of(
+            VerifyTokenOptions.secretKey("sk_test_second").apiUrl("https://api.clerk.test").build(),
+            VerifyTokenOptions.secretKey("sk_test_first").apiUrl("https://other.clerk.test").build(),
+            VerifyTokenOptions.secretKey("sk_test_first").apiUrl("https://api.clerk.test").apiVersion("v2").build()
+        );
+
+        try (MockedStatic<HttpClient> mockedHttpClient = mockStatic(HttpClient.class)) {
+            mockedHttpClient.when(HttpClient::newHttpClient).thenReturn(mockHttpClient);
+            for (VerifyTokenOptions alternative : alternatives) {
+                String kid = UUID.randomUUID().toString();
+                String token = createTokenWithKid("user_123", kid);
+                when(mockHttpResponse.statusCode()).thenReturn(200);
+                when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+                    .thenAnswer(invocation -> {
+                        HttpRequest request = invocation.getArgument(0);
+                        boolean matches = request.uri().toString().equals("https://api.clerk.test/v1/jwks")
+                            && request.headers().firstValue("Authorization").orElse("").equals("Bearer sk_test_first");
+                        when(mockHttpResponse.body()).thenReturn(matches ? createJwksResponse(kid, publicKey) : "{\"keys\":[]}");
+                        return mockHttpResponse;
+                    });
+
+                TokenVerificationException cold = assertThrows(TokenVerificationException.class,
+                    () -> JwtSessionTokenVerifier.verify(token, alternative));
+                assertEquals(TokenVerificationErrorReason.JWK_KID_MISMATCH, cold.reason());
+                assertEquals("user_123", JwtSessionTokenVerifier.verify(token, original).payload().getSubject());
+                TokenVerificationException warm = assertThrows(TokenVerificationException.class,
+                    () -> JwtSessionTokenVerifier.verify(token, alternative));
+                assertEquals(TokenVerificationErrorReason.JWK_KID_MISMATCH, warm.reason());
+                assertEquals("user_123", JwtSessionTokenVerifier.verify(token, original).payload().getSubject());
+            }
+        }
+    }
+
+    @Test
+    void verify_WithCachedRemoteKey_ShouldAvoidRepeatedRequests() throws Exception {
+        String kid = UUID.randomUUID().toString();
+        String token = createTokenWithKid("user_123", kid);
+        VerifyTokenOptions options = VerifyTokenOptions.secretKey("sk_test_123").build();
+        when(mockHttpResponse.statusCode()).thenReturn(200);
+        when(mockHttpResponse.body()).thenReturn(createJwksResponse(kid, publicKey));
+        when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenReturn(mockHttpResponse);
+
+        try (MockedStatic<HttpClient> mockedHttpClient = mockStatic(HttpClient.class)) {
+            mockedHttpClient.when(HttpClient::newHttpClient).thenReturn(mockHttpClient);
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, options).payload().getSubject());
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, options).payload().getSubject());
+            verify(mockHttpClient, times(1)).send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class));
+        }
+    }
+
+    @Test
+    void verify_WithMatchingKeyIds_ShouldResolveKeysPerConfiguration() throws Exception {
+        String kid = UUID.randomUUID().toString();
+        String token = createTokenWithKid("user_123", kid);
+        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+        generator.initialize(2048);
+        KeyPair otherKey = generator.generateKeyPair();
+        String otherToken = Jwts.builder().header().keyId(kid).and()
+            .subject("user_456").expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
+            .signWith(otherKey.getPrivate()).compact();
+        VerifyTokenOptions original = VerifyTokenOptions.secretKey("sk_test_first").build();
+        VerifyTokenOptions changed = VerifyTokenOptions.secretKey("sk_test_second").build();
+        when(mockHttpResponse.statusCode()).thenReturn(200);
+        when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenAnswer(invocation -> {
+                HttpRequest request = invocation.getArgument(0);
+                RSAPublicKey key = request.headers().firstValue("Authorization").orElse("").equals("Bearer sk_test_first")
+                    ? publicKey : (RSAPublicKey) otherKey.getPublic();
+                when(mockHttpResponse.body()).thenReturn(createJwksResponse(kid, key));
+                return mockHttpResponse;
+            });
+
+        try (MockedStatic<HttpClient> mockedHttpClient = mockStatic(HttpClient.class)) {
+            mockedHttpClient.when(HttpClient::newHttpClient).thenReturn(mockHttpClient);
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, original).payload().getSubject());
+            assertEquals("user_456", JwtSessionTokenVerifier.verify(otherToken, changed).payload().getSubject());
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, original).payload().getSubject());
+            TokenVerificationException exception = assertThrows(TokenVerificationException.class,
+                () -> JwtSessionTokenVerifier.verify(token, changed));
+            assertEquals(TokenVerificationErrorReason.TOKEN_INVALID, exception.reason());
+            verify(mockHttpClient, times(2)).send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class));
+        }
+    }
+
+    @Test
+    void verify_WithSkipJwksCache_ShouldBypassReadsAndWrites() throws Exception {
+        String kid = UUID.randomUUID().toString();
+        String token = createTokenWithKid("user_123", kid);
+        VerifyTokenOptions cached = VerifyTokenOptions.secretKey("sk_test_123").build();
+        VerifyTokenOptions uncached = VerifyTokenOptions.secretKey("sk_test_123").skipJwksCache(true).build();
+        when(mockHttpResponse.statusCode()).thenReturn(200);
+        when(mockHttpResponse.body()).thenReturn(createJwksResponse(kid, publicKey));
+        when(mockHttpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+            .thenReturn(mockHttpResponse);
+
+        try (MockedStatic<HttpClient> mockedHttpClient = mockStatic(HttpClient.class)) {
+            mockedHttpClient.when(HttpClient::newHttpClient).thenReturn(mockHttpClient);
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, uncached).payload().getSubject());
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, cached).payload().getSubject());
+            assertEquals("user_123", JwtSessionTokenVerifier.verify(token, uncached).payload().getSubject());
+            verify(mockHttpClient, times(3)).send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class));
+        }
     }
 
     // Helper methods
