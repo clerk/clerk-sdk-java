@@ -25,6 +25,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.Key;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
@@ -212,8 +214,19 @@ public class JwtSessionTokenVerifier {
         }
 
         // Use cache-aside pattern: check cache, populate if missing
-        String pem = jwkCache.getOrCompute(kid, () -> fetchAndConvertJwk(kid, options));
+        String pem = jwkCache.getOrCompute(jwkCacheKey(kid, options), () -> fetchAndConvertJwk(kid, options));
         return getLocalJwtKey(pem);
+    }
+
+    private static String jwkCacheKey(String kid, VerifyTokenOptions options) {
+        try {
+            byte[] scope = new ObjectMapper().writeValueAsBytes(List.of(
+                options.apiUrl(), options.apiVersion(), options.secretKey().orElseThrow()));
+            byte[] digest = MessageDigest.getInstance("SHA-256").digest(scope);
+            return Base64.getUrlEncoder().withoutPadding().encodeToString(digest) + ":" + kid;
+        } catch (IOException | NoSuchAlgorithmException e) {
+            throw new IllegalStateException("Unable to create JWK cache key", e);
+        }
     }
 
     /**
