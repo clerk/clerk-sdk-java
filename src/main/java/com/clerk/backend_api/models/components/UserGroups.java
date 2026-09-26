@@ -11,7 +11,7 @@ import java.lang.Override;
 import java.lang.String;
 
 
-public class Groups {
+public class UserGroups {
 
     @JsonProperty("id")
     private String id;
@@ -21,7 +21,7 @@ public class Groups {
     private String displayName;
 
     @JsonCreator
-    public Groups(
+    public UserGroups(
             @JsonProperty("id") String id,
             @JsonProperty("display_name") String displayName) {
         Utils.checkNotNull(id, "id");
@@ -45,13 +45,13 @@ public class Groups {
     }
 
 
-    public Groups withId(String id) {
+    public UserGroups withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
     }
 
-    public Groups withDisplayName(String displayName) {
+    public UserGroups withDisplayName(String displayName) {
         Utils.checkNotNull(displayName, "displayName");
         this.displayName = displayName;
         return this;
@@ -65,7 +65,7 @@ public class Groups {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Groups other = (Groups) o;
+        UserGroups other = (UserGroups) o;
         return 
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.displayName, other.displayName);
@@ -79,7 +79,7 @@ public class Groups {
     
     @Override
     public String toString() {
-        return Utils.toString(Groups.class,
+        return Utils.toString(UserGroups.class,
                 "id", id,
                 "displayName", displayName);
     }
@@ -109,9 +109,9 @@ public class Groups {
             return this;
         }
 
-        public Groups build() {
+        public UserGroups build() {
 
-            return new Groups(
+            return new UserGroups(
                 id, displayName);
         }
 
