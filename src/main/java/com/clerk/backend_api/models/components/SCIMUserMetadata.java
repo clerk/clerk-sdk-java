@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
-import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -18,14 +17,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Scim
+ * SCIMUserMetadata
  * 
- * <p>Alias of directory. Use directories for all links.
- * 
- * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
+ * <p>Metadata describing a user's linkage to a directory. Included in user responses when directory data
+ * is requested, and in directory-triggered user webhooks. Its absence does not necessarily mean the
+ * user is not managed by a directory.
  */
-@Deprecated
-public class Scim {
+public class SCIMUserMetadata {
     /**
      * The user's resource ID in this directory.
      */
@@ -50,7 +48,7 @@ public class Scim {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("groups")
-    private Optional<? extends List<UserScimGroups>> groups;
+    private Optional<? extends List<Groups>> groups;
 
     /**
      * The ID of the directory the user is provisioned from.
@@ -72,12 +70,12 @@ public class Scim {
     private Optional<String> externalId;
 
     @JsonCreator
-    public Scim(
+    public SCIMUserMetadata(
             @JsonProperty("id") String id,
             @JsonProperty("directory_name") String directoryName,
             @JsonProperty("provider") String provider,
             @JsonProperty("enterprise_connection_id") Optional<String> enterpriseConnectionId,
-            @JsonProperty("groups") Optional<? extends List<UserScimGroups>> groups,
+            @JsonProperty("groups") Optional<? extends List<Groups>> groups,
             @JsonProperty("directory_id") String directoryId,
             @JsonProperty("directory_enabled") boolean directoryEnabled,
             @JsonProperty("external_id") Optional<String> externalId) {
@@ -99,7 +97,7 @@ public class Scim {
         this.externalId = externalId;
     }
     
-    public Scim(
+    public SCIMUserMetadata(
             String id,
             String directoryName,
             String provider,
@@ -138,8 +136,8 @@ public class Scim {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<UserScimGroups>> groups() {
-        return (Optional<List<UserScimGroups>>) groups;
+    public Optional<List<Groups>> groups() {
+        return (Optional<List<Groups>>) groups;
     }
 
     /**
@@ -174,32 +172,32 @@ public class Scim {
     /**
      * The user's resource ID in this directory.
      */
-    public Scim withId(String id) {
+    public SCIMUserMetadata withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
     }
 
-    public Scim withDirectoryName(String directoryName) {
+    public SCIMUserMetadata withDirectoryName(String directoryName) {
         Utils.checkNotNull(directoryName, "directoryName");
         this.directoryName = directoryName;
         return this;
     }
 
-    public Scim withProvider(String provider) {
+    public SCIMUserMetadata withProvider(String provider) {
         Utils.checkNotNull(provider, "provider");
         this.provider = provider;
         return this;
     }
 
-    public Scim withEnterpriseConnectionId(String enterpriseConnectionId) {
+    public SCIMUserMetadata withEnterpriseConnectionId(String enterpriseConnectionId) {
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         this.enterpriseConnectionId = Optional.ofNullable(enterpriseConnectionId);
         return this;
     }
 
 
-    public Scim withEnterpriseConnectionId(Optional<String> enterpriseConnectionId) {
+    public SCIMUserMetadata withEnterpriseConnectionId(Optional<String> enterpriseConnectionId) {
         Utils.checkNotNull(enterpriseConnectionId, "enterpriseConnectionId");
         this.enterpriseConnectionId = enterpriseConnectionId;
         return this;
@@ -208,7 +206,7 @@ public class Scim {
     /**
      * Omitted when groups were not loaded; an empty array means no group memberships.
      */
-    public Scim withGroups(List<UserScimGroups> groups) {
+    public SCIMUserMetadata withGroups(List<Groups> groups) {
         Utils.checkNotNull(groups, "groups");
         this.groups = Optional.ofNullable(groups);
         return this;
@@ -218,7 +216,7 @@ public class Scim {
     /**
      * Omitted when groups were not loaded; an empty array means no group memberships.
      */
-    public Scim withGroups(Optional<? extends List<UserScimGroups>> groups) {
+    public SCIMUserMetadata withGroups(Optional<? extends List<Groups>> groups) {
         Utils.checkNotNull(groups, "groups");
         this.groups = groups;
         return this;
@@ -227,7 +225,7 @@ public class Scim {
     /**
      * The ID of the directory the user is provisioned from.
      */
-    public Scim withDirectoryId(String directoryId) {
+    public SCIMUserMetadata withDirectoryId(String directoryId) {
         Utils.checkNotNull(directoryId, "directoryId");
         this.directoryId = directoryId;
         return this;
@@ -236,7 +234,7 @@ public class Scim {
     /**
      * Whether the directory is currently enabled.
      */
-    public Scim withDirectoryEnabled(boolean directoryEnabled) {
+    public SCIMUserMetadata withDirectoryEnabled(boolean directoryEnabled) {
         Utils.checkNotNull(directoryEnabled, "directoryEnabled");
         this.directoryEnabled = directoryEnabled;
         return this;
@@ -245,7 +243,7 @@ public class Scim {
     /**
      * The user's external ID as reported by the directory, if any.
      */
-    public Scim withExternalId(String externalId) {
+    public SCIMUserMetadata withExternalId(String externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = Optional.ofNullable(externalId);
         return this;
@@ -255,7 +253,7 @@ public class Scim {
     /**
      * The user's external ID as reported by the directory, if any.
      */
-    public Scim withExternalId(Optional<String> externalId) {
+    public SCIMUserMetadata withExternalId(Optional<String> externalId) {
         Utils.checkNotNull(externalId, "externalId");
         this.externalId = externalId;
         return this;
@@ -269,7 +267,7 @@ public class Scim {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Scim other = (Scim) o;
+        SCIMUserMetadata other = (SCIMUserMetadata) o;
         return 
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.directoryName, other.directoryName) &&
@@ -291,7 +289,7 @@ public class Scim {
     
     @Override
     public String toString() {
-        return Utils.toString(Scim.class,
+        return Utils.toString(SCIMUserMetadata.class,
                 "id", id,
                 "directoryName", directoryName,
                 "provider", provider,
@@ -313,7 +311,7 @@ public class Scim {
 
         private Optional<String> enterpriseConnectionId = Optional.empty();
 
-        private Optional<? extends List<UserScimGroups>> groups = Optional.empty();
+        private Optional<? extends List<Groups>> groups = Optional.empty();
 
         private String directoryId;
 
@@ -366,7 +364,7 @@ public class Scim {
         /**
          * Omitted when groups were not loaded; an empty array means no group memberships.
          */
-        public Builder groups(List<UserScimGroups> groups) {
+        public Builder groups(List<Groups> groups) {
             Utils.checkNotNull(groups, "groups");
             this.groups = Optional.ofNullable(groups);
             return this;
@@ -375,7 +373,7 @@ public class Scim {
         /**
          * Omitted when groups were not loaded; an empty array means no group memberships.
          */
-        public Builder groups(Optional<? extends List<UserScimGroups>> groups) {
+        public Builder groups(Optional<? extends List<Groups>> groups) {
             Utils.checkNotNull(groups, "groups");
             this.groups = groups;
             return this;
@@ -420,9 +418,9 @@ public class Scim {
             return this;
         }
 
-        public Scim build() {
+        public SCIMUserMetadata build() {
 
-            return new Scim(
+            return new SCIMUserMetadata(
                 id, directoryName, provider,
                 enterpriseConnectionId, groups, directoryId,
                 directoryEnabled, externalId);

@@ -278,9 +278,32 @@ public class User {
     @JsonProperty("bypass_client_trust")
     private Optional<Boolean> bypassClientTrust;
 
+    /**
+     * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+     * directory links.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("directories")
+    private Optional<? extends List<SCIMUserMetadata>> directories;
 
+    /**
+     * The most recently updated directory link. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("directory")
+    @Deprecated
+    private Optional<? extends UserDirectory> directory;
+
+    /**
+     * Alias of directory. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scim")
+    @Deprecated
     private JsonNullable<? extends Scim> scim;
 
     @JsonCreator
@@ -330,6 +353,8 @@ public class User {
             @JsonProperty("last_active_at") Optional<Long> lastActiveAt,
             @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt,
             @JsonProperty("bypass_client_trust") Optional<Boolean> bypassClientTrust,
+            @JsonProperty("directories") Optional<? extends List<SCIMUserMetadata>> directories,
+            @JsonProperty("directory") Optional<? extends UserDirectory> directory,
             @JsonProperty("scim") JsonNullable<? extends Scim> scim) {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(object, "object");
@@ -377,6 +402,8 @@ public class User {
         Utils.checkNotNull(lastActiveAt, "lastActiveAt");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
         Utils.checkNotNull(bypassClientTrust, "bypassClientTrust");
+        Utils.checkNotNull(directories, "directories");
+        Utils.checkNotNull(directory, "directory");
         Utils.checkNotNull(scim, "scim");
         this.id = id;
         this.object = object;
@@ -423,6 +450,8 @@ public class User {
         this.lastActiveAt = lastActiveAt;
         this.legalAcceptedAt = legalAcceptedAt;
         this.bypassClientTrust = bypassClientTrust;
+        this.directories = directories;
+        this.directory = directory;
         this.scim = scim;
     }
     
@@ -463,7 +492,7 @@ public class User {
             Optional.empty(), updatedAt, createdAt,
             deleteSelfEnabled, createOrganizationEnabled, JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -758,6 +787,34 @@ public class User {
         return bypassClientTrust;
     }
 
+    /**
+     * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+     * directory links.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<SCIMUserMetadata>> directories() {
+        return (Optional<List<SCIMUserMetadata>>) directories;
+    }
+
+    /**
+     * The most recently updated directory link. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<UserDirectory> directory() {
+        return (Optional<UserDirectory>) directory;
+    }
+
+    /**
+     * Alias of directory. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Scim> scim() {
@@ -1310,12 +1367,70 @@ public class User {
         return this;
     }
 
+    /**
+     * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+     * directory links.
+     */
+    public User withDirectories(List<SCIMUserMetadata> directories) {
+        Utils.checkNotNull(directories, "directories");
+        this.directories = Optional.ofNullable(directories);
+        return this;
+    }
+
+
+    /**
+     * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+     * directory links.
+     */
+    public User withDirectories(Optional<? extends List<SCIMUserMetadata>> directories) {
+        Utils.checkNotNull(directories, "directories");
+        this.directories = directories;
+        return this;
+    }
+
+    /**
+     * The most recently updated directory link. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public User withDirectory(UserDirectory directory) {
+        Utils.checkNotNull(directory, "directory");
+        this.directory = Optional.ofNullable(directory);
+        return this;
+    }
+
+
+    /**
+     * The most recently updated directory link. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public User withDirectory(Optional<? extends UserDirectory> directory) {
+        Utils.checkNotNull(directory, "directory");
+        this.directory = directory;
+        return this;
+    }
+
+    /**
+     * Alias of directory. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public User withScim(Scim scim) {
         Utils.checkNotNull(scim, "scim");
         this.scim = JsonNullable.of(scim);
         return this;
     }
 
+    /**
+     * Alias of directory. Use directories for all links.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
     public User withScim(JsonNullable<? extends Scim> scim) {
         Utils.checkNotNull(scim, "scim");
         this.scim = scim;
@@ -1377,6 +1492,8 @@ public class User {
             Utils.enhancedDeepEquals(this.lastActiveAt, other.lastActiveAt) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
             Utils.enhancedDeepEquals(this.bypassClientTrust, other.bypassClientTrust) &&
+            Utils.enhancedDeepEquals(this.directories, other.directories) &&
+            Utils.enhancedDeepEquals(this.directory, other.directory) &&
             Utils.enhancedDeepEquals(this.scim, other.scim);
     }
     
@@ -1398,7 +1515,7 @@ public class User {
             verificationAttemptsRemaining, updatedAt, createdAt,
             deleteSelfEnabled, createOrganizationEnabled, createOrganizationsLimit,
             lastActiveAt, legalAcceptedAt, bypassClientTrust,
-            scim);
+            directories, directory, scim);
     }
     
     @Override
@@ -1449,6 +1566,8 @@ public class User {
                 "lastActiveAt", lastActiveAt,
                 "legalAcceptedAt", legalAcceptedAt,
                 "bypassClientTrust", bypassClientTrust,
+                "directories", directories,
+                "directory", directory,
                 "scim", scim);
     }
 
@@ -1546,6 +1665,12 @@ public class User {
 
         private Optional<Boolean> bypassClientTrust;
 
+        private Optional<? extends List<SCIMUserMetadata>> directories = Optional.empty();
+
+        @Deprecated
+        private Optional<? extends UserDirectory> directory = Optional.empty();
+
+        @Deprecated
         private JsonNullable<? extends Scim> scim = JsonNullable.undefined();
 
         private Builder() {
@@ -2119,12 +2244,70 @@ public class User {
         }
 
 
+        /**
+         * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+         * directory links.
+         */
+        public Builder directories(List<SCIMUserMetadata> directories) {
+            Utils.checkNotNull(directories, "directories");
+            this.directories = Optional.ofNullable(directories);
+            return this;
+        }
+
+        /**
+         * All loaded directory links. Omitted when links were not loaded; an empty array means the user has no
+         * directory links.
+         */
+        public Builder directories(Optional<? extends List<SCIMUserMetadata>> directories) {
+            Utils.checkNotNull(directories, "directories");
+            this.directories = directories;
+            return this;
+        }
+
+
+        /**
+         * The most recently updated directory link. Use directories for all links.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
+        public Builder directory(UserDirectory directory) {
+            Utils.checkNotNull(directory, "directory");
+            this.directory = Optional.ofNullable(directory);
+            return this;
+        }
+
+        /**
+         * The most recently updated directory link. Use directories for all links.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
+        public Builder directory(Optional<? extends UserDirectory> directory) {
+            Utils.checkNotNull(directory, "directory");
+            this.directory = directory;
+            return this;
+        }
+
+
+        /**
+         * Alias of directory. Use directories for all links.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder scim(Scim scim) {
             Utils.checkNotNull(scim, "scim");
             this.scim = JsonNullable.of(scim);
             return this;
         }
 
+        /**
+         * Alias of directory. Use directories for all links.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+         */
+        @Deprecated
         public Builder scim(JsonNullable<? extends Scim> scim) {
             Utils.checkNotNull(scim, "scim");
             this.scim = scim;
@@ -2152,7 +2335,7 @@ public class User {
                 verificationAttemptsRemaining, updatedAt, createdAt,
                 deleteSelfEnabled, createOrganizationEnabled, createOrganizationsLimit,
                 lastActiveAt, legalAcceptedAt, bypassClientTrust,
-                scim);
+                directories, directory, scim);
         }
 
 

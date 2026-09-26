@@ -16,6 +16,9 @@ import com.clerk.backend_api.models.operations.CreateSessionTokenRequest;
 import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateSessionTokenResponse;
+import com.clerk.backend_api.models.operations.GetReverificationRequest;
+import com.clerk.backend_api.models.operations.GetReverificationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetReverificationResponse;
 import com.clerk.backend_api.models.operations.GetSessionListRequest;
 import com.clerk.backend_api.models.operations.GetSessionListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetSessionListResponse;
@@ -32,6 +35,7 @@ import com.clerk.backend_api.models.operations.RevokeSessionResponse;
 import com.clerk.backend_api.operations.CreateSession;
 import com.clerk.backend_api.operations.CreateSessionToken;
 import com.clerk.backend_api.operations.CreateSessionTokenFromTemplate;
+import com.clerk.backend_api.operations.GetReverification;
 import com.clerk.backend_api.operations.GetSession;
 import com.clerk.backend_api.operations.GetSessionList;
 import com.clerk.backend_api.operations.RefreshSession;
@@ -262,6 +266,65 @@ public class Sessions {
                 .build();
         RequestOperation<RefreshSessionRequest, RefreshSessionResponse> operation
               = new RefreshSession.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @return The call builder
+     */
+    public GetReverificationRequestBuilder getReverification() {
+        return new GetReverificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @param sessionId The ID of the session the reverification belongs to
+     * @param reverificationId The ID of the reverification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetReverificationResponse getReverification(String sessionId, String reverificationId) {
+        return getReverification(sessionId, reverificationId, Optional.empty());
+    }
+
+    /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @param sessionId The ID of the session the reverification belongs to
+     * @param reverificationId The ID of the reverification
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetReverificationResponse getReverification(
+            String sessionId, String reverificationId,
+            Optional<Options> options) {
+        GetReverificationRequest request =
+            GetReverificationRequest
+                .builder()
+                .sessionId(sessionId)
+                .reverificationId(reverificationId)
+                .build();
+        RequestOperation<GetReverificationRequest, GetReverificationResponse> operation
+              = new GetReverification.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

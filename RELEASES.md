@@ -449,3 +449,13 @@ Based on:
 - [java v6.1.0] .
 ### Releases
 - [Maven Central v6.1.0] https://central.sonatype.com/artifact/com.clerk/backend-api/6.1.0 - .
+
+## 2026-09-26 00:14:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.799.0 (2.941.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v6.1.1] .
+### Releases
+- [Maven Central v6.1.1] https://central.sonatype.com/artifact/com.clerk/backend-api/6.1.1 - .

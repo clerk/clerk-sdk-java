@@ -9,11 +9,11 @@ import static com.clerk.backend_api.utils.Exceptions.unchecked;
 
 import com.clerk.backend_api.SDKConfiguration;
 import com.clerk.backend_api.SecuritySource;
-import com.clerk.backend_api.models.components.VerificationResponse;
+import com.clerk.backend_api.models.components.Reverification;
 import com.clerk.backend_api.models.errors.ClerkErrors;
 import com.clerk.backend_api.models.errors.SDKError;
-import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationRequest;
-import com.clerk.backend_api.models.operations.AttemptPhoneNumberVerificationResponse;
+import com.clerk.backend_api.models.operations.GetReverificationRequest;
+import com.clerk.backend_api.models.operations.GetReverificationResponse;
 import com.clerk.backend_api.utils.BackoffStrategy;
 import com.clerk.backend_api.utils.HTTPClient;
 import com.clerk.backend_api.utils.HTTPRequest;
@@ -24,14 +24,10 @@ import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.Retries;
 import com.clerk.backend_api.utils.RetryConfig;
-import com.clerk.backend_api.utils.SerializedBody;
-import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.IllegalArgumentException;
-import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -40,7 +36,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-public class AttemptPhoneNumberVerification {
+public class GetReverification {
 
     static abstract class Base {
         final SDKConfiguration sdkConfiguration;
@@ -83,7 +79,7 @@ public class AttemptPhoneNumberVerification {
             return new BeforeRequestContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "AttemptPhoneNumberVerification",
+                    "GetReverification",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -92,7 +88,7 @@ public class AttemptPhoneNumberVerification {
             return new AfterSuccessContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "AttemptPhoneNumberVerification",
+                    "GetReverification",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -101,30 +97,17 @@ public class AttemptPhoneNumberVerification {
             return new AfterErrorContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "AttemptPhoneNumberVerification",
+                    "GetReverification",
                     java.util.Optional.empty(),
                     securitySource());
         }
-        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
-                    "/phone_numbers/{phone_number_id}/attempt_verification",
+                    "/sessions/{session_id}/reverifications/{reverification_id}",
                     request, null);
-            HTTPRequest req = new HTTPRequest(url, "POST");
-            Object convertedRequest = Utils.convertToShape(
-                    request,
-                    JsonShape.DEFAULT,
-                    typeReference);
-            SerializedBody serializedRequestBody = Utils.serializeRequestBody(
-                    convertedRequest,
-                    "requestBody",
-                    "json",
-                    false);
-            if (serializedRequestBody == null) {
-                throw new IllegalArgumentException("Request body is required");
-            }
-            req.setBody(Optional.ofNullable(serializedRequestBody));
+            HTTPRequest req = new HTTPRequest(url, "GET");
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
@@ -135,7 +118,7 @@ public class AttemptPhoneNumberVerification {
     }
 
     public static class Sync extends Base
-            implements RequestOperation<AttemptPhoneNumberVerificationRequest, AttemptPhoneNumberVerificationResponse> {
+            implements RequestOperation<GetReverificationRequest, GetReverificationResponse> {
         public Sync(
                 SDKConfiguration sdkConfiguration, Optional<Options> options,
                 Headers _headers) {
@@ -144,8 +127,8 @@ public class AttemptPhoneNumberVerification {
                   _headers);
         }
 
-        private HttpRequest onBuildRequest(AttemptPhoneNumberVerificationRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, AttemptPhoneNumberVerificationRequest.class, new TypeReference<AttemptPhoneNumberVerificationRequest>() {});
+        private HttpRequest onBuildRequest(GetReverificationRequest request) throws Exception {
+            HttpRequest req = buildRequest(request, GetReverificationRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -161,7 +144,7 @@ public class AttemptPhoneNumberVerification {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(AttemptPhoneNumberVerificationRequest request) {
+        public HttpResponse<InputStream> doRequest(GetReverificationRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -188,35 +171,28 @@ public class AttemptPhoneNumberVerification {
 
 
         @Override
-        public AttemptPhoneNumberVerificationResponse handleResponse(HttpResponse<InputStream> response) {
+        public GetReverificationResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
                     .orElse("application/octet-stream");
-            AttemptPhoneNumberVerificationResponse.Builder resBuilder =
-                    AttemptPhoneNumberVerificationResponse
+            GetReverificationResponse.Builder resBuilder =
+                    GetReverificationResponse
                             .builder()
                             .contentType(contentType)
                             .statusCode(response.statusCode())
                             .rawResponse(response);
 
-            AttemptPhoneNumberVerificationResponse res = resBuilder.build();
+            GetReverificationResponse res = resBuilder.build();
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withVerificationResponse(Utils.unmarshal(response, new TypeReference<VerificationResponse>() {}));
+                    return res.withReverification(Utils.unmarshal(response, new TypeReference<Reverification>() {}));
                 } else {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "422", "429")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw ClerkErrors.from(response);
-                } else {
-                    throw SDKError.from("Unexpected content-type received: " + contentType, response);
-                }
-            }
-            if (Utils.statusCodeMatches(response.statusCode(), "500")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {
