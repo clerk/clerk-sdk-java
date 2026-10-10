@@ -71,9 +71,8 @@ public class UpdateOAuthApplicationRequestBody {
     private JsonNullable<Boolean> pkceRequired;
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("device_authorization_grant_enabled")
@@ -179,9 +178,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     @JsonIgnore
     public JsonNullable<Boolean> deviceAuthorizationGrantEnabled() {
@@ -328,9 +326,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -339,9 +336,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -566,9 +562,8 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
-         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-         * the setting unchanged.
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+         * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
          */
         public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
             Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -577,9 +572,8 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         /**
-         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-         * the setting unchanged.
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+         * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
          */
         public Builder deviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
             Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");

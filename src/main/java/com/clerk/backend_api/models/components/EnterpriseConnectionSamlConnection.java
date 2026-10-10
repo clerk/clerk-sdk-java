@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -49,6 +51,35 @@ public class EnterpriseConnectionSamlConnection {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_sso_url")
     private JsonNullable<String> idpSsoUrl;
+
+    /**
+     * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("idp_certificate")
+    private JsonNullable<String> idpCertificate;
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("idp_certificate_issued_at")
+    private JsonNullable<Long> idpCertificateIssuedAt;
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("idp_certificate_expires_at")
+    private JsonNullable<Long> idpCertificateExpiresAt;
+
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("idp_certificates")
+    private Optional<? extends List<IdpCertificates>> idpCertificates;
 
     /**
      * IdP metadata URL (optional, when connection details are loaded)
@@ -119,6 +150,10 @@ public class EnterpriseConnectionSamlConnection {
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
             @JsonProperty("idp_sso_url") JsonNullable<String> idpSsoUrl,
+            @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
+            @JsonProperty("idp_certificate_issued_at") JsonNullable<Long> idpCertificateIssuedAt,
+            @JsonProperty("idp_certificate_expires_at") JsonNullable<Long> idpCertificateExpiresAt,
+            @JsonProperty("idp_certificates") Optional<? extends List<IdpCertificates>> idpCertificates,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("acs_url") JsonNullable<String> acsUrl,
             @JsonProperty("sp_entity_id") JsonNullable<String> spEntityId,
@@ -132,6 +167,10 @@ public class EnterpriseConnectionSamlConnection {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
+        Utils.checkNotNull(idpCertificate, "idpCertificate");
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(acsUrl, "acsUrl");
         Utils.checkNotNull(spEntityId, "spEntityId");
@@ -145,6 +184,10 @@ public class EnterpriseConnectionSamlConnection {
         this.name = name;
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
+        this.idpCertificate = idpCertificate;
+        this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+        this.idpCertificateExpiresAt = idpCertificateExpiresAt;
+        this.idpCertificates = idpCertificates;
         this.idpMetadataUrl = idpMetadataUrl;
         this.acsUrl = acsUrl;
         this.spEntityId = spEntityId;
@@ -159,9 +202,10 @@ public class EnterpriseConnectionSamlConnection {
     public EnterpriseConnectionSamlConnection() {
         this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -194,6 +238,40 @@ public class EnterpriseConnectionSamlConnection {
     @JsonIgnore
     public JsonNullable<String> idpSsoUrl() {
         return idpSsoUrl;
+    }
+
+    /**
+     * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+     */
+    @JsonIgnore
+    public JsonNullable<String> idpCertificate() {
+        return idpCertificate;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+     */
+    @JsonIgnore
+    public JsonNullable<Long> idpCertificateIssuedAt() {
+        return idpCertificateIssuedAt;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+     */
+    @JsonIgnore
+    public JsonNullable<Long> idpCertificateExpiresAt() {
+        return idpCertificateExpiresAt;
+    }
+
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<IdpCertificates>> idpCertificates() {
+        return (Optional<List<IdpCertificates>>) idpCertificates;
     }
 
     /**
@@ -345,6 +423,81 @@ public class EnterpriseConnectionSamlConnection {
     public EnterpriseConnectionSamlConnection withIdpSsoUrl(JsonNullable<String> idpSsoUrl) {
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         this.idpSsoUrl = idpSsoUrl;
+        return this;
+    }
+
+    /**
+     * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificate(String idpCertificate) {
+        Utils.checkNotNull(idpCertificate, "idpCertificate");
+        this.idpCertificate = JsonNullable.of(idpCertificate);
+        return this;
+    }
+
+    /**
+     * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificate(JsonNullable<String> idpCertificate) {
+        Utils.checkNotNull(idpCertificate, "idpCertificate");
+        this.idpCertificate = idpCertificate;
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificateIssuedAt(long idpCertificateIssuedAt) {
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        this.idpCertificateIssuedAt = JsonNullable.of(idpCertificateIssuedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificateIssuedAt(JsonNullable<Long> idpCertificateIssuedAt) {
+        Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+        this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificateExpiresAt(long idpCertificateExpiresAt) {
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        this.idpCertificateExpiresAt = JsonNullable.of(idpCertificateExpiresAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificateExpiresAt(JsonNullable<Long> idpCertificateExpiresAt) {
+        Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        this.idpCertificateExpiresAt = idpCertificateExpiresAt;
+        return this;
+    }
+
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificates(List<IdpCertificates> idpCertificates) {
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
+        this.idpCertificates = Optional.ofNullable(idpCertificates);
+        return this;
+    }
+
+
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    public EnterpriseConnectionSamlConnection withIdpCertificates(Optional<? extends List<IdpCertificates>> idpCertificates) {
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
+        this.idpCertificates = idpCertificates;
         return this;
     }
 
@@ -529,6 +682,10 @@ public class EnterpriseConnectionSamlConnection {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
             Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
+            Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpCertificateIssuedAt, other.idpCertificateIssuedAt) &&
+            Utils.enhancedDeepEquals(this.idpCertificateExpiresAt, other.idpCertificateExpiresAt) &&
+            Utils.enhancedDeepEquals(this.idpCertificates, other.idpCertificates) &&
             Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Utils.enhancedDeepEquals(this.acsUrl, other.acsUrl) &&
             Utils.enhancedDeepEquals(this.spEntityId, other.spEntityId) &&
@@ -544,10 +701,11 @@ public class EnterpriseConnectionSamlConnection {
     public int hashCode() {
         return Utils.enhancedHash(
             id, name, idpEntityId,
-            idpSsoUrl, idpMetadataUrl, acsUrl,
-            spEntityId, spMetadataUrl, active,
-            allowIdpInitiated, allowSubdomains, forceAuthn,
-            loginHint);
+            idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
+            idpCertificateExpiresAt, idpCertificates, idpMetadataUrl,
+            acsUrl, spEntityId, spMetadataUrl,
+            active, allowIdpInitiated, allowSubdomains,
+            forceAuthn, loginHint);
     }
     
     @Override
@@ -557,6 +715,10 @@ public class EnterpriseConnectionSamlConnection {
                 "name", name,
                 "idpEntityId", idpEntityId,
                 "idpSsoUrl", idpSsoUrl,
+                "idpCertificate", idpCertificate,
+                "idpCertificateIssuedAt", idpCertificateIssuedAt,
+                "idpCertificateExpiresAt", idpCertificateExpiresAt,
+                "idpCertificates", idpCertificates,
                 "idpMetadataUrl", idpMetadataUrl,
                 "acsUrl", acsUrl,
                 "spEntityId", spEntityId,
@@ -578,6 +740,14 @@ public class EnterpriseConnectionSamlConnection {
         private JsonNullable<String> idpEntityId = JsonNullable.undefined();
 
         private JsonNullable<String> idpSsoUrl = JsonNullable.undefined();
+
+        private JsonNullable<String> idpCertificate = JsonNullable.undefined();
+
+        private JsonNullable<Long> idpCertificateIssuedAt = JsonNullable.undefined();
+
+        private JsonNullable<Long> idpCertificateExpiresAt = JsonNullable.undefined();
+
+        private Optional<? extends List<IdpCertificates>> idpCertificates = Optional.empty();
 
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
 
@@ -674,6 +844,84 @@ public class EnterpriseConnectionSamlConnection {
         public Builder idpSsoUrl(JsonNullable<String> idpSsoUrl) {
             Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
             this.idpSsoUrl = idpSsoUrl;
+            return this;
+        }
+
+
+        /**
+         * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+         */
+        public Builder idpCertificate(String idpCertificate) {
+            Utils.checkNotNull(idpCertificate, "idpCertificate");
+            this.idpCertificate = JsonNullable.of(idpCertificate);
+            return this;
+        }
+
+        /**
+         * Primary IdP X.509 signing certificate (optional, when connection details are loaded)
+         */
+        public Builder idpCertificate(JsonNullable<String> idpCertificate) {
+            Utils.checkNotNull(idpCertificate, "idpCertificate");
+            this.idpCertificate = idpCertificate;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+         */
+        public Builder idpCertificateIssuedAt(long idpCertificateIssuedAt) {
+            Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+            this.idpCertificateIssuedAt = JsonNullable.of(idpCertificateIssuedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (milliseconds) of the primary certificate's X.509 NotBefore
+         */
+        public Builder idpCertificateIssuedAt(JsonNullable<Long> idpCertificateIssuedAt) {
+            Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
+            this.idpCertificateIssuedAt = idpCertificateIssuedAt;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+         */
+        public Builder idpCertificateExpiresAt(long idpCertificateExpiresAt) {
+            Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+            this.idpCertificateExpiresAt = JsonNullable.of(idpCertificateExpiresAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp (milliseconds) of the primary certificate's X.509 NotAfter
+         */
+        public Builder idpCertificateExpiresAt(JsonNullable<Long> idpCertificateExpiresAt) {
+            Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+            this.idpCertificateExpiresAt = idpCertificateExpiresAt;
+            return this;
+        }
+
+
+        /**
+         * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+         * any of them.
+         */
+        public Builder idpCertificates(List<IdpCertificates> idpCertificates) {
+            Utils.checkNotNull(idpCertificates, "idpCertificates");
+            this.idpCertificates = Optional.ofNullable(idpCertificates);
+            return this;
+        }
+
+        /**
+         * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+         * any of them.
+         */
+        public Builder idpCertificates(Optional<? extends List<IdpCertificates>> idpCertificates) {
+            Utils.checkNotNull(idpCertificates, "idpCertificates");
+            this.idpCertificates = idpCertificates;
             return this;
         }
 
@@ -852,10 +1100,11 @@ public class EnterpriseConnectionSamlConnection {
 
             return new EnterpriseConnectionSamlConnection(
                 id, name, idpEntityId,
-                idpSsoUrl, idpMetadataUrl, acsUrl,
-                spEntityId, spMetadataUrl, active,
-                allowIdpInitiated, allowSubdomains, forceAuthn,
-                loginHint);
+                idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
+                idpCertificateExpiresAt, idpCertificates, idpMetadataUrl,
+                acsUrl, spEntityId, spMetadataUrl,
+                active, allowIdpInitiated, allowSubdomains,
+                forceAuthn, loginHint);
         }
 
     }

@@ -136,6 +136,13 @@ public class SignUp {
     private Optional<Long> legalAcceptedAt;
 
     /**
+     * The IANA timezone associated with the sign-up attempt.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("timezone")
+    private JsonNullable<String> timezone;
+
+    /**
      * The user locale preference for the sign-up specified as a BCP-47 language tag.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -176,6 +183,7 @@ public class SignUp {
             @JsonProperty("created_user_id") Optional<String> createdUserId,
             @JsonProperty("abandon_at") long abandonAt,
             @JsonProperty("legal_accepted_at") Optional<Long> legalAcceptedAt,
+            @JsonProperty("timezone") JsonNullable<String> timezone,
             @JsonProperty("locale") JsonNullable<String> locale,
             @JsonProperty("external_account") Optional<? extends SignUpExternalAccount> externalAccount) {
         Utils.checkNotNull(object, "object");
@@ -201,6 +209,7 @@ public class SignUp {
         Utils.checkNotNull(createdUserId, "createdUserId");
         Utils.checkNotNull(abandonAt, "abandonAt");
         Utils.checkNotNull(legalAcceptedAt, "legalAcceptedAt");
+        Utils.checkNotNull(timezone, "timezone");
         Utils.checkNotNull(locale, "locale");
         Utils.checkNotNull(externalAccount, "externalAccount");
         this.object = object;
@@ -226,6 +235,7 @@ public class SignUp {
         this.createdUserId = createdUserId;
         this.abandonAt = abandonAt;
         this.legalAcceptedAt = legalAcceptedAt;
+        this.timezone = timezone;
         this.locale = locale;
         this.externalAccount = externalAccount;
     }
@@ -250,7 +260,7 @@ public class SignUp {
             Optional.empty(), Optional.empty(), customAction,
             Optional.empty(), Optional.empty(), Optional.empty(),
             abandonAt, Optional.empty(), JsonNullable.undefined(),
-            Optional.empty());
+            JsonNullable.undefined(), Optional.empty());
     }
 
     @JsonIgnore
@@ -374,6 +384,14 @@ public class SignUp {
     @JsonIgnore
     public Optional<Long> legalAcceptedAt() {
         return legalAcceptedAt;
+    }
+
+    /**
+     * The IANA timezone associated with the sign-up attempt.
+     */
+    @JsonIgnore
+    public JsonNullable<String> timezone() {
+        return timezone;
     }
 
     /**
@@ -632,6 +650,24 @@ public class SignUp {
     }
 
     /**
+     * The IANA timezone associated with the sign-up attempt.
+     */
+    public SignUp withTimezone(String timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = JsonNullable.of(timezone);
+        return this;
+    }
+
+    /**
+     * The IANA timezone associated with the sign-up attempt.
+     */
+    public SignUp withTimezone(JsonNullable<String> timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = timezone;
+        return this;
+    }
+
+    /**
      * The user locale preference for the sign-up specified as a BCP-47 language tag.
      */
     public SignUp withLocale(String locale) {
@@ -705,6 +741,7 @@ public class SignUp {
             Utils.enhancedDeepEquals(this.createdUserId, other.createdUserId) &&
             Utils.enhancedDeepEquals(this.abandonAt, other.abandonAt) &&
             Utils.enhancedDeepEquals(this.legalAcceptedAt, other.legalAcceptedAt) &&
+            Utils.enhancedDeepEquals(this.timezone, other.timezone) &&
             Utils.enhancedDeepEquals(this.locale, other.locale) &&
             Utils.enhancedDeepEquals(this.externalAccount, other.externalAccount);
     }
@@ -719,8 +756,8 @@ public class SignUp {
             passwordEnabled, firstName, lastName,
             unsafeMetadata, publicMetadata, customAction,
             externalId, createdSessionId, createdUserId,
-            abandonAt, legalAcceptedAt, locale,
-            externalAccount);
+            abandonAt, legalAcceptedAt, timezone,
+            locale, externalAccount);
     }
     
     @Override
@@ -749,6 +786,7 @@ public class SignUp {
                 "createdUserId", createdUserId,
                 "abandonAt", abandonAt,
                 "legalAcceptedAt", legalAcceptedAt,
+                "timezone", timezone,
                 "locale", locale,
                 "externalAccount", externalAccount);
     }
@@ -801,6 +839,8 @@ public class SignUp {
         private Long abandonAt;
 
         private Optional<Long> legalAcceptedAt = Optional.empty();
+
+        private JsonNullable<String> timezone = JsonNullable.undefined();
 
         private JsonNullable<String> locale = JsonNullable.undefined();
 
@@ -1055,6 +1095,25 @@ public class SignUp {
 
 
         /**
+         * The IANA timezone associated with the sign-up attempt.
+         */
+        public Builder timezone(String timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = JsonNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * The IANA timezone associated with the sign-up attempt.
+         */
+        public Builder timezone(JsonNullable<String> timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = timezone;
+            return this;
+        }
+
+
+        /**
          * The user locale preference for the sign-up specified as a BCP-47 language tag.
          */
         public Builder locale(String locale) {
@@ -1105,8 +1164,8 @@ public class SignUp {
                 passwordEnabled, firstName, lastName,
                 unsafeMetadata, publicMetadata, customAction,
                 externalId, createdSessionId, createdUserId,
-                abandonAt, legalAcceptedAt, locale,
-                externalAccount);
+                abandonAt, legalAcceptedAt, timezone,
+                locale, externalAccount);
         }
 
     }

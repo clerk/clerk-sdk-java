@@ -1633,7 +1633,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @return The call builder
      */
@@ -1644,7 +1645,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @param userId The ID of the user that owns the passkey identity
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted
@@ -1658,7 +1660,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @param userId The ID of the user that owns the passkey identity
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted
