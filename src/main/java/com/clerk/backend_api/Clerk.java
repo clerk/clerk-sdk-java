@@ -141,6 +141,9 @@ public class Clerk {
     private final EnterpriseConnections enterpriseConnections;
 
 
+    private final SsoBypassAllowlistUsers ssoBypassAllowlistUsers;
+
+
     private final TestingTokens testingTokens;
 
 
@@ -338,6 +341,11 @@ public class Clerk {
 
     public EnterpriseConnections enterpriseConnections() {
         return enterpriseConnections;
+    }
+
+
+    public SsoBypassAllowlistUsers ssoBypassAllowlistUsers() {
+        return ssoBypassAllowlistUsers;
     }
 
 
@@ -582,6 +590,7 @@ public class Clerk {
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.enterpriseConnections = new EnterpriseConnections(sdkConfiguration);
+        this.ssoBypassAllowlistUsers = new SsoBypassAllowlistUsers(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.agentTasks = new AgentTasks(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);

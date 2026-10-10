@@ -6,7 +6,7 @@
 
 * [list](#list) - List all instance domains
 * [add](#add) - Add a domain
-* [delete](#delete) - Delete a satellite domain
+* [delete](#delete) - Delete a domain
 * [update](#update) - Update a domain
 
 ## list
@@ -57,8 +57,12 @@ public class Application {
 Add a new domain for your instance.
 Useful in the case of multi-domain instances, allows adding satellite domains to an instance.
 The new domain must have a `name`. The domain name can contain the port for development instances, like `localhost:3000`.
-At the moment, instances can have only one primary domain, so the `is_satellite` parameter must be set to `true`.
+Set `is_satellite` to `true` to add a satellite domain.
+To migrate a production instance from an active provider domain to its first custom primary domain,
+set `is_satellite` to `false`. The custom domain becomes active and the provider domain stays attached.
+Additional custom primary domains are not supported.
 If you're planning to configure the new satellite domain to run behind a proxy, pass the `proxy_url` parameter accordingly.
+Adding a custom primary domain returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change the domain from the Vercel integration instead.
 
 ### Example Usage
 
@@ -103,13 +107,14 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 402, 422             | application/json          |
+| models/errors/ClerkErrors | 400, 402, 403, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## delete
 
-Deletes a satellite domain for the instance.
-It is currently not possible to delete the instance's primary domain.
+Deletes a domain for the instance.
+The instance's active domain cannot be deleted.
+Deleting a non-satellite domain returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change the domain from the Vercel integration instead.
 
 ### Example Usage
 
@@ -143,9 +148,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `domainId`                                                             | *String*                                                               | :heavy_check_mark:                                                     | The ID of the domain that will be deleted. Must be a satellite domain. |
+| Parameter                                  | Type                                       | Required                                   | Description                                |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| `domainId`                                 | *String*                                   | :heavy_check_mark:                         | The ID of the domain that will be deleted. |
 
 ### Response
 
@@ -168,6 +173,7 @@ to `null` for the domain. When you update a production instance's primary domain
 you have to make sure that you've completed all the necessary setup steps for DNS and
 emails to work. Expect downtime otherwise. Updating a primary domain's name will also
 update the instance's home origin, affecting the default application paths.
+Updating the `name` or `is_secondary` of a primary domain returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change the domain from the Vercel integration instead.
 
 ### Example Usage
 
@@ -217,5 +223,5 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 404, 422             | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

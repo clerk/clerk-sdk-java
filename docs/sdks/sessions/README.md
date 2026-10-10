@@ -8,6 +8,7 @@
 * [create](#create) - Create a new active session
 * [get](#get) - Retrieve a session
 * [refresh](#refresh) - Refresh a session
+* [getReverification](#getreverification) - Retrieve a reverification
 * [revoke](#revoke) - Revoke a session
 * [createToken](#createtoken) - Create a session token
 * [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a JWT template
@@ -240,6 +241,60 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getReverification
+
+Retrieve a reverification scoped to a session. A resource server can use this to validate a reverification id it received from its client: confirm it is real, scoped to the expected session, completed, and how fresh each factor is. Single-use / replay detection is the caller's responsibility (the id is stable, so the caller dedups consumed ids).
+
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetReverification" method="get" path="/sessions/{session_id}/reverifications/{reverification_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetReverificationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetReverificationResponse res = sdk.sessions().getReverification()
+                .sessionId("<id>")
+                .reverificationId("<id>")
+                .call();
+
+        if (res.reverification().isPresent()) {
+            System.out.println(res.reverification().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                           | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `sessionId`                                         | *String*                                            | :heavy_check_mark:                                  | The ID of the session the reverification belongs to |
+| `reverificationId`                                  | *String*                                            | :heavy_check_mark:                                  | The ID of the reverification                        |
+
+### Response
+
+**[GetReverificationResponse](../../models/operations/GetReverificationResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke

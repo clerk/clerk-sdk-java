@@ -199,7 +199,7 @@ public class UpdateProductionInstanceDomain {
                 // no content
                 return res;
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "422")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {
