@@ -267,7 +267,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 403, 404        | application/json          |
+| models/errors/ClerkErrors | 400, 401, 403, 404, 429   | application/json          |
 | models/errors/ClerkErrors | 500                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 

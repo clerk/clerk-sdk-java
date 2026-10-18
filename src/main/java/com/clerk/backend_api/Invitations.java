@@ -10,6 +10,9 @@ import com.clerk.backend_api.models.operations.CreateBulkInvitationsResponse;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateInvitationResponse;
+import com.clerk.backend_api.models.operations.DeleteInvitationRequest;
+import com.clerk.backend_api.models.operations.DeleteInvitationRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteInvitationResponse;
 import com.clerk.backend_api.models.operations.ListInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListInvitationsResponse;
@@ -19,6 +22,7 @@ import com.clerk.backend_api.models.operations.RevokeInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
 import com.clerk.backend_api.operations.CreateBulkInvitations;
 import com.clerk.backend_api.operations.CreateInvitation;
+import com.clerk.backend_api.operations.DeleteInvitation;
 import com.clerk.backend_api.operations.ListInvitations;
 import com.clerk.backend_api.operations.RevokeInvitation;
 import com.clerk.backend_api.utils.Headers;
@@ -193,6 +197,69 @@ public class Invitations {
     public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) {
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
               = new CreateBulkInvitations.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @return The call builder
+     */
+    public DeleteInvitationRequestBuilder delete() {
+        return new DeleteInvitationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @param invitationId The ID of the invitation to delete
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteInvitationResponse delete(String invitationId) {
+        return delete(invitationId, Optional.empty());
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @param invitationId The ID of the invitation to delete
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteInvitationResponse delete(String invitationId, Optional<Options> options) {
+        DeleteInvitationRequest request =
+            DeleteInvitationRequest
+                .builder()
+                .invitationId(invitationId)
+                .build();
+        RequestOperation<DeleteInvitationRequest, DeleteInvitationResponse> operation
+              = new DeleteInvitation.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
