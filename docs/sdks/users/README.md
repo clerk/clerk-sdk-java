@@ -1553,7 +1553,7 @@ public class Application {
 
 ## deletePasskey
 
-Delete the passkey identification for a given user and notify them through email.
+Delete the passkey identification for a given user. The user is notified through email or SMS unless the passkey registration was never completed.
 
 ### Example Usage
 

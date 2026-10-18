@@ -7,70 +7,37 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.List;
 
-/**
- * Groups
- * 
- * <p>A statement group.
- */
+
 public class Groups {
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    @JsonProperty("object")
-    private BillingStatementGroupsObject object;
 
-    /**
-     * Unix timestamp (in milliseconds) of the date the group's payment attempts were created
-     */
-    @JsonProperty("timestamp")
-    private long timestamp;
+    @JsonProperty("id")
+    private String id;
 
-    /**
-     * The payment attempts included in the group
-     */
-    @JsonProperty("items")
-    private List<BillingPaymentAttempt> items;
+
+    @JsonProperty("display_name")
+    private String displayName;
 
     @JsonCreator
     public Groups(
-            @JsonProperty("object") BillingStatementGroupsObject object,
-            @JsonProperty("timestamp") long timestamp,
-            @JsonProperty("items") List<BillingPaymentAttempt> items) {
-        Utils.checkNotNull(object, "object");
-        Utils.checkNotNull(timestamp, "timestamp");
-        Utils.checkNotNull(items, "items");
-        this.object = object;
-        this.timestamp = timestamp;
-        this.items = items;
+            @JsonProperty("id") String id,
+            @JsonProperty("display_name") String displayName) {
+        Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(displayName, "displayName");
+        this.id = id;
+        this.displayName = displayName;
     }
 
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
     @JsonIgnore
-    public BillingStatementGroupsObject object() {
-        return object;
+    public String id() {
+        return id;
     }
 
-    /**
-     * Unix timestamp (in milliseconds) of the date the group's payment attempts were created
-     */
     @JsonIgnore
-    public long timestamp() {
-        return timestamp;
-    }
-
-    /**
-     * The payment attempts included in the group
-     */
-    @JsonIgnore
-    public List<BillingPaymentAttempt> items() {
-        return items;
+    public String displayName() {
+        return displayName;
     }
 
     public static Builder builder() {
@@ -78,30 +45,15 @@ public class Groups {
     }
 
 
-    /**
-     * String representing the object's type. Objects of the same type share the same value.
-     */
-    public Groups withObject(BillingStatementGroupsObject object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public Groups withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = id;
         return this;
     }
 
-    /**
-     * Unix timestamp (in milliseconds) of the date the group's payment attempts were created
-     */
-    public Groups withTimestamp(long timestamp) {
-        Utils.checkNotNull(timestamp, "timestamp");
-        this.timestamp = timestamp;
-        return this;
-    }
-
-    /**
-     * The payment attempts included in the group
-     */
-    public Groups withItems(List<BillingPaymentAttempt> items) {
-        Utils.checkNotNull(items, "items");
-        this.items = items;
+    public Groups withDisplayName(String displayName) {
+        Utils.checkNotNull(displayName, "displayName");
+        this.displayName = displayName;
         return this;
     }
 
@@ -115,72 +67,52 @@ public class Groups {
         }
         Groups other = (Groups) o;
         return 
-            Utils.enhancedDeepEquals(this.object, other.object) &&
-            Utils.enhancedDeepEquals(this.timestamp, other.timestamp) &&
-            Utils.enhancedDeepEquals(this.items, other.items);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.displayName, other.displayName);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, timestamp, items);
+            id, displayName);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Groups.class,
-                "object", object,
-                "timestamp", timestamp,
-                "items", items);
+                "id", id,
+                "displayName", displayName);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private BillingStatementGroupsObject object;
+        private String id;
 
-        private Long timestamp;
-
-        private List<BillingPaymentAttempt> items;
+        private String displayName;
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        /**
-         * String representing the object's type. Objects of the same type share the same value.
-         */
-        public Builder object(BillingStatementGroupsObject object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = id;
             return this;
         }
 
 
-        /**
-         * Unix timestamp (in milliseconds) of the date the group's payment attempts were created
-         */
-        public Builder timestamp(long timestamp) {
-            Utils.checkNotNull(timestamp, "timestamp");
-            this.timestamp = timestamp;
-            return this;
-        }
-
-
-        /**
-         * The payment attempts included in the group
-         */
-        public Builder items(List<BillingPaymentAttempt> items) {
-            Utils.checkNotNull(items, "items");
-            this.items = items;
+        public Builder displayName(String displayName) {
+            Utils.checkNotNull(displayName, "displayName");
+            this.displayName = displayName;
             return this;
         }
 
         public Groups build() {
 
             return new Groups(
-                object, timestamp, items);
+                id, displayName);
         }
 
     }
