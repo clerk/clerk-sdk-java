@@ -10,6 +10,8 @@
 * [update](#update) - Update a directory
 * [delete](#delete) - Delete a directory
 * [rotateApiKey](#rotateapikey) - Rotate a directory's API key
+* [getGroup](#getgroup) - Retrieve a directory group
+* [listGroupMembers](#listgroupmembers) - List directory group members
 * [listGroupRoleMappings](#listgrouprolemappings) - List directory group role mappings
 * [createGroupRoleMapping](#creategrouprolemapping) - Create a directory group role mapping
 * [replaceGroupRoleMappings](#replacegrouprolemappings) - Replace directory group role mappings
@@ -325,6 +327,117 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 401, 403, 404, 422        | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getGroup
+
+Returns one group of the directory, as reported by the identity provider.
+Responds with 404 once the identity provider has deleted the group.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetDirectoryGroup" method="get" path="/directories/{directory_id}/groups/{group_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetDirectoryGroupResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetDirectoryGroupResponse res = sdk.directories().getGroup()
+                .directoryId("<id>")
+                .groupId("<id>")
+                .call();
+
+        if (res.directoryGroup().isPresent()) {
+            System.out.println(res.directoryGroup().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                          | Type                                               | Required                                           | Description                                        |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| `directoryId`                                      | *String*                                           | :heavy_check_mark:                                 | The ID of the directory.                           |
+| `groupId`                                          | *String*                                           | :heavy_check_mark:                                 | The ID of the group, as assigned by the directory. |
+
+### Response
+
+**[GetDirectoryGroupResponse](../../models/operations/GetDirectoryGroupResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 401, 403, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## listGroupMembers
+
+Returns the members of a group, as reported by the identity provider, using cursor-based pagination.
+Each member carries the Clerk user it is linked to, or null until that user has been provisioned.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="ListDirectoryGroupMembers" method="get" path="/directories/{directory_id}/groups/{group_id}/members" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupMembersResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        ListDirectoryGroupMembersResponse res = sdk.directories().listGroupMembers()
+                .directoryId("<id>")
+                .groupId("<id>")
+                .limit(10L)
+                .call();
+
+        if (res.directoryGroupMemberList().isPresent()) {
+            System.out.println(res.directoryGroupMemberList().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `directoryId`                                                                                                             | *String*                                                                                                                  | :heavy_check_mark:                                                                                                        | The ID of the directory.                                                                                                  |
+| `groupId`                                                                                                                 | *String*                                                                                                                  | :heavy_check_mark:                                                                                                        | The ID of the group, as assigned by the directory.                                                                        |
+| `limit`                                                                                                                   | *Optional\<Long>*                                                                                                         | :heavy_minus_sign:                                                                                                        | Applies a limit to the number of results returned.<br/>Can be used for paginating the results together with `starting_after`. |
+| `startingAfter`                                                                                                           | *Optional\<String>*                                                                                                       | :heavy_minus_sign:                                                                                                        | A cursor for pagination. Provide the `starting_after` cursor from a previous response to fetch the next page.             |
+
+### Response
+
+**[ListDirectoryGroupMembersResponse](../../models/operations/ListDirectoryGroupMembersResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 401, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## listGroupRoleMappings

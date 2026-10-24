@@ -77,6 +77,13 @@ public class One {
     @JsonProperty("idp_certificate_expires_at")
     private Optional<Long> idpCertificateExpiresAt;
 
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    @JsonProperty("idp_certificates")
+    private List<SAMLConnection1IdpCertificates> idpCertificates;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_metadata_url")
@@ -182,6 +189,7 @@ public class One {
             @JsonProperty("idp_certificate") Optional<String> idpCertificate,
             @JsonProperty("idp_certificate_issued_at") Optional<Long> idpCertificateIssuedAt,
             @JsonProperty("idp_certificate_expires_at") Optional<Long> idpCertificateExpiresAt,
+            @JsonProperty("idp_certificates") List<SAMLConnection1IdpCertificates> idpCertificates,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("acs_url") String acsUrl,
@@ -212,6 +220,7 @@ public class One {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         Utils.checkNotNull(idpCertificateIssuedAt, "idpCertificateIssuedAt");
         Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         Utils.checkNotNull(acsUrl, "acsUrl");
@@ -242,6 +251,7 @@ public class One {
         this.idpCertificate = idpCertificate;
         this.idpCertificateIssuedAt = idpCertificateIssuedAt;
         this.idpCertificateExpiresAt = idpCertificateExpiresAt;
+        this.idpCertificates = idpCertificates;
         this.idpMetadataUrl = idpMetadataUrl;
         this.idpMetadata = idpMetadata;
         this.acsUrl = acsUrl;
@@ -269,6 +279,7 @@ public class One {
             String id,
             String name,
             String domain,
+            List<SAMLConnection1IdpCertificates> idpCertificates,
             String acsUrl,
             String spEntityId,
             String spMetadataUrl,
@@ -287,13 +298,14 @@ public class One {
         this(object, id, name,
             domain, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            acsUrl, spEntityId, spMetadataUrl,
-            JsonNullable.undefined(), Optional.empty(), active,
-            provider, userCount, syncUserAttributes,
-            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-            allowOrganizationAccountLinking, forceAuthn, loginHint,
-            JsonNullable.undefined(), createdAt, updatedAt);
+            Optional.empty(), idpCertificates, JsonNullable.undefined(),
+            JsonNullable.undefined(), acsUrl, spEntityId,
+            spMetadataUrl, JsonNullable.undefined(), Optional.empty(),
+            active, provider, userCount,
+            syncUserAttributes, allowSubdomains, allowIdpInitiated,
+            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            loginHint, JsonNullable.undefined(), createdAt,
+            updatedAt);
     }
 
     @JsonIgnore
@@ -358,6 +370,15 @@ public class One {
     @JsonIgnore
     public Optional<Long> idpCertificateExpiresAt() {
         return idpCertificateExpiresAt;
+    }
+
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    @JsonIgnore
+    public List<SAMLConnection1IdpCertificates> idpCertificates() {
+        return idpCertificates;
     }
 
     @JsonIgnore
@@ -601,6 +622,16 @@ public class One {
         return this;
     }
 
+    /**
+     * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+     * any of them.
+     */
+    public One withIdpCertificates(List<SAMLConnection1IdpCertificates> idpCertificates) {
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
+        this.idpCertificates = idpCertificates;
+        return this;
+    }
+
     public One withIdpMetadataUrl(String idpMetadataUrl) {
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         this.idpMetadataUrl = JsonNullable.of(idpMetadataUrl);
@@ -784,6 +815,7 @@ public class One {
             Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
             Utils.enhancedDeepEquals(this.idpCertificateIssuedAt, other.idpCertificateIssuedAt) &&
             Utils.enhancedDeepEquals(this.idpCertificateExpiresAt, other.idpCertificateExpiresAt) &&
+            Utils.enhancedDeepEquals(this.idpCertificates, other.idpCertificates) &&
             Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.acsUrl, other.acsUrl) &&
@@ -812,13 +844,14 @@ public class One {
             object, id, name,
             domain, domains, idpEntityId,
             idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
-            idpCertificateExpiresAt, idpMetadataUrl, idpMetadata,
-            acsUrl, spEntityId, spMetadataUrl,
-            organizationId, attributeMapping, active,
-            provider, userCount, syncUserAttributes,
-            allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-            allowOrganizationAccountLinking, forceAuthn, loginHint,
-            enterpriseConnectionId, createdAt, updatedAt);
+            idpCertificateExpiresAt, idpCertificates, idpMetadataUrl,
+            idpMetadata, acsUrl, spEntityId,
+            spMetadataUrl, organizationId, attributeMapping,
+            active, provider, userCount,
+            syncUserAttributes, allowSubdomains, allowIdpInitiated,
+            disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+            loginHint, enterpriseConnectionId, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -834,6 +867,7 @@ public class One {
                 "idpCertificate", idpCertificate,
                 "idpCertificateIssuedAt", idpCertificateIssuedAt,
                 "idpCertificateExpiresAt", idpCertificateExpiresAt,
+                "idpCertificates", idpCertificates,
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
                 "acsUrl", acsUrl,
@@ -879,6 +913,8 @@ public class One {
         private Optional<Long> idpCertificateIssuedAt = Optional.empty();
 
         private Optional<Long> idpCertificateExpiresAt = Optional.empty();
+
+        private List<SAMLConnection1IdpCertificates> idpCertificates;
 
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
 
@@ -1048,6 +1084,17 @@ public class One {
         public Builder idpCertificateExpiresAt(Optional<Long> idpCertificateExpiresAt) {
             Utils.checkNotNull(idpCertificateExpiresAt, "idpCertificateExpiresAt");
             this.idpCertificateExpiresAt = idpCertificateExpiresAt;
+            return this;
+        }
+
+
+        /**
+         * Every IdP signing certificate the connection trusts, primary first. A SAML response verifies against
+         * any of them.
+         */
+        public Builder idpCertificates(List<SAMLConnection1IdpCertificates> idpCertificates) {
+            Utils.checkNotNull(idpCertificates, "idpCertificates");
+            this.idpCertificates = idpCertificates;
             return this;
         }
 
@@ -1239,13 +1286,14 @@ public class One {
                 object, id, name,
                 domain, domains, idpEntityId,
                 idpSsoUrl, idpCertificate, idpCertificateIssuedAt,
-                idpCertificateExpiresAt, idpMetadataUrl, idpMetadata,
-                acsUrl, spEntityId, spMetadataUrl,
-                organizationId, attributeMapping, active,
-                provider, userCount, syncUserAttributes,
-                allowSubdomains, allowIdpInitiated, disableAdditionalIdentifications,
-                allowOrganizationAccountLinking, forceAuthn, loginHint,
-                enterpriseConnectionId, createdAt, updatedAt);
+                idpCertificateExpiresAt, idpCertificates, idpMetadataUrl,
+                idpMetadata, acsUrl, spEntityId,
+                spMetadataUrl, organizationId, attributeMapping,
+                active, provider, userCount,
+                syncUserAttributes, allowSubdomains, allowIdpInitiated,
+                disableAdditionalIdentifications, allowOrganizationAccountLinking, forceAuthn,
+                loginHint, enterpriseConnectionId, createdAt,
+                updatedAt);
         }
 
     }
