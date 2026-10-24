@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class DeleteDomainRequest {
     /**
-     * The ID of the domain that will be deleted. Must be a satellite domain.
+     * The ID of the domain that will be deleted.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=domain_id")
     private String domainId;
@@ -26,7 +26,7 @@ public class DeleteDomainRequest {
     }
 
     /**
-     * The ID of the domain that will be deleted. Must be a satellite domain.
+     * The ID of the domain that will be deleted.
      */
     @JsonIgnore
     public String domainId() {
@@ -39,7 +39,7 @@ public class DeleteDomainRequest {
 
 
     /**
-     * The ID of the domain that will be deleted. Must be a satellite domain.
+     * The ID of the domain that will be deleted.
      */
     public DeleteDomainRequest withDomainId(String domainId) {
         Utils.checkNotNull(domainId, "domainId");
@@ -83,7 +83,7 @@ public class DeleteDomainRequest {
 
 
         /**
-         * The ID of the domain that will be deleted. Must be a satellite domain.
+         * The ID of the domain that will be deleted.
          */
         public Builder domainId(String domainId) {
             Utils.checkNotNull(domainId, "domainId");
