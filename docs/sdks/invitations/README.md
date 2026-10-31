@@ -7,6 +7,7 @@
 * [create](#create) - Create an invitation
 * [list](#list) - List all invitations
 * [bulkCreate](#bulkcreate) - Create multiple invitations
+* [delete](#delete) - Delete an invitation
 * [revoke](#revoke) - Revokes an invitation
 
 ## create
@@ -167,6 +168,60 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 422                  | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## delete
+
+Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its recipient.
+Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure request from someone who was invited but never signed up.
+Other records that contain the same email address, such as users or organization invitations, are not affected.
+Invitations of any status can be deleted.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="DeleteInvitation" method="delete" path="/invitations/{invitation_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.DeleteInvitationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        DeleteInvitationResponse res = sdk.invitations().delete()
+                .invitationId("<id>")
+                .call();
+
+        if (res.deletedObject().isPresent()) {
+            System.out.println(res.deletedObject().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                          | Type                               | Required                           | Description                        |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| `invitationId`                     | *String*                           | :heavy_check_mark:                 | The ID of the invitation to delete |
+
+### Response
+
+**[DeleteInvitationResponse](../../models/operations/DeleteInvitationResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 404                       | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke

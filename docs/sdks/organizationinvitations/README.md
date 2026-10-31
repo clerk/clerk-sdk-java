@@ -135,10 +135,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 402, 403, 404, 422   | application/json          |
-| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ClerkErrors    | 400, 402, 403, 404, 422, 429 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## list
 
@@ -272,7 +272,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 403, 404, 422        | application/json          |
+| models/errors/ClerkErrors | 400, 403, 404, 422, 429   | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## ~~listPending~~

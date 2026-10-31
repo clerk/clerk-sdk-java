@@ -60,13 +60,13 @@ public class Session {
     private JsonNullable<? extends SessionActivityResponse> latestActivity;
 
     /**
-     * Unix timestamp of expiration.
+     * Unix timestamp in milliseconds of expiration.
      */
     @JsonProperty("expire_at")
     private long expireAt;
 
     /**
-     * Unix timestamp of abandonment.
+     * Unix timestamp in milliseconds of abandonment.
      */
     @JsonProperty("abandon_at")
     private long abandonAt;
@@ -203,7 +203,7 @@ public class Session {
     }
 
     /**
-     * Unix timestamp of expiration.
+     * Unix timestamp in milliseconds of expiration.
      */
     @JsonIgnore
     public long expireAt() {
@@ -211,7 +211,7 @@ public class Session {
     }
 
     /**
-     * Unix timestamp of abandonment.
+     * Unix timestamp in milliseconds of abandonment.
      */
     @JsonIgnore
     public long abandonAt() {
@@ -321,7 +321,7 @@ public class Session {
     }
 
     /**
-     * Unix timestamp of expiration.
+     * Unix timestamp in milliseconds of expiration.
      */
     public Session withExpireAt(long expireAt) {
         Utils.checkNotNull(expireAt, "expireAt");
@@ -330,7 +330,7 @@ public class Session {
     }
 
     /**
-     * Unix timestamp of abandonment.
+     * Unix timestamp in milliseconds of abandonment.
      */
     public Session withAbandonAt(long abandonAt) {
         Utils.checkNotNull(abandonAt, "abandonAt");
@@ -544,7 +544,7 @@ public class Session {
 
 
         /**
-         * Unix timestamp of expiration.
+         * Unix timestamp in milliseconds of expiration.
          */
         public Builder expireAt(long expireAt) {
             Utils.checkNotNull(expireAt, "expireAt");
@@ -554,7 +554,7 @@ public class Session {
 
 
         /**
-         * Unix timestamp of abandonment.
+         * Unix timestamp in milliseconds of abandonment.
          */
         public Builder abandonAt(long abandonAt) {
             Utils.checkNotNull(abandonAt, "abandonAt");

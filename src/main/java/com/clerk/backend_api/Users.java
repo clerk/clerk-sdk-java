@@ -63,6 +63,10 @@ import com.clerk.backend_api.models.operations.ListUserTrustedDevicesResponse;
 import com.clerk.backend_api.models.operations.LockUserRequest;
 import com.clerk.backend_api.models.operations.LockUserRequestBuilder;
 import com.clerk.backend_api.models.operations.LockUserResponse;
+import com.clerk.backend_api.models.operations.MergeUserRequest;
+import com.clerk.backend_api.models.operations.MergeUserRequestBody;
+import com.clerk.backend_api.models.operations.MergeUserRequestBuilder;
+import com.clerk.backend_api.models.operations.MergeUserResponse;
 import com.clerk.backend_api.models.operations.QueryParamStatus;
 import com.clerk.backend_api.models.operations.RemoveUserPasswordRequest;
 import com.clerk.backend_api.models.operations.RemoveUserPasswordRequestBody;
@@ -148,6 +152,7 @@ import com.clerk.backend_api.operations.InstanceGetOrganizationMemberships;
 import com.clerk.backend_api.operations.ListUserBiometricCredentials;
 import com.clerk.backend_api.operations.ListUserTrustedDevices;
 import com.clerk.backend_api.operations.LockUser;
+import com.clerk.backend_api.operations.MergeUser;
 import com.clerk.backend_api.operations.RemoveUserPassword;
 import com.clerk.backend_api.operations.ReplaceUserMetadata;
 import com.clerk.backend_api.operations.RevokeUserBiometricCredential;
@@ -530,8 +535,9 @@ public class Users {
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
-     * allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions and OAuth grants are revoked and
+     * they are not allowed to sign in again. Revoked OAuth grants are not restored if the user is
+     * unbanned.
      * 
      * @return The call builder
      */
@@ -542,8 +548,9 @@ public class Users {
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
-     * allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions and OAuth grants are revoked and
+     * they are not allowed to sign in again. Revoked OAuth grants are not restored if the user is
+     * unbanned.
      * 
      * @param userId The ID of the user to ban
      * @return The response from the API call
@@ -556,8 +563,9 @@ public class Users {
     /**
      * Ban a user
      * 
-     * <p>Marks the given user as banned, which means that all their sessions are revoked and they are not
-     * allowed to sign in again.
+     * <p>Marks the given user as banned, which means that all their sessions and OAuth grants are revoked and
+     * they are not allowed to sign in again. Revoked OAuth grants are not restored if the user is
+     * unbanned.
      * 
      * @param userId The ID of the user to ban
      * @param options additional options
@@ -796,6 +804,161 @@ public class Users {
                 .build();
         RequestOperation<UnlockUserRequest, UnlockUserResponse> operation
               = new UnlockUser.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Merge another user into this user
+     * 
+     * <p>Moves the identifications, connected accounts, passkeys, TOTP, backup codes, organization
+     * memberships, membership requests, suggestions and metadata of the user in `from_user_id` onto the
+     * user in the path, then deletes the `from_user_id` user.
+     * Where both users have a value, the user in the path keeps its own. First and last name, profile
+     * image, `external_id`, and the password are taken from the `from_user_id` user only where the user in
+     * the path has none, so if it has no password, the `from_user_id` user's password signs in to it
+     * afterwards. When both users have the same
+     * identifier, the verified copy is kept. The `from_user_id` user's sessions are revoked.
+     * With `dry_run`, the merge is computed and returned but nothing is changed.
+     * 
+     * <p>A merge cannot be undone. The response's `deleted_user` is the `from_user_id` user as it was before
+     * the merge, so store it if you may need it. It does not include passwords, TOTP secrets, backup
+     * codes,
+     * passkeys or connected-account tokens, which cannot be restored. Use `dry_run` to preview a merge.
+     * 
+     * <p>The merge sends a `user.merged` webhook alongside `user.updated` and `user.deleted`. Webhooks are
+     * not
+     * delivered in order, so `user.updated` (the user now owning the `from_user_id` user's emails) can
+     * arrive
+     * before `user.deleted`; handle `user.merged` by moving the `from_user_id` user's data to the user
+     * rather
+     * than relying on that order. Moved organization memberships keep their ID, so their
+     * `organizationMembership.updated` webhook carries the same membership ID with a different user.
+     * 
+     * <p>Some users cannot be merged. The request then fails with a 409 `user_merge_not_allowed` error whose
+     * `meta.reasons` lists every reason that applies:
+     * - `user_banned`, `from_user_banned`: either user is banned.
+     * - `user_directory_managed`, `from_user_directory_managed`: either user is linked to a SCIM
+     * directory.
+     * - `from_user_enterprise_account`: the `from_user_id` user has a SAML or enterprise SSO account.
+     * - `from_user_billing_payer`: the `from_user_id` user is a billing payer.
+     * - `from_user_student_pack`: the `from_user_id` user has claimed a student pack.
+     * - `too_many_resources`: the users have too many identifications and organization memberships,
+     * requests
+     * and suggestions combined to merge in one request. This reason is returned on its own.
+     * - `same_user`: `from_user_id` is the user in the path.
+     * 
+     * @return The call builder
+     */
+    public MergeUserRequestBuilder merge() {
+        return new MergeUserRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Merge another user into this user
+     * 
+     * <p>Moves the identifications, connected accounts, passkeys, TOTP, backup codes, organization
+     * memberships, membership requests, suggestions and metadata of the user in `from_user_id` onto the
+     * user in the path, then deletes the `from_user_id` user.
+     * Where both users have a value, the user in the path keeps its own. First and last name, profile
+     * image, `external_id`, and the password are taken from the `from_user_id` user only where the user in
+     * the path has none, so if it has no password, the `from_user_id` user's password signs in to it
+     * afterwards. When both users have the same
+     * identifier, the verified copy is kept. The `from_user_id` user's sessions are revoked.
+     * With `dry_run`, the merge is computed and returned but nothing is changed.
+     * 
+     * <p>A merge cannot be undone. The response's `deleted_user` is the `from_user_id` user as it was before
+     * the merge, so store it if you may need it. It does not include passwords, TOTP secrets, backup
+     * codes,
+     * passkeys or connected-account tokens, which cannot be restored. Use `dry_run` to preview a merge.
+     * 
+     * <p>The merge sends a `user.merged` webhook alongside `user.updated` and `user.deleted`. Webhooks are
+     * not
+     * delivered in order, so `user.updated` (the user now owning the `from_user_id` user's emails) can
+     * arrive
+     * before `user.deleted`; handle `user.merged` by moving the `from_user_id` user's data to the user
+     * rather
+     * than relying on that order. Moved organization memberships keep their ID, so their
+     * `organizationMembership.updated` webhook carries the same membership ID with a different user.
+     * 
+     * <p>Some users cannot be merged. The request then fails with a 409 `user_merge_not_allowed` error whose
+     * `meta.reasons` lists every reason that applies:
+     * - `user_banned`, `from_user_banned`: either user is banned.
+     * - `user_directory_managed`, `from_user_directory_managed`: either user is linked to a SCIM
+     * directory.
+     * - `from_user_enterprise_account`: the `from_user_id` user has a SAML or enterprise SSO account.
+     * - `from_user_billing_payer`: the `from_user_id` user is a billing payer.
+     * - `from_user_student_pack`: the `from_user_id` user has claimed a student pack.
+     * - `too_many_resources`: the users have too many identifications and organization memberships,
+     * requests
+     * and suggestions combined to merge in one request. This reason is returned on its own.
+     * - `same_user`: `from_user_id` is the user in the path.
+     * 
+     * @param userId The ID of the user that remains after the merge
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public MergeUserResponse merge(String userId, MergeUserRequestBody requestBody) {
+        return merge(userId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Merge another user into this user
+     * 
+     * <p>Moves the identifications, connected accounts, passkeys, TOTP, backup codes, organization
+     * memberships, membership requests, suggestions and metadata of the user in `from_user_id` onto the
+     * user in the path, then deletes the `from_user_id` user.
+     * Where both users have a value, the user in the path keeps its own. First and last name, profile
+     * image, `external_id`, and the password are taken from the `from_user_id` user only where the user in
+     * the path has none, so if it has no password, the `from_user_id` user's password signs in to it
+     * afterwards. When both users have the same
+     * identifier, the verified copy is kept. The `from_user_id` user's sessions are revoked.
+     * With `dry_run`, the merge is computed and returned but nothing is changed.
+     * 
+     * <p>A merge cannot be undone. The response's `deleted_user` is the `from_user_id` user as it was before
+     * the merge, so store it if you may need it. It does not include passwords, TOTP secrets, backup
+     * codes,
+     * passkeys or connected-account tokens, which cannot be restored. Use `dry_run` to preview a merge.
+     * 
+     * <p>The merge sends a `user.merged` webhook alongside `user.updated` and `user.deleted`. Webhooks are
+     * not
+     * delivered in order, so `user.updated` (the user now owning the `from_user_id` user's emails) can
+     * arrive
+     * before `user.deleted`; handle `user.merged` by moving the `from_user_id` user's data to the user
+     * rather
+     * than relying on that order. Moved organization memberships keep their ID, so their
+     * `organizationMembership.updated` webhook carries the same membership ID with a different user.
+     * 
+     * <p>Some users cannot be merged. The request then fails with a 409 `user_merge_not_allowed` error whose
+     * `meta.reasons` lists every reason that applies:
+     * - `user_banned`, `from_user_banned`: either user is banned.
+     * - `user_directory_managed`, `from_user_directory_managed`: either user is linked to a SCIM
+     * directory.
+     * - `from_user_enterprise_account`: the `from_user_id` user has a SAML or enterprise SSO account.
+     * - `from_user_billing_payer`: the `from_user_id` user is a billing payer.
+     * - `from_user_student_pack`: the `from_user_id` user has claimed a student pack.
+     * - `too_many_resources`: the users have too many identifications and organization memberships,
+     * requests
+     * and suggestions combined to merge in one request. This reason is returned on its own.
+     * - `same_user`: `from_user_id` is the user in the path.
+     * 
+     * @param userId The ID of the user that remains after the merge
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public MergeUserResponse merge(
+            String userId, MergeUserRequestBody requestBody,
+            Optional<Options> options) {
+        MergeUserRequest request =
+            MergeUserRequest
+                .builder()
+                .userId(userId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<MergeUserRequest, MergeUserResponse> operation
+              = new MergeUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -1633,7 +1796,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @return The call builder
      */
@@ -1644,7 +1808,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @param userId The ID of the user that owns the passkey identity
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted
@@ -1658,7 +1823,8 @@ public class Users {
     /**
      * Delete a user passkey
      * 
-     * <p>Delete the passkey identification for a given user and notify them through email.
+     * <p>Delete the passkey identification for a given user. The user is notified through email or SMS unless
+     * the passkey registration was never completed.
      * 
      * @param userId The ID of the user that owns the passkey identity
      * @param passkeyIdentificationId The ID of the passkey identity to be deleted

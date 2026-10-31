@@ -33,6 +33,15 @@ public class UpdateDirectoryRequestBody {
     private Optional<Boolean> enabled;
 
     /**
+     * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+     * syncs while keeping the organization memberships the directory granted, so sync picks
+     * up where it left off. Disabling removes them instead.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("paused")
+    private Optional<Boolean> paused;
+
+    /**
      * The identity provider for this directory.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -58,16 +67,19 @@ public class UpdateDirectoryRequestBody {
     public UpdateDirectoryRequestBody(
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("enabled") Optional<Boolean> enabled,
+            @JsonProperty("paused") Optional<Boolean> paused,
             @JsonProperty("provider") Optional<String> provider,
             @JsonProperty("attribute_mapping") Optional<? extends Map<String, String>> attributeMapping,
             @JsonProperty("group_role_mapping_enabled") Optional<Boolean> groupRoleMappingEnabled) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(enabled, "enabled");
+        Utils.checkNotNull(paused, "paused");
         Utils.checkNotNull(provider, "provider");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
         Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
         this.name = name;
         this.enabled = enabled;
+        this.paused = paused;
         this.provider = provider;
         this.attributeMapping = attributeMapping;
         this.groupRoleMappingEnabled = groupRoleMappingEnabled;
@@ -75,7 +87,7 @@ public class UpdateDirectoryRequestBody {
     
     public UpdateDirectoryRequestBody() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -92,6 +104,16 @@ public class UpdateDirectoryRequestBody {
     @JsonIgnore
     public Optional<Boolean> enabled() {
         return enabled;
+    }
+
+    /**
+     * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+     * syncs while keeping the organization memberships the directory granted, so sync picks
+     * up where it left off. Disabling removes them instead.
+     */
+    @JsonIgnore
+    public Optional<Boolean> paused() {
+        return paused;
     }
 
     /**
@@ -160,6 +182,29 @@ public class UpdateDirectoryRequestBody {
     public UpdateDirectoryRequestBody withEnabled(Optional<Boolean> enabled) {
         Utils.checkNotNull(enabled, "enabled");
         this.enabled = enabled;
+        return this;
+    }
+
+    /**
+     * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+     * syncs while keeping the organization memberships the directory granted, so sync picks
+     * up where it left off. Disabling removes them instead.
+     */
+    public UpdateDirectoryRequestBody withPaused(boolean paused) {
+        Utils.checkNotNull(paused, "paused");
+        this.paused = Optional.ofNullable(paused);
+        return this;
+    }
+
+
+    /**
+     * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+     * syncs while keeping the organization memberships the directory granted, so sync picks
+     * up where it left off. Disabling removes them instead.
+     */
+    public UpdateDirectoryRequestBody withPaused(Optional<Boolean> paused) {
+        Utils.checkNotNull(paused, "paused");
+        this.paused = paused;
         return this;
     }
 
@@ -234,6 +279,7 @@ public class UpdateDirectoryRequestBody {
         return 
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.paused, other.paused) &&
             Utils.enhancedDeepEquals(this.provider, other.provider) &&
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
             Utils.enhancedDeepEquals(this.groupRoleMappingEnabled, other.groupRoleMappingEnabled);
@@ -242,8 +288,8 @@ public class UpdateDirectoryRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            name, enabled, provider,
-            attributeMapping, groupRoleMappingEnabled);
+            name, enabled, paused,
+            provider, attributeMapping, groupRoleMappingEnabled);
     }
     
     @Override
@@ -251,6 +297,7 @@ public class UpdateDirectoryRequestBody {
         return Utils.toString(UpdateDirectoryRequestBody.class,
                 "name", name,
                 "enabled", enabled,
+                "paused", paused,
                 "provider", provider,
                 "attributeMapping", attributeMapping,
                 "groupRoleMappingEnabled", groupRoleMappingEnabled);
@@ -262,6 +309,8 @@ public class UpdateDirectoryRequestBody {
         private Optional<String> name = Optional.empty();
 
         private Optional<Boolean> enabled = Optional.empty();
+
+        private Optional<Boolean> paused = Optional.empty();
 
         private Optional<String> provider = Optional.empty();
 
@@ -308,6 +357,29 @@ public class UpdateDirectoryRequestBody {
         public Builder enabled(Optional<Boolean> enabled) {
             Utils.checkNotNull(enabled, "enabled");
             this.enabled = enabled;
+            return this;
+        }
+
+
+        /**
+         * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+         * syncs while keeping the organization memberships the directory granted, so sync picks
+         * up where it left off. Disabling removes them instead.
+         */
+        public Builder paused(boolean paused) {
+            Utils.checkNotNull(paused, "paused");
+            this.paused = Optional.ofNullable(paused);
+            return this;
+        }
+
+        /**
+         * Pause or resume syncing. Pausing rejects provisioning requests and skips scheduled
+         * syncs while keeping the organization memberships the directory granted, so sync picks
+         * up where it left off. Disabling removes them instead.
+         */
+        public Builder paused(Optional<Boolean> paused) {
+            Utils.checkNotNull(paused, "paused");
+            this.paused = paused;
             return this;
         }
 
@@ -373,8 +445,8 @@ public class UpdateDirectoryRequestBody {
         public UpdateDirectoryRequestBody build() {
 
             return new UpdateDirectoryRequestBody(
-                name, enabled, provider,
-                attributeMapping, groupRoleMappingEnabled);
+                name, enabled, paused,
+                provider, attributeMapping, groupRoleMappingEnabled);
         }
 
     }

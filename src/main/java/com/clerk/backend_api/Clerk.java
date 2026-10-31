@@ -141,6 +141,9 @@ public class Clerk {
     private final EnterpriseConnections enterpriseConnections;
 
 
+    private final SsoBypassAllowlistUsers ssoBypassAllowlistUsers;
+
+
     private final TestingTokens testingTokens;
 
 
@@ -157,6 +160,9 @@ public class Clerk {
 
 
     private final RoleSets roleSets;
+
+
+    private final Logs logs;
 
 
     private final ScimDirectories scimDirectories;
@@ -341,6 +347,11 @@ public class Clerk {
     }
 
 
+    public SsoBypassAllowlistUsers ssoBypassAllowlistUsers() {
+        return ssoBypassAllowlistUsers;
+    }
+
+
     public TestingTokens testingTokens() {
         return testingTokens;
     }
@@ -368,6 +379,11 @@ public class Clerk {
 
     public RoleSets roleSets() {
         return roleSets;
+    }
+
+
+    public Logs logs() {
+        return logs;
     }
 
 
@@ -582,12 +598,14 @@ public class Clerk {
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.enterpriseConnections = new EnterpriseConnections(sdkConfiguration);
+        this.ssoBypassAllowlistUsers = new SsoBypassAllowlistUsers(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.agentTasks = new AgentTasks(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.billing = new Billing(sdkConfiguration);
         this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
         this.roleSets = new RoleSets(sdkConfiguration);
+        this.logs = new Logs(sdkConfiguration);
         this.scimDirectories = new ScimDirectories(sdkConfiguration);
         this.directories = new Directories(sdkConfiguration);
         this.adminPortalLinkTokens = new AdminPortalLinkTokens(sdkConfiguration);
