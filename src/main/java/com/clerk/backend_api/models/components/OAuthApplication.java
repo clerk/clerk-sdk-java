@@ -61,6 +61,20 @@ public class OAuthApplication {
     @JsonProperty("pkce_required")
     private boolean pkceRequired;
 
+    /**
+     * The active application audience URI, whose registry identity is permanently reserved to this
+     * application.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("audience_uri")
+    private Optional<String> audienceUri;
+
+    /**
+     * Whether this confidential application accepts token exchanges from its active audience.
+     */
+    @JsonProperty("token_exchange_enabled")
+    private boolean tokenExchangeEnabled;
+
 
     @JsonProperty("device_authorization_grant_enabled")
     private boolean deviceAuthorizationGrantEnabled;
@@ -133,6 +147,8 @@ public class OAuthApplication {
             @JsonProperty("dynamically_registered") boolean dynamicallyRegistered,
             @JsonProperty("consent_screen_enabled") boolean consentScreenEnabled,
             @JsonProperty("pkce_required") boolean pkceRequired,
+            @JsonProperty("audience_uri") Optional<String> audienceUri,
+            @JsonProperty("token_exchange_enabled") boolean tokenExchangeEnabled,
             @JsonProperty("device_authorization_grant_enabled") boolean deviceAuthorizationGrantEnabled,
             @JsonProperty("public") boolean public_,
             @JsonProperty("scopes") String scopes,
@@ -155,6 +171,8 @@ public class OAuthApplication {
         Utils.checkNotNull(dynamicallyRegistered, "dynamicallyRegistered");
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         Utils.checkNotNull(public_, "public_");
         Utils.checkNotNull(scopes, "scopes");
@@ -177,6 +195,8 @@ public class OAuthApplication {
         this.dynamicallyRegistered = dynamicallyRegistered;
         this.consentScreenEnabled = consentScreenEnabled;
         this.pkceRequired = pkceRequired;
+        this.audienceUri = audienceUri;
+        this.tokenExchangeEnabled = tokenExchangeEnabled;
         this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
         this.public_ = public_;
         this.scopes = scopes;
@@ -200,6 +220,7 @@ public class OAuthApplication {
             boolean dynamicallyRegistered,
             boolean consentScreenEnabled,
             boolean pkceRequired,
+            boolean tokenExchangeEnabled,
             boolean deviceAuthorizationGrantEnabled,
             boolean public_,
             String scopes,
@@ -215,11 +236,11 @@ public class OAuthApplication {
         this(object, id, instanceId,
             name, clientId, Optional.empty(),
             Optional.empty(), dynamicallyRegistered, consentScreenEnabled,
-            pkceRequired, deviceAuthorizationGrantEnabled, public_,
-            scopes, redirectUris, callbackUrl,
-            authorizeUrl, tokenFetchUrl, userInfoUrl,
-            discoveryUrl, tokenIntrospectionUrl, createdAt,
-            updatedAt);
+            pkceRequired, Optional.empty(), tokenExchangeEnabled,
+            deviceAuthorizationGrantEnabled, public_, scopes,
+            redirectUris, callbackUrl, authorizeUrl,
+            tokenFetchUrl, userInfoUrl, discoveryUrl,
+            tokenIntrospectionUrl, createdAt, updatedAt);
     }
 
     @JsonIgnore
@@ -270,6 +291,23 @@ public class OAuthApplication {
     @JsonIgnore
     public boolean pkceRequired() {
         return pkceRequired;
+    }
+
+    /**
+     * The active application audience URI, whose registry identity is permanently reserved to this
+     * application.
+     */
+    @JsonIgnore
+    public Optional<String> audienceUri() {
+        return audienceUri;
+    }
+
+    /**
+     * Whether this confidential application accepts token exchanges from its active audience.
+     */
+    @JsonIgnore
+    public boolean tokenExchangeEnabled() {
+        return tokenExchangeEnabled;
     }
 
     @JsonIgnore
@@ -427,6 +465,36 @@ public class OAuthApplication {
         return this;
     }
 
+    /**
+     * The active application audience URI, whose registry identity is permanently reserved to this
+     * application.
+     */
+    public OAuthApplication withAudienceUri(String audienceUri) {
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        this.audienceUri = Optional.ofNullable(audienceUri);
+        return this;
+    }
+
+
+    /**
+     * The active application audience URI, whose registry identity is permanently reserved to this
+     * application.
+     */
+    public OAuthApplication withAudienceUri(Optional<String> audienceUri) {
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        this.audienceUri = audienceUri;
+        return this;
+    }
+
+    /**
+     * Whether this confidential application accepts token exchanges from its active audience.
+     */
+    public OAuthApplication withTokenExchangeEnabled(boolean tokenExchangeEnabled) {
+        Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+        this.tokenExchangeEnabled = tokenExchangeEnabled;
+        return this;
+    }
+
     public OAuthApplication withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
@@ -535,6 +603,8 @@ public class OAuthApplication {
             Utils.enhancedDeepEquals(this.dynamicallyRegistered, other.dynamicallyRegistered) &&
             Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
+            Utils.enhancedDeepEquals(this.audienceUri, other.audienceUri) &&
+            Utils.enhancedDeepEquals(this.tokenExchangeEnabled, other.tokenExchangeEnabled) &&
             Utils.enhancedDeepEquals(this.deviceAuthorizationGrantEnabled, other.deviceAuthorizationGrantEnabled) &&
             Utils.enhancedDeepEquals(this.public_, other.public_) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
@@ -555,11 +625,11 @@ public class OAuthApplication {
             object, id, instanceId,
             name, clientId, clientUri,
             clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
-            pkceRequired, deviceAuthorizationGrantEnabled, public_,
-            scopes, redirectUris, callbackUrl,
-            authorizeUrl, tokenFetchUrl, userInfoUrl,
-            discoveryUrl, tokenIntrospectionUrl, createdAt,
-            updatedAt);
+            pkceRequired, audienceUri, tokenExchangeEnabled,
+            deviceAuthorizationGrantEnabled, public_, scopes,
+            redirectUris, callbackUrl, authorizeUrl,
+            tokenFetchUrl, userInfoUrl, discoveryUrl,
+            tokenIntrospectionUrl, createdAt, updatedAt);
     }
     
     @Override
@@ -575,6 +645,8 @@ public class OAuthApplication {
                 "dynamicallyRegistered", dynamicallyRegistered,
                 "consentScreenEnabled", consentScreenEnabled,
                 "pkceRequired", pkceRequired,
+                "audienceUri", audienceUri,
+                "tokenExchangeEnabled", tokenExchangeEnabled,
                 "deviceAuthorizationGrantEnabled", deviceAuthorizationGrantEnabled,
                 "public_", public_,
                 "scopes", scopes,
@@ -611,6 +683,10 @@ public class OAuthApplication {
         private Boolean consentScreenEnabled;
 
         private Boolean pkceRequired;
+
+        private Optional<String> audienceUri = Optional.empty();
+
+        private Boolean tokenExchangeEnabled;
 
         private Boolean deviceAuthorizationGrantEnabled;
 
@@ -724,6 +800,37 @@ public class OAuthApplication {
         }
 
 
+        /**
+         * The active application audience URI, whose registry identity is permanently reserved to this
+         * application.
+         */
+        public Builder audienceUri(String audienceUri) {
+            Utils.checkNotNull(audienceUri, "audienceUri");
+            this.audienceUri = Optional.ofNullable(audienceUri);
+            return this;
+        }
+
+        /**
+         * The active application audience URI, whose registry identity is permanently reserved to this
+         * application.
+         */
+        public Builder audienceUri(Optional<String> audienceUri) {
+            Utils.checkNotNull(audienceUri, "audienceUri");
+            this.audienceUri = audienceUri;
+            return this;
+        }
+
+
+        /**
+         * Whether this confidential application accepts token exchanges from its active audience.
+         */
+        public Builder tokenExchangeEnabled(boolean tokenExchangeEnabled) {
+            Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+            this.tokenExchangeEnabled = tokenExchangeEnabled;
+            return this;
+        }
+
+
         public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
             Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
             this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
@@ -829,11 +936,11 @@ public class OAuthApplication {
                 object, id, instanceId,
                 name, clientId, clientUri,
                 clientImageUrl, dynamicallyRegistered, consentScreenEnabled,
-                pkceRequired, deviceAuthorizationGrantEnabled, public_,
-                scopes, redirectUris, callbackUrl,
-                authorizeUrl, tokenFetchUrl, userInfoUrl,
-                discoveryUrl, tokenIntrospectionUrl, createdAt,
-                updatedAt);
+                pkceRequired, audienceUri, tokenExchangeEnabled,
+                deviceAuthorizationGrantEnabled, public_, scopes,
+                redirectUris, callbackUrl, authorizeUrl,
+                tokenFetchUrl, userInfoUrl, discoveryUrl,
+                tokenIntrospectionUrl, createdAt, updatedAt);
         }
 
     }

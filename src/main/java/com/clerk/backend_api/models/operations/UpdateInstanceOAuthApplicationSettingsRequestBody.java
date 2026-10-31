@@ -26,6 +26,15 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     private JsonNullable<Boolean> dynamicOauthClientRegistration;
 
     /**
+     * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+     * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+     * required for expansion.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("dynamic_client_allowed_scopes")
+    private JsonNullable<? extends List<String>> dynamicClientAllowedScopes;
+
+    /**
      * Default scopes assigned when a dynamically registered or first-contact CIMD client omits `scope`.
      * Accepts built-in keys and current custom catalog keys. `advertised` does not affect eligibility.
      * 
@@ -50,6 +59,14 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("aud_claim_enabled")
     private JsonNullable<Boolean> audClaimEnabled;
+
+    /**
+     * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+     * enabled.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("aud_claim_refresh_backfill_enabled")
+    private JsonNullable<Boolean> audClaimRefreshBackfillEnabled;
 
     /**
      * Whether all new OAuth authorization-code requests must use PKCE with the S256 challenge method.
@@ -85,25 +102,31 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonCreator
     public UpdateInstanceOAuthApplicationSettingsRequestBody(
             @JsonProperty("dynamic_oauth_client_registration") JsonNullable<Boolean> dynamicOauthClientRegistration,
+            @JsonProperty("dynamic_client_allowed_scopes") JsonNullable<? extends List<String>> dynamicClientAllowedScopes,
             @JsonProperty("default_scopes") JsonNullable<? extends List<String>> defaultScopes,
             @JsonProperty("oauth_jwt_access_tokens") JsonNullable<Boolean> oauthJwtAccessTokens,
             @JsonProperty("aud_claim_enabled") JsonNullable<Boolean> audClaimEnabled,
+            @JsonProperty("aud_claim_refresh_backfill_enabled") JsonNullable<Boolean> audClaimRefreshBackfillEnabled,
             @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
             @JsonProperty("client_id_metadata_documents_advertised") JsonNullable<Boolean> clientIdMetadataDocumentsAdvertised,
             @JsonProperty("client_id_metadata_documents_only_allow_pre_registered_clients") JsonNullable<Boolean> clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
             @JsonProperty("client_id_metadata_documents_block_implicitly_allowed_clients") JsonNullable<Boolean> clientIdMetadataDocumentsBlockImplicitlyAllowedClients) {
         Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
+        Utils.checkNotNull(dynamicClientAllowedScopes, "dynamicClientAllowedScopes");
         Utils.checkNotNull(defaultScopes, "defaultScopes");
         Utils.checkNotNull(oauthJwtAccessTokens, "oauthJwtAccessTokens");
         Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
+        Utils.checkNotNull(audClaimRefreshBackfillEnabled, "audClaimRefreshBackfillEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
         Utils.checkNotNull(clientIdMetadataDocumentsAdvertised, "clientIdMetadataDocumentsAdvertised");
         Utils.checkNotNull(clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients");
         Utils.checkNotNull(clientIdMetadataDocumentsBlockImplicitlyAllowedClients, "clientIdMetadataDocumentsBlockImplicitlyAllowedClients");
         this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
+        this.dynamicClientAllowedScopes = dynamicClientAllowedScopes;
         this.defaultScopes = defaultScopes;
         this.oauthJwtAccessTokens = oauthJwtAccessTokens;
         this.audClaimEnabled = audClaimEnabled;
+        this.audClaimRefreshBackfillEnabled = audClaimRefreshBackfillEnabled;
         this.pkceRequired = pkceRequired;
         this.clientIdMetadataDocumentsAdvertised = clientIdMetadataDocumentsAdvertised;
         this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients = clientIdMetadataDocumentsOnlyAllowPreRegisteredClients;
@@ -113,7 +136,8 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     public UpdateInstanceOAuthApplicationSettingsRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -122,6 +146,17 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> dynamicOauthClientRegistration() {
         return dynamicOauthClientRegistration;
+    }
+
+    /**
+     * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+     * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+     * required for expansion.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<String>> dynamicClientAllowedScopes() {
+        return (JsonNullable<List<String>>) dynamicClientAllowedScopes;
     }
 
     /**
@@ -152,6 +187,15 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> audClaimEnabled() {
         return audClaimEnabled;
+    }
+
+    /**
+     * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+     * enabled.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> audClaimRefreshBackfillEnabled() {
+        return audClaimRefreshBackfillEnabled;
     }
 
     /**
@@ -209,6 +253,28 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     public UpdateInstanceOAuthApplicationSettingsRequestBody withDynamicOauthClientRegistration(JsonNullable<Boolean> dynamicOauthClientRegistration) {
         Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
         this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
+        return this;
+    }
+
+    /**
+     * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+     * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+     * required for expansion.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withDynamicClientAllowedScopes(List<String> dynamicClientAllowedScopes) {
+        Utils.checkNotNull(dynamicClientAllowedScopes, "dynamicClientAllowedScopes");
+        this.dynamicClientAllowedScopes = JsonNullable.of(dynamicClientAllowedScopes);
+        return this;
+    }
+
+    /**
+     * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+     * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+     * required for expansion.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withDynamicClientAllowedScopes(JsonNullable<? extends List<String>> dynamicClientAllowedScopes) {
+        Utils.checkNotNull(dynamicClientAllowedScopes, "dynamicClientAllowedScopes");
+        this.dynamicClientAllowedScopes = dynamicClientAllowedScopes;
         return this;
     }
 
@@ -273,6 +339,26 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     public UpdateInstanceOAuthApplicationSettingsRequestBody withAudClaimEnabled(JsonNullable<Boolean> audClaimEnabled) {
         Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
         this.audClaimEnabled = audClaimEnabled;
+        return this;
+    }
+
+    /**
+     * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+     * enabled.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withAudClaimRefreshBackfillEnabled(boolean audClaimRefreshBackfillEnabled) {
+        Utils.checkNotNull(audClaimRefreshBackfillEnabled, "audClaimRefreshBackfillEnabled");
+        this.audClaimRefreshBackfillEnabled = JsonNullable.of(audClaimRefreshBackfillEnabled);
+        return this;
+    }
+
+    /**
+     * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+     * enabled.
+     */
+    public UpdateInstanceOAuthApplicationSettingsRequestBody withAudClaimRefreshBackfillEnabled(JsonNullable<Boolean> audClaimRefreshBackfillEnabled) {
+        Utils.checkNotNull(audClaimRefreshBackfillEnabled, "audClaimRefreshBackfillEnabled");
+        this.audClaimRefreshBackfillEnabled = audClaimRefreshBackfillEnabled;
         return this;
     }
 
@@ -365,9 +451,11 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         UpdateInstanceOAuthApplicationSettingsRequestBody other = (UpdateInstanceOAuthApplicationSettingsRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.dynamicOauthClientRegistration, other.dynamicOauthClientRegistration) &&
+            Utils.enhancedDeepEquals(this.dynamicClientAllowedScopes, other.dynamicClientAllowedScopes) &&
             Utils.enhancedDeepEquals(this.defaultScopes, other.defaultScopes) &&
             Utils.enhancedDeepEquals(this.oauthJwtAccessTokens, other.oauthJwtAccessTokens) &&
             Utils.enhancedDeepEquals(this.audClaimEnabled, other.audClaimEnabled) &&
+            Utils.enhancedDeepEquals(this.audClaimRefreshBackfillEnabled, other.audClaimRefreshBackfillEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
             Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsAdvertised, other.clientIdMetadataDocumentsAdvertised) &&
             Utils.enhancedDeepEquals(this.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, other.clientIdMetadataDocumentsOnlyAllowPreRegisteredClients) &&
@@ -377,18 +465,21 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
-            audClaimEnabled, pkceRequired, clientIdMetadataDocumentsAdvertised,
-            clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+            dynamicOauthClientRegistration, dynamicClientAllowedScopes, defaultScopes,
+            oauthJwtAccessTokens, audClaimEnabled, audClaimRefreshBackfillEnabled,
+            pkceRequired, clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+            clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateInstanceOAuthApplicationSettingsRequestBody.class,
                 "dynamicOauthClientRegistration", dynamicOauthClientRegistration,
+                "dynamicClientAllowedScopes", dynamicClientAllowedScopes,
                 "defaultScopes", defaultScopes,
                 "oauthJwtAccessTokens", oauthJwtAccessTokens,
                 "audClaimEnabled", audClaimEnabled,
+                "audClaimRefreshBackfillEnabled", audClaimRefreshBackfillEnabled,
                 "pkceRequired", pkceRequired,
                 "clientIdMetadataDocumentsAdvertised", clientIdMetadataDocumentsAdvertised,
                 "clientIdMetadataDocumentsOnlyAllowPreRegisteredClients", clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
@@ -400,11 +491,15 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
 
         private JsonNullable<Boolean> dynamicOauthClientRegistration = JsonNullable.undefined();
 
+        private JsonNullable<? extends List<String>> dynamicClientAllowedScopes = JsonNullable.undefined();
+
         private JsonNullable<? extends List<String>> defaultScopes = JsonNullable.undefined();
 
         private JsonNullable<Boolean> oauthJwtAccessTokens = JsonNullable.undefined();
 
         private JsonNullable<Boolean> audClaimEnabled = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> audClaimRefreshBackfillEnabled = JsonNullable.undefined();
 
         private JsonNullable<Boolean> pkceRequired = JsonNullable.undefined();
 
@@ -434,6 +529,29 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         public Builder dynamicOauthClientRegistration(JsonNullable<Boolean> dynamicOauthClientRegistration) {
             Utils.checkNotNull(dynamicOauthClientRegistration, "dynamicOauthClientRegistration");
             this.dynamicOauthClientRegistration = dynamicOauthClientRegistration;
+            return this;
+        }
+
+
+        /**
+         * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+         * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+         * required for expansion.
+         */
+        public Builder dynamicClientAllowedScopes(List<String> dynamicClientAllowedScopes) {
+            Utils.checkNotNull(dynamicClientAllowedScopes, "dynamicClientAllowedScopes");
+            this.dynamicClientAllowedScopes = JsonNullable.of(dynamicClientAllowedScopes);
+            return this;
+        }
+
+        /**
+         * Administrator-selected scope ceiling for dynamically registered and automatically admitted CIMD
+         * clients. Null preserves registered client limits; defaults must be a subset. Fresh user consent is
+         * required for expansion.
+         */
+        public Builder dynamicClientAllowedScopes(JsonNullable<? extends List<String>> dynamicClientAllowedScopes) {
+            Utils.checkNotNull(dynamicClientAllowedScopes, "dynamicClientAllowedScopes");
+            this.dynamicClientAllowedScopes = dynamicClientAllowedScopes;
             return this;
         }
 
@@ -501,6 +619,27 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         public Builder audClaimEnabled(JsonNullable<Boolean> audClaimEnabled) {
             Utils.checkNotNull(audClaimEnabled, "audClaimEnabled");
             this.audClaimEnabled = audClaimEnabled;
+            return this;
+        }
+
+
+        /**
+         * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+         * enabled.
+         */
+        public Builder audClaimRefreshBackfillEnabled(boolean audClaimRefreshBackfillEnabled) {
+            Utils.checkNotNull(audClaimRefreshBackfillEnabled, "audClaimRefreshBackfillEnabled");
+            this.audClaimRefreshBackfillEnabled = JsonNullable.of(audClaimRefreshBackfillEnabled);
+            return this;
+        }
+
+        /**
+         * Whether refresh grants without a resource can adopt the requested resource when audience claims are
+         * enabled.
+         */
+        public Builder audClaimRefreshBackfillEnabled(JsonNullable<Boolean> audClaimRefreshBackfillEnabled) {
+            Utils.checkNotNull(audClaimRefreshBackfillEnabled, "audClaimRefreshBackfillEnabled");
+            this.audClaimRefreshBackfillEnabled = audClaimRefreshBackfillEnabled;
             return this;
         }
 
@@ -589,9 +728,10 @@ public class UpdateInstanceOAuthApplicationSettingsRequestBody {
         public UpdateInstanceOAuthApplicationSettingsRequestBody build() {
 
             return new UpdateInstanceOAuthApplicationSettingsRequestBody(
-                dynamicOauthClientRegistration, defaultScopes, oauthJwtAccessTokens,
-                audClaimEnabled, pkceRequired, clientIdMetadataDocumentsAdvertised,
-                clientIdMetadataDocumentsOnlyAllowPreRegisteredClients, clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
+                dynamicOauthClientRegistration, dynamicClientAllowedScopes, defaultScopes,
+                oauthJwtAccessTokens, audClaimEnabled, audClaimRefreshBackfillEnabled,
+                pkceRequired, clientIdMetadataDocumentsAdvertised, clientIdMetadataDocumentsOnlyAllowPreRegisteredClients,
+                clientIdMetadataDocumentsBlockImplicitlyAllowedClients);
         }
 
     }
