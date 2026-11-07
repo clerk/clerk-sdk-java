@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -64,6 +65,16 @@ public class Instance {
     @JsonProperty("workspace_id")
     private Optional<String> workspaceId;
 
+    /**
+     * The maximum number of users the instance can hold. Creating a user fails with a
+     * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+     * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+     * limit.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("max_allowed_users")
+    private Optional<Long> maxAllowedUsers;
+
     @JsonCreator
     public Instance(
             @JsonProperty("object") InstanceObject object,
@@ -72,7 +83,8 @@ public class Instance {
             @JsonProperty("allowed_origins") Optional<? extends List<String>> allowedOrigins,
             @JsonProperty("allowed_subdomains") List<String> allowedSubdomains,
             @JsonProperty("subdomain_allowlist_enabled") boolean subdomainAllowlistEnabled,
-            @JsonProperty("workspace_id") Optional<String> workspaceId) {
+            @JsonProperty("workspace_id") Optional<String> workspaceId,
+            @JsonProperty("max_allowed_users") Optional<Long> maxAllowedUsers) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(environmentType, "environmentType");
@@ -80,6 +92,7 @@ public class Instance {
         Utils.checkNotNull(allowedSubdomains, "allowedSubdomains");
         Utils.checkNotNull(subdomainAllowlistEnabled, "subdomainAllowlistEnabled");
         Utils.checkNotNull(workspaceId, "workspaceId");
+        Utils.checkNotNull(maxAllowedUsers, "maxAllowedUsers");
         this.object = object;
         this.id = id;
         this.environmentType = environmentType;
@@ -87,6 +100,7 @@ public class Instance {
         this.allowedSubdomains = allowedSubdomains;
         this.subdomainAllowlistEnabled = subdomainAllowlistEnabled;
         this.workspaceId = workspaceId;
+        this.maxAllowedUsers = maxAllowedUsers;
     }
     
     public Instance(
@@ -97,7 +111,7 @@ public class Instance {
             boolean subdomainAllowlistEnabled) {
         this(object, id, environmentType,
             Optional.empty(), allowedSubdomains, subdomainAllowlistEnabled,
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -150,6 +164,17 @@ public class Instance {
     @JsonIgnore
     public Optional<String> workspaceId() {
         return workspaceId;
+    }
+
+    /**
+     * The maximum number of users the instance can hold. Creating a user fails with a
+     * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+     * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+     * limit.
+     */
+    @JsonIgnore
+    public Optional<Long> maxAllowedUsers() {
+        return maxAllowedUsers;
     }
 
     public static Builder builder() {
@@ -233,6 +258,31 @@ public class Instance {
         return this;
     }
 
+    /**
+     * The maximum number of users the instance can hold. Creating a user fails with a
+     * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+     * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+     * limit.
+     */
+    public Instance withMaxAllowedUsers(long maxAllowedUsers) {
+        Utils.checkNotNull(maxAllowedUsers, "maxAllowedUsers");
+        this.maxAllowedUsers = Optional.ofNullable(maxAllowedUsers);
+        return this;
+    }
+
+
+    /**
+     * The maximum number of users the instance can hold. Creating a user fails with a
+     * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+     * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+     * limit.
+     */
+    public Instance withMaxAllowedUsers(Optional<Long> maxAllowedUsers) {
+        Utils.checkNotNull(maxAllowedUsers, "maxAllowedUsers");
+        this.maxAllowedUsers = maxAllowedUsers;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -249,7 +299,8 @@ public class Instance {
             Utils.enhancedDeepEquals(this.allowedOrigins, other.allowedOrigins) &&
             Utils.enhancedDeepEquals(this.allowedSubdomains, other.allowedSubdomains) &&
             Utils.enhancedDeepEquals(this.subdomainAllowlistEnabled, other.subdomainAllowlistEnabled) &&
-            Utils.enhancedDeepEquals(this.workspaceId, other.workspaceId);
+            Utils.enhancedDeepEquals(this.workspaceId, other.workspaceId) &&
+            Utils.enhancedDeepEquals(this.maxAllowedUsers, other.maxAllowedUsers);
     }
     
     @Override
@@ -257,7 +308,7 @@ public class Instance {
         return Utils.enhancedHash(
             object, id, environmentType,
             allowedOrigins, allowedSubdomains, subdomainAllowlistEnabled,
-            workspaceId);
+            workspaceId, maxAllowedUsers);
     }
     
     @Override
@@ -269,7 +320,8 @@ public class Instance {
                 "allowedOrigins", allowedOrigins,
                 "allowedSubdomains", allowedSubdomains,
                 "subdomainAllowlistEnabled", subdomainAllowlistEnabled,
-                "workspaceId", workspaceId);
+                "workspaceId", workspaceId,
+                "maxAllowedUsers", maxAllowedUsers);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -288,6 +340,8 @@ public class Instance {
         private Boolean subdomainAllowlistEnabled;
 
         private Optional<String> workspaceId = Optional.empty();
+
+        private Optional<Long> maxAllowedUsers = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -374,12 +428,37 @@ public class Instance {
             return this;
         }
 
+
+        /**
+         * The maximum number of users the instance can hold. Creating a user fails with a
+         * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+         * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+         * limit.
+         */
+        public Builder maxAllowedUsers(long maxAllowedUsers) {
+            Utils.checkNotNull(maxAllowedUsers, "maxAllowedUsers");
+            this.maxAllowedUsers = Optional.ofNullable(maxAllowedUsers);
+            return this;
+        }
+
+        /**
+         * The maximum number of users the instance can hold. Creating a user fails with a
+         * `user_quota_exceeded` error once the instance's total user count, as returned by `GET
+         * /v1/users/count` without filters, reaches this value. It is null when the instance has no user
+         * limit.
+         */
+        public Builder maxAllowedUsers(Optional<Long> maxAllowedUsers) {
+            Utils.checkNotNull(maxAllowedUsers, "maxAllowedUsers");
+            this.maxAllowedUsers = maxAllowedUsers;
+            return this;
+        }
+
         public Instance build() {
 
             return new Instance(
                 object, id, environmentType,
                 allowedOrigins, allowedSubdomains, subdomainAllowlistEnabled,
-                workspaceId);
+                workspaceId, maxAllowedUsers);
         }
 
     }
