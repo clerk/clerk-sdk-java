@@ -13,6 +13,7 @@ import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,21 @@ public class ResponseBody1 {
 
     @JsonProperty("scopes")
     private List<String> scopes;
+
+    /**
+     * The audiences of the access token. Omitted when no audience is set.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("aud")
+    private Optional<? extends List<String>> aud;
+
+    /**
+     * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+     * Omitted for other access tokens.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("act")
+    private Optional<? extends Act> act;
 
 
     @JsonProperty("revoked")
@@ -71,6 +87,8 @@ public class ResponseBody1 {
             @JsonProperty("client_id") String clientId,
             @JsonProperty("subject") String subject,
             @JsonProperty("scopes") List<String> scopes,
+            @JsonProperty("aud") Optional<? extends List<String>> aud,
+            @JsonProperty("act") Optional<? extends Act> act,
             @JsonProperty("revoked") boolean revoked,
             @JsonProperty("revocation_reason") Optional<String> revocationReason,
             @JsonProperty("expired") boolean expired,
@@ -82,6 +100,8 @@ public class ResponseBody1 {
         Utils.checkNotNull(clientId, "clientId");
         Utils.checkNotNull(subject, "subject");
         Utils.checkNotNull(scopes, "scopes");
+        Utils.checkNotNull(aud, "aud");
+        Utils.checkNotNull(act, "act");
         Utils.checkNotNull(revoked, "revoked");
         Utils.checkNotNull(revocationReason, "revocationReason");
         Utils.checkNotNull(expired, "expired");
@@ -93,6 +113,8 @@ public class ResponseBody1 {
         this.clientId = clientId;
         this.subject = subject;
         this.scopes = scopes;
+        this.aud = aud;
+        this.act = act;
         this.revoked = revoked;
         this.revocationReason = revocationReason;
         this.expired = expired;
@@ -112,9 +134,10 @@ public class ResponseBody1 {
             double createdAt,
             double updatedAt) {
         this(object, id, clientId,
-            subject, scopes, revoked,
-            Optional.empty(), expired, Optional.empty(),
-            createdAt, updatedAt);
+            subject, scopes, Optional.empty(),
+            Optional.empty(), revoked, Optional.empty(),
+            expired, Optional.empty(), createdAt,
+            updatedAt);
     }
 
     @JsonIgnore
@@ -140,6 +163,25 @@ public class ResponseBody1 {
     @JsonIgnore
     public List<String> scopes() {
         return scopes;
+    }
+
+    /**
+     * The audiences of the access token. Omitted when no audience is set.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> aud() {
+        return (Optional<List<String>>) aud;
+    }
+
+    /**
+     * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+     * Omitted for other access tokens.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Act> act() {
+        return (Optional<Act>) act;
     }
 
     @JsonIgnore
@@ -204,6 +246,46 @@ public class ResponseBody1 {
     public ResponseBody1 withScopes(List<String> scopes) {
         Utils.checkNotNull(scopes, "scopes");
         this.scopes = scopes;
+        return this;
+    }
+
+    /**
+     * The audiences of the access token. Omitted when no audience is set.
+     */
+    public ResponseBody1 withAud(List<String> aud) {
+        Utils.checkNotNull(aud, "aud");
+        this.aud = Optional.ofNullable(aud);
+        return this;
+    }
+
+
+    /**
+     * The audiences of the access token. Omitted when no audience is set.
+     */
+    public ResponseBody1 withAud(Optional<? extends List<String>> aud) {
+        Utils.checkNotNull(aud, "aud");
+        this.aud = aud;
+        return this;
+    }
+
+    /**
+     * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+     * Omitted for other access tokens.
+     */
+    public ResponseBody1 withAct(Act act) {
+        Utils.checkNotNull(act, "act");
+        this.act = Optional.ofNullable(act);
+        return this;
+    }
+
+
+    /**
+     * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+     * Omitted for other access tokens.
+     */
+    public ResponseBody1 withAct(Optional<? extends Act> act) {
+        Utils.checkNotNull(act, "act");
+        this.act = act;
         return this;
     }
 
@@ -272,6 +354,8 @@ public class ResponseBody1 {
             Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
             Utils.enhancedDeepEquals(this.subject, other.subject) &&
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
+            Utils.enhancedDeepEquals(this.aud, other.aud) &&
+            Utils.enhancedDeepEquals(this.act, other.act) &&
             Utils.enhancedDeepEquals(this.revoked, other.revoked) &&
             Utils.enhancedDeepEquals(this.revocationReason, other.revocationReason) &&
             Utils.enhancedDeepEquals(this.expired, other.expired) &&
@@ -284,9 +368,10 @@ public class ResponseBody1 {
     public int hashCode() {
         return Utils.enhancedHash(
             object, id, clientId,
-            subject, scopes, revoked,
-            revocationReason, expired, expiration,
-            createdAt, updatedAt);
+            subject, scopes, aud,
+            act, revoked, revocationReason,
+            expired, expiration, createdAt,
+            updatedAt);
     }
     
     @Override
@@ -297,6 +382,8 @@ public class ResponseBody1 {
                 "clientId", clientId,
                 "subject", subject,
                 "scopes", scopes,
+                "aud", aud,
+                "act", act,
                 "revoked", revoked,
                 "revocationReason", revocationReason,
                 "expired", expired,
@@ -317,6 +404,10 @@ public class ResponseBody1 {
         private String subject;
 
         private List<String> scopes;
+
+        private Optional<? extends List<String>> aud = Optional.empty();
+
+        private Optional<? extends Act> act = Optional.empty();
 
         private Boolean revoked;
 
@@ -366,6 +457,46 @@ public class ResponseBody1 {
         public Builder scopes(List<String> scopes) {
             Utils.checkNotNull(scopes, "scopes");
             this.scopes = scopes;
+            return this;
+        }
+
+
+        /**
+         * The audiences of the access token. Omitted when no audience is set.
+         */
+        public Builder aud(List<String> aud) {
+            Utils.checkNotNull(aud, "aud");
+            this.aud = Optional.ofNullable(aud);
+            return this;
+        }
+
+        /**
+         * The audiences of the access token. Omitted when no audience is set.
+         */
+        public Builder aud(Optional<? extends List<String>> aud) {
+            Utils.checkNotNull(aud, "aud");
+            this.aud = aud;
+            return this;
+        }
+
+
+        /**
+         * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+         * Omitted for other access tokens.
+         */
+        public Builder act(Act act) {
+            Utils.checkNotNull(act, "act");
+            this.act = Optional.ofNullable(act);
+            return this;
+        }
+
+        /**
+         * The actor chain of an access token issued by an OAuth 2.0 Token Exchange (RFC 8693 section 4.1).
+         * Omitted for other access tokens.
+         */
+        public Builder act(Optional<? extends Act> act) {
+            Utils.checkNotNull(act, "act");
+            this.act = act;
             return this;
         }
 
@@ -427,9 +558,10 @@ public class ResponseBody1 {
 
             return new ResponseBody1(
                 object, id, clientId,
-                subject, scopes, revoked,
-                revocationReason, expired, expiration,
-                createdAt, updatedAt);
+                subject, scopes, aud,
+                act, revoked, revocationReason,
+                expired, expiration, createdAt,
+                updatedAt);
         }
 
     }

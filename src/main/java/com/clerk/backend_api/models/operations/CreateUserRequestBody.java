@@ -52,6 +52,14 @@ public class CreateUserRequestBody {
     private JsonNullable<String> locale;
 
     /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("timezone")
+    private JsonNullable<String> timezone;
+
+    /**
      * Email addresses to add to the user.
      * Must be unique across your instance.
      * The first email address will be set as the user's primary email address.
@@ -313,6 +321,7 @@ public class CreateUserRequestBody {
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("locale") JsonNullable<String> locale,
+            @JsonProperty("timezone") JsonNullable<String> timezone,
             @JsonProperty("email_address") Optional<? extends List<String>> emailAddress,
             @JsonProperty("email_address_identification_status") Optional<? extends List<EmailAddressIdentificationStatus>> emailAddressIdentificationStatus,
             @JsonProperty("phone_number") Optional<? extends List<String>> phoneNumber,
@@ -344,6 +353,7 @@ public class CreateUserRequestBody {
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(locale, "locale");
+        Utils.checkNotNull(timezone, "timezone");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(emailAddressIdentificationStatus, "emailAddressIdentificationStatus");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -375,6 +385,7 @@ public class CreateUserRequestBody {
         this.firstName = firstName;
         this.lastName = lastName;
         this.locale = locale;
+        this.timezone = timezone;
         this.emailAddress = emailAddress;
         this.emailAddressIdentificationStatus = emailAddressIdentificationStatus;
         this.phoneNumber = phoneNumber;
@@ -406,16 +417,16 @@ public class CreateUserRequestBody {
     
     public CreateUserRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -449,6 +460,15 @@ public class CreateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> locale() {
         return locale;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonIgnore
+    public JsonNullable<String> timezone() {
+        return timezone;
     }
 
     /**
@@ -819,6 +839,26 @@ public class CreateUserRequestBody {
     public CreateUserRequestBody withLocale(JsonNullable<String> locale) {
         Utils.checkNotNull(locale, "locale");
         this.locale = locale;
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public CreateUserRequestBody withTimezone(String timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = JsonNullable.of(timezone);
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public CreateUserRequestBody withTimezone(JsonNullable<String> timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = timezone;
         return this;
     }
 
@@ -1466,6 +1506,7 @@ public class CreateUserRequestBody {
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.locale, other.locale) &&
+            Utils.enhancedDeepEquals(this.timezone, other.timezone) &&
             Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
             Utils.enhancedDeepEquals(this.emailAddressIdentificationStatus, other.emailAddressIdentificationStatus) &&
             Utils.enhancedDeepEquals(this.phoneNumber, other.phoneNumber) &&
@@ -1499,16 +1540,16 @@ public class CreateUserRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            locale, emailAddress, emailAddressIdentificationStatus,
-            phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
-            username, password, passwordDigest,
-            passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-            skipRestrictionChecks, totpSecret, backupCodes,
-            publicMetadata, privateMetadata, unsafeMetadata,
-            deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-            skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
-            createdAt, bypassClientTrust, banned,
-            locked);
+            locale, timezone, emailAddress,
+            emailAddressIdentificationStatus, phoneNumber, phoneNumberIdentificationStatus,
+            web3Wallet, username, password,
+            passwordDigest, passwordHasher, skipPasswordChecks,
+            skipPasswordRequirement, skipRestrictionChecks, totpSecret,
+            backupCodes, publicMetadata, privateMetadata,
+            unsafeMetadata, deleteSelfEnabled, legalAcceptedAt,
+            skipLegalChecks, skipUserRequirement, createOrganizationEnabled,
+            createOrganizationsLimit, createdAt, bypassClientTrust,
+            banned, locked);
     }
     
     @Override
@@ -1518,6 +1559,7 @@ public class CreateUserRequestBody {
                 "firstName", firstName,
                 "lastName", lastName,
                 "locale", locale,
+                "timezone", timezone,
                 "emailAddress", emailAddress,
                 "emailAddressIdentificationStatus", emailAddressIdentificationStatus,
                 "phoneNumber", phoneNumber,
@@ -1557,6 +1599,8 @@ public class CreateUserRequestBody {
         private JsonNullable<String> lastName = JsonNullable.undefined();
 
         private JsonNullable<String> locale = JsonNullable.undefined();
+
+        private JsonNullable<String> timezone = JsonNullable.undefined();
 
         private Optional<? extends List<String>> emailAddress = Optional.empty();
 
@@ -1691,6 +1735,27 @@ public class CreateUserRequestBody {
         public Builder locale(JsonNullable<String> locale) {
             Utils.checkNotNull(locale, "locale");
             this.locale = locale;
+            return this;
+        }
+
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(String timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = JsonNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(JsonNullable<String> timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = timezone;
             return this;
         }
 
@@ -2345,16 +2410,16 @@ public class CreateUserRequestBody {
 
             return new CreateUserRequestBody(
                 externalId, firstName, lastName,
-                locale, emailAddress, emailAddressIdentificationStatus,
-                phoneNumber, phoneNumberIdentificationStatus, web3Wallet,
-                username, password, passwordDigest,
-                passwordHasher, skipPasswordChecks, skipPasswordRequirement,
-                skipRestrictionChecks, totpSecret, backupCodes,
-                publicMetadata, privateMetadata, unsafeMetadata,
-                deleteSelfEnabled, legalAcceptedAt, skipLegalChecks,
-                skipUserRequirement, createOrganizationEnabled, createOrganizationsLimit,
-                createdAt, bypassClientTrust, banned,
-                locked);
+                locale, timezone, emailAddress,
+                emailAddressIdentificationStatus, phoneNumber, phoneNumberIdentificationStatus,
+                web3Wallet, username, password,
+                passwordDigest, passwordHasher, skipPasswordChecks,
+                skipPasswordRequirement, skipRestrictionChecks, totpSecret,
+                backupCodes, publicMetadata, privateMetadata,
+                unsafeMetadata, deleteSelfEnabled, legalAcceptedAt,
+                skipLegalChecks, skipUserRequirement, createOrganizationEnabled,
+                createOrganizationsLimit, createdAt, bypassClientTrust,
+                banned, locked);
         }
 
     }

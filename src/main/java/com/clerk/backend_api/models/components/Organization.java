@@ -74,7 +74,14 @@ public class Organization {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("self_serve_sso_enabled")
-    private JsonNullable<Boolean> selfServeSsoEnabled;
+    private Optional<Boolean> selfServeSsoEnabled;
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("self_serve_directory_sync_enabled")
+    private Optional<Boolean> selfServeDirectorySyncEnabled;
 
 
     @JsonProperty("public_metadata")
@@ -130,7 +137,8 @@ public class Organization {
             @JsonProperty("pending_invitations_count") Optional<Long> pendingInvitationsCount,
             @JsonProperty("max_allowed_memberships") long maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") boolean adminDeleteEnabled,
-            @JsonProperty("self_serve_sso_enabled") JsonNullable<Boolean> selfServeSsoEnabled,
+            @JsonProperty("self_serve_sso_enabled") Optional<Boolean> selfServeSsoEnabled,
+            @JsonProperty("self_serve_directory_sync_enabled") Optional<Boolean> selfServeDirectorySyncEnabled,
             @JsonProperty("public_metadata") Map<String, Object> publicMetadata,
             @JsonProperty("private_metadata") Optional<? extends Map<String, Object>> privateMetadata,
             @JsonProperty("created_by") Optional<String> createdBy,
@@ -150,6 +158,7 @@ public class Organization {
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
         publicMetadata = Utils.emptyMapIfNull(publicMetadata);
         Utils.checkNotNull(publicMetadata, "publicMetadata");
         Utils.checkNotNull(privateMetadata, "privateMetadata");
@@ -170,6 +179,7 @@ public class Organization {
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.adminDeleteEnabled = adminDeleteEnabled;
         this.selfServeSsoEnabled = selfServeSsoEnabled;
+        this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
         this.publicMetadata = publicMetadata;
         this.privateMetadata = privateMetadata;
         this.createdBy = createdBy;
@@ -193,10 +203,10 @@ public class Organization {
         this(object, id, name,
             slug, Optional.empty(), hasImage,
             Optional.empty(), Optional.empty(), Optional.empty(),
-            maxAllowedMemberships, adminDeleteEnabled, JsonNullable.undefined(),
-            publicMetadata, Optional.empty(), Optional.empty(),
-            createdAt, updatedAt, Optional.empty(),
-            JsonNullable.undefined());
+            maxAllowedMemberships, adminDeleteEnabled, Optional.empty(),
+            Optional.empty(), publicMetadata, Optional.empty(),
+            Optional.empty(), createdAt, updatedAt,
+            Optional.empty(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -258,8 +268,16 @@ public class Organization {
      * Whether this organization can configure self-serve enterprise SSO.
      */
     @JsonIgnore
-    public JsonNullable<Boolean> selfServeSsoEnabled() {
+    public Optional<Boolean> selfServeSsoEnabled() {
         return selfServeSsoEnabled;
+    }
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    @JsonIgnore
+    public Optional<Boolean> selfServeDirectorySyncEnabled() {
+        return selfServeDirectorySyncEnabled;
     }
 
     @JsonIgnore
@@ -415,16 +433,36 @@ public class Organization {
      */
     public Organization withSelfServeSsoEnabled(boolean selfServeSsoEnabled) {
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
-        this.selfServeSsoEnabled = JsonNullable.of(selfServeSsoEnabled);
+        this.selfServeSsoEnabled = Optional.ofNullable(selfServeSsoEnabled);
         return this;
     }
+
 
     /**
      * Whether this organization can configure self-serve enterprise SSO.
      */
-    public Organization withSelfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
+    public Organization withSelfServeSsoEnabled(Optional<Boolean> selfServeSsoEnabled) {
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
         this.selfServeSsoEnabled = selfServeSsoEnabled;
+        return this;
+    }
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    public Organization withSelfServeDirectorySyncEnabled(boolean selfServeDirectorySyncEnabled) {
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+        this.selfServeDirectorySyncEnabled = Optional.ofNullable(selfServeDirectorySyncEnabled);
+        return this;
+    }
+
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    public Organization withSelfServeDirectorySyncEnabled(Optional<Boolean> selfServeDirectorySyncEnabled) {
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+        this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
         return this;
     }
 
@@ -539,6 +577,7 @@ public class Organization {
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
             Utils.enhancedDeepEquals(this.selfServeSsoEnabled, other.selfServeSsoEnabled) &&
+            Utils.enhancedDeepEquals(this.selfServeDirectorySyncEnabled, other.selfServeDirectorySyncEnabled) &&
             Utils.enhancedDeepEquals(this.publicMetadata, other.publicMetadata) &&
             Utils.enhancedDeepEquals(this.privateMetadata, other.privateMetadata) &&
             Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
@@ -555,9 +594,9 @@ public class Organization {
             slug, imageUrl, hasImage,
             membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
             maxAllowedMemberships, adminDeleteEnabled, selfServeSsoEnabled,
-            publicMetadata, privateMetadata, createdBy,
-            createdAt, updatedAt, lastActiveAt,
-            roleSetKey);
+            selfServeDirectorySyncEnabled, publicMetadata, privateMetadata,
+            createdBy, createdAt, updatedAt,
+            lastActiveAt, roleSetKey);
     }
     
     @Override
@@ -575,6 +614,7 @@ public class Organization {
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "adminDeleteEnabled", adminDeleteEnabled,
                 "selfServeSsoEnabled", selfServeSsoEnabled,
+                "selfServeDirectorySyncEnabled", selfServeDirectorySyncEnabled,
                 "publicMetadata", publicMetadata,
                 "privateMetadata", privateMetadata,
                 "createdBy", createdBy,
@@ -609,7 +649,9 @@ public class Organization {
 
         private Boolean adminDeleteEnabled;
 
-        private JsonNullable<Boolean> selfServeSsoEnabled = JsonNullable.undefined();
+        private Optional<Boolean> selfServeSsoEnabled = Optional.empty();
+
+        private Optional<Boolean> selfServeDirectorySyncEnabled = Optional.empty();
 
         private Map<String, Object> publicMetadata;
 
@@ -736,16 +778,35 @@ public class Organization {
          */
         public Builder selfServeSsoEnabled(boolean selfServeSsoEnabled) {
             Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
-            this.selfServeSsoEnabled = JsonNullable.of(selfServeSsoEnabled);
+            this.selfServeSsoEnabled = Optional.ofNullable(selfServeSsoEnabled);
             return this;
         }
 
         /**
          * Whether this organization can configure self-serve enterprise SSO.
          */
-        public Builder selfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
+        public Builder selfServeSsoEnabled(Optional<Boolean> selfServeSsoEnabled) {
             Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
             this.selfServeSsoEnabled = selfServeSsoEnabled;
+            return this;
+        }
+
+
+        /**
+         * Whether this organization can configure self-serve Directory Sync (SCIM).
+         */
+        public Builder selfServeDirectorySyncEnabled(boolean selfServeDirectorySyncEnabled) {
+            Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+            this.selfServeDirectorySyncEnabled = Optional.ofNullable(selfServeDirectorySyncEnabled);
+            return this;
+        }
+
+        /**
+         * Whether this organization can configure self-serve Directory Sync (SCIM).
+         */
+        public Builder selfServeDirectorySyncEnabled(Optional<Boolean> selfServeDirectorySyncEnabled) {
+            Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+            this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
             return this;
         }
 
@@ -849,9 +910,9 @@ public class Organization {
                 slug, imageUrl, hasImage,
                 membersCount, missingMemberWithElevatedPermissions, pendingInvitationsCount,
                 maxAllowedMemberships, adminDeleteEnabled, selfServeSsoEnabled,
-                publicMetadata, privateMetadata, createdBy,
-                createdAt, updatedAt, lastActiveAt,
-                roleSetKey);
+                selfServeDirectorySyncEnabled, publicMetadata, privateMetadata,
+                createdBy, createdAt, updatedAt,
+                lastActiveAt, roleSetKey);
         }
 
     }

@@ -1,0 +1,17 @@
+# LogDeviceContext
+
+Device information for the log event.
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ipAddress`                                                                    | *JsonNullable\<String>*                                                        | :heavy_minus_sign:                                                             | The IP address of the client.                                                  |
+| `userAgent`                                                                    | *JsonNullable\<String>*                                                        | :heavy_minus_sign:                                                             | The user agent string of the client.                                           |
+| `browser`                                                                      | [Optional\<LogBrowserContext>](../../models/components/LogBrowserContext.md)   | :heavy_minus_sign:                                                             | Browser information.                                                           |
+| `deviceType`                                                                   | *JsonNullable\<String>*                                                        | :heavy_minus_sign:                                                             | The type of device (e.g., "desktop", "mobile", "tablet").                      |
+| `isMobile`                                                                     | *JsonNullable\<Boolean>*                                                       | :heavy_minus_sign:                                                             | Whether the device is a mobile device.                                         |
+| `location`                                                                     | [Optional\<LogLocationContext>](../../models/components/LogLocationContext.md) | :heavy_minus_sign:                                                             | Geographic location information.                                               |
+| `clerkJsVersion`                                                               | *JsonNullable\<String>*                                                        | :heavy_minus_sign:                                                             | The version of Clerk.js used by the client.                                    |
+| `isNative`                                                                     | *JsonNullable\<Boolean>*                                                       | :heavy_minus_sign:                                                             | Whether the client is a native application.                                    |

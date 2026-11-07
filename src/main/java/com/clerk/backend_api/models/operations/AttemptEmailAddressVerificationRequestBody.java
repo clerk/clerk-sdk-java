@@ -3,12 +3,18 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class AttemptEmailAddressVerificationRequestBody {
@@ -24,14 +30,33 @@ public class AttemptEmailAddressVerificationRequestBody {
     @JsonProperty("code")
     private String code;
 
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("honor_lockout")
+    private Optional<Boolean> honorLockout;
+
     @JsonCreator
     public AttemptEmailAddressVerificationRequestBody(
             @JsonProperty("verification_id") String verificationId,
-            @JsonProperty("code") String code) {
+            @JsonProperty("code") String code,
+            @JsonProperty("honor_lockout") Optional<Boolean> honorLockout) {
         Utils.checkNotNull(verificationId, "verificationId");
         Utils.checkNotNull(code, "code");
+        Utils.checkNotNull(honorLockout, "honorLockout");
         this.verificationId = verificationId;
         this.code = code;
+        this.honorLockout = honorLockout;
+    }
+    
+    public AttemptEmailAddressVerificationRequestBody(
+            String verificationId,
+            String code) {
+        this(verificationId, code, Optional.empty());
     }
 
     /**
@@ -48,6 +73,17 @@ public class AttemptEmailAddressVerificationRequestBody {
     @JsonIgnore
     public String code() {
         return code;
+    }
+
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonIgnore
+    public Optional<Boolean> honorLockout() {
+        return honorLockout;
     }
 
     public static Builder builder() {
@@ -73,6 +109,31 @@ public class AttemptEmailAddressVerificationRequestBody {
         return this;
     }
 
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public AttemptEmailAddressVerificationRequestBody withHonorLockout(boolean honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = Optional.ofNullable(honorLockout);
+        return this;
+    }
+
+
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public AttemptEmailAddressVerificationRequestBody withHonorLockout(Optional<Boolean> honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = honorLockout;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,20 +145,22 @@ public class AttemptEmailAddressVerificationRequestBody {
         AttemptEmailAddressVerificationRequestBody other = (AttemptEmailAddressVerificationRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.verificationId, other.verificationId) &&
-            Utils.enhancedDeepEquals(this.code, other.code);
+            Utils.enhancedDeepEquals(this.code, other.code) &&
+            Utils.enhancedDeepEquals(this.honorLockout, other.honorLockout);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            verificationId, code);
+            verificationId, code, honorLockout);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AttemptEmailAddressVerificationRequestBody.class,
                 "verificationId", verificationId,
-                "code", code);
+                "code", code,
+                "honorLockout", honorLockout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -106,6 +169,8 @@ public class AttemptEmailAddressVerificationRequestBody {
         private String verificationId;
 
         private String code;
+
+        private Optional<Boolean> honorLockout;
 
         private Builder() {
           // force use of static builder() method
@@ -131,11 +196,45 @@ public class AttemptEmailAddressVerificationRequestBody {
             return this;
         }
 
-        public AttemptEmailAddressVerificationRequestBody build() {
 
-            return new AttemptEmailAddressVerificationRequestBody(
-                verificationId, code);
+        /**
+         * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the code is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(boolean honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = Optional.ofNullable(honorLockout);
+            return this;
         }
 
+        /**
+         * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the code is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(Optional<Boolean> honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = honorLockout;
+            return this;
+        }
+
+        public AttemptEmailAddressVerificationRequestBody build() {
+            if (honorLockout == null) {
+                honorLockout = _SINGLETON_VALUE_HonorLockout.value();
+            }
+
+            return new AttemptEmailAddressVerificationRequestBody(
+                verificationId, code, honorLockout);
+        }
+
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_HonorLockout =
+                new LazySingletonValue<>(
+                        "honor_lockout",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }
