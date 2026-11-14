@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Optional;
 
 
 public class RevokeSessionRequest {
@@ -18,11 +20,23 @@ public class RevokeSessionRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=session_id")
     private String sessionId;
 
+
+    @SpeakeasyMetadata("request:mediaType=application/json")
+    private Optional<? extends RevokeSessionRequestBody> requestBody;
+
     @JsonCreator
     public RevokeSessionRequest(
-            String sessionId) {
+            String sessionId,
+            Optional<? extends RevokeSessionRequestBody> requestBody) {
         Utils.checkNotNull(sessionId, "sessionId");
+        Utils.checkNotNull(requestBody, "requestBody");
         this.sessionId = sessionId;
+        this.requestBody = requestBody;
+    }
+    
+    public RevokeSessionRequest(
+            String sessionId) {
+        this(sessionId, Optional.empty());
     }
 
     /**
@@ -31,6 +45,12 @@ public class RevokeSessionRequest {
     @JsonIgnore
     public String sessionId() {
         return sessionId;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<RevokeSessionRequestBody> requestBody() {
+        return (Optional<RevokeSessionRequestBody>) requestBody;
     }
 
     public static Builder builder() {
@@ -47,6 +67,19 @@ public class RevokeSessionRequest {
         return this;
     }
 
+    public RevokeSessionRequest withRequestBody(RevokeSessionRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.ofNullable(requestBody);
+        return this;
+    }
+
+
+    public RevokeSessionRequest withRequestBody(Optional<? extends RevokeSessionRequestBody> requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = requestBody;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -57,25 +90,29 @@ public class RevokeSessionRequest {
         }
         RevokeSessionRequest other = (RevokeSessionRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            sessionId);
+            sessionId, requestBody);
     }
     
     @Override
     public String toString() {
         return Utils.toString(RevokeSessionRequest.class,
-                "sessionId", sessionId);
+                "sessionId", sessionId,
+                "requestBody", requestBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String sessionId;
+
+        private Optional<? extends RevokeSessionRequestBody> requestBody = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -91,10 +128,23 @@ public class RevokeSessionRequest {
             return this;
         }
 
+
+        public Builder requestBody(RevokeSessionRequestBody requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = Optional.ofNullable(requestBody);
+            return this;
+        }
+
+        public Builder requestBody(Optional<? extends RevokeSessionRequestBody> requestBody) {
+            Utils.checkNotNull(requestBody, "requestBody");
+            this.requestBody = requestBody;
+            return this;
+        }
+
         public RevokeSessionRequest build() {
 
             return new RevokeSessionRequest(
-                sessionId);
+                sessionId, requestBody);
         }
 
     }

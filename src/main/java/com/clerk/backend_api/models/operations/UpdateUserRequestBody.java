@@ -52,6 +52,14 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> locale;
 
     /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("timezone")
+    private JsonNullable<String> timezone;
+
+    /**
      * The ID of the email address to set as primary.
      * It must be verified, and present on the current user.
      */
@@ -227,6 +235,7 @@ public class UpdateUserRequestBody {
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("locale") JsonNullable<String> locale,
+            @JsonProperty("timezone") JsonNullable<String> timezone,
             @JsonProperty("primary_email_address_id") JsonNullable<String> primaryEmailAddressId,
             @JsonProperty("notify_primary_email_address_changed") JsonNullable<Boolean> notifyPrimaryEmailAddressChanged,
             @JsonProperty("primary_phone_number_id") JsonNullable<String> primaryPhoneNumberId,
@@ -251,6 +260,7 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(locale, "locale");
+        Utils.checkNotNull(timezone, "timezone");
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
         Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
@@ -275,6 +285,7 @@ public class UpdateUserRequestBody {
         this.firstName = firstName;
         this.lastName = lastName;
         this.locale = locale;
+        this.timezone = timezone;
         this.primaryEmailAddressId = primaryEmailAddressId;
         this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
         this.primaryPhoneNumberId = primaryPhoneNumberId;
@@ -301,11 +312,12 @@ public class UpdateUserRequestBody {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -339,6 +351,15 @@ public class UpdateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> locale() {
         return locale;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonIgnore
+    public JsonNullable<String> timezone() {
+        return timezone;
     }
 
     /**
@@ -608,6 +629,26 @@ public class UpdateUserRequestBody {
     public UpdateUserRequestBody withLocale(JsonNullable<String> locale) {
         Utils.checkNotNull(locale, "locale");
         this.locale = locale;
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public UpdateUserRequestBody withTimezone(String timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = JsonNullable.of(timezone);
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public UpdateUserRequestBody withTimezone(JsonNullable<String> timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = timezone;
         return this;
     }
 
@@ -1048,6 +1089,7 @@ public class UpdateUserRequestBody {
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.locale, other.locale) &&
+            Utils.enhancedDeepEquals(this.timezone, other.timezone) &&
             Utils.enhancedDeepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
             Utils.enhancedDeepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged) &&
             Utils.enhancedDeepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
@@ -1074,13 +1116,14 @@ public class UpdateUserRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
-            primaryPhoneNumberId, primaryWeb3WalletId, username,
-            profileImageId, password, passwordDigest,
-            passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-            totpSecret, backupCodes, deleteSelfEnabled,
-            createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
-            createOrganizationsLimit, createdAt, bypassClientTrust);
+            locale, timezone, primaryEmailAddressId,
+            notifyPrimaryEmailAddressChanged, primaryPhoneNumberId, primaryWeb3WalletId,
+            username, profileImageId, password,
+            passwordDigest, passwordHasher, skipPasswordChecks,
+            signOutOfOtherSessions, totpSecret, backupCodes,
+            deleteSelfEnabled, createOrganizationEnabled, legalAcceptedAt,
+            skipLegalChecks, createOrganizationsLimit, createdAt,
+            bypassClientTrust);
     }
     
     @Override
@@ -1090,6 +1133,7 @@ public class UpdateUserRequestBody {
                 "firstName", firstName,
                 "lastName", lastName,
                 "locale", locale,
+                "timezone", timezone,
                 "primaryEmailAddressId", primaryEmailAddressId,
                 "notifyPrimaryEmailAddressChanged", notifyPrimaryEmailAddressChanged,
                 "primaryPhoneNumberId", primaryPhoneNumberId,
@@ -1122,6 +1166,8 @@ public class UpdateUserRequestBody {
         private JsonNullable<String> lastName = JsonNullable.undefined();
 
         private JsonNullable<String> locale = JsonNullable.undefined();
+
+        private JsonNullable<String> timezone = JsonNullable.undefined();
 
         private JsonNullable<String> primaryEmailAddressId = JsonNullable.undefined();
 
@@ -1242,6 +1288,27 @@ public class UpdateUserRequestBody {
         public Builder locale(JsonNullable<String> locale) {
             Utils.checkNotNull(locale, "locale");
             this.locale = locale;
+            return this;
+        }
+
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(String timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = JsonNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(JsonNullable<String> timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = timezone;
             return this;
         }
 
@@ -1692,13 +1759,14 @@ public class UpdateUserRequestBody {
 
             return new UpdateUserRequestBody(
                 externalId, firstName, lastName,
-                locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
-                primaryPhoneNumberId, primaryWeb3WalletId, username,
-                profileImageId, password, passwordDigest,
-                passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-                totpSecret, backupCodes, deleteSelfEnabled,
-                createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
-                createOrganizationsLimit, createdAt, bypassClientTrust);
+                locale, timezone, primaryEmailAddressId,
+                notifyPrimaryEmailAddressChanged, primaryPhoneNumberId, primaryWeb3WalletId,
+                username, profileImageId, password,
+                passwordDigest, passwordHasher, skipPasswordChecks,
+                signOutOfOtherSessions, totpSecret, backupCodes,
+                deleteSelfEnabled, createOrganizationEnabled, legalAcceptedAt,
+                skipLegalChecks, createOrganizationsLimit, createdAt,
+                bypassClientTrust);
         }
 
 

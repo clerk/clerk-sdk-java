@@ -25,23 +25,15 @@ public class UpdateInstanceProtectRequestBody {
     @JsonProperty("rules_enabled")
     private JsonNullable<Boolean> rulesEnabled;
 
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("specter_enabled")
-    private JsonNullable<Boolean> specterEnabled;
-
     @JsonCreator
     public UpdateInstanceProtectRequestBody(
-            @JsonProperty("rules_enabled") JsonNullable<Boolean> rulesEnabled,
-            @JsonProperty("specter_enabled") JsonNullable<Boolean> specterEnabled) {
+            @JsonProperty("rules_enabled") JsonNullable<Boolean> rulesEnabled) {
         Utils.checkNotNull(rulesEnabled, "rulesEnabled");
-        Utils.checkNotNull(specterEnabled, "specterEnabled");
         this.rulesEnabled = rulesEnabled;
-        this.specterEnabled = specterEnabled;
     }
     
     public UpdateInstanceProtectRequestBody() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined());
     }
 
     /**
@@ -52,11 +44,6 @@ public class UpdateInstanceProtectRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> rulesEnabled() {
         return rulesEnabled;
-    }
-
-    @JsonIgnore
-    public JsonNullable<Boolean> specterEnabled() {
-        return specterEnabled;
     }
 
     public static Builder builder() {
@@ -86,18 +73,6 @@ public class UpdateInstanceProtectRequestBody {
         return this;
     }
 
-    public UpdateInstanceProtectRequestBody withSpecterEnabled(boolean specterEnabled) {
-        Utils.checkNotNull(specterEnabled, "specterEnabled");
-        this.specterEnabled = JsonNullable.of(specterEnabled);
-        return this;
-    }
-
-    public UpdateInstanceProtectRequestBody withSpecterEnabled(JsonNullable<Boolean> specterEnabled) {
-        Utils.checkNotNull(specterEnabled, "specterEnabled");
-        this.specterEnabled = specterEnabled;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -108,29 +83,25 @@ public class UpdateInstanceProtectRequestBody {
         }
         UpdateInstanceProtectRequestBody other = (UpdateInstanceProtectRequestBody) o;
         return 
-            Utils.enhancedDeepEquals(this.rulesEnabled, other.rulesEnabled) &&
-            Utils.enhancedDeepEquals(this.specterEnabled, other.specterEnabled);
+            Utils.enhancedDeepEquals(this.rulesEnabled, other.rulesEnabled);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            rulesEnabled, specterEnabled);
+            rulesEnabled);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateInstanceProtectRequestBody.class,
-                "rulesEnabled", rulesEnabled,
-                "specterEnabled", specterEnabled);
+                "rulesEnabled", rulesEnabled);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private JsonNullable<Boolean> rulesEnabled = JsonNullable.undefined();
-
-        private JsonNullable<Boolean> specterEnabled = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -159,23 +130,10 @@ public class UpdateInstanceProtectRequestBody {
             return this;
         }
 
-
-        public Builder specterEnabled(boolean specterEnabled) {
-            Utils.checkNotNull(specterEnabled, "specterEnabled");
-            this.specterEnabled = JsonNullable.of(specterEnabled);
-            return this;
-        }
-
-        public Builder specterEnabled(JsonNullable<Boolean> specterEnabled) {
-            Utils.checkNotNull(specterEnabled, "specterEnabled");
-            this.specterEnabled = specterEnabled;
-            return this;
-        }
-
         public UpdateInstanceProtectRequestBody build() {
 
             return new UpdateInstanceProtectRequestBody(
-                rulesEnabled, specterEnabled);
+                rulesEnabled);
         }
 
     }

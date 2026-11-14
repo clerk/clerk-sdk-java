@@ -10,9 +10,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -39,11 +42,23 @@ public class Saml {
     private JsonNullable<String> idpSsoUrl;
 
     /**
-     * IdP certificate (PEM)
+     * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+     * PEM certificates; replaces the connection's whole certificate set
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("idp_certificate")
+    @Deprecated
     private JsonNullable<String> idpCertificate;
+
+    /**
+     * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+     * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("idp_certificates")
+    private Optional<? extends List<String>> idpCertificates;
 
     /**
      * URL to IdP metadata
@@ -93,6 +108,7 @@ public class Saml {
             @JsonProperty("idp_entity_id") JsonNullable<String> idpEntityId,
             @JsonProperty("idp_sso_url") JsonNullable<String> idpSsoUrl,
             @JsonProperty("idp_certificate") JsonNullable<String> idpCertificate,
+            @JsonProperty("idp_certificates") Optional<? extends List<String>> idpCertificates,
             @JsonProperty("idp_metadata_url") JsonNullable<String> idpMetadataUrl,
             @JsonProperty("idp_metadata") JsonNullable<String> idpMetadata,
             @JsonProperty("attribute_mapping") JsonNullable<? extends CreateEnterpriseConnectionAttributeMapping> attributeMapping,
@@ -103,6 +119,7 @@ public class Saml {
         Utils.checkNotNull(idpEntityId, "idpEntityId");
         Utils.checkNotNull(idpSsoUrl, "idpSsoUrl");
         Utils.checkNotNull(idpCertificate, "idpCertificate");
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
         Utils.checkNotNull(idpMetadataUrl, "idpMetadataUrl");
         Utils.checkNotNull(idpMetadata, "idpMetadata");
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -113,6 +130,7 @@ public class Saml {
         this.idpEntityId = idpEntityId;
         this.idpSsoUrl = idpSsoUrl;
         this.idpCertificate = idpCertificate;
+        this.idpCertificates = idpCertificates;
         this.idpMetadataUrl = idpMetadataUrl;
         this.idpMetadata = idpMetadata;
         this.attributeMapping = attributeMapping;
@@ -124,9 +142,9 @@ public class Saml {
     
     public Saml() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -146,11 +164,25 @@ public class Saml {
     }
 
     /**
-     * IdP certificate (PEM)
+     * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+     * PEM certificates; replaces the connection's whole certificate set
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     @JsonIgnore
     public JsonNullable<String> idpCertificate() {
         return idpCertificate;
+    }
+
+    /**
+     * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+     * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> idpCertificates() {
+        return (Optional<List<String>>) idpCertificates;
     }
 
     /**
@@ -244,8 +276,12 @@ public class Saml {
     }
 
     /**
-     * IdP certificate (PEM)
+     * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+     * PEM certificates; replaces the connection's whole certificate set
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Saml withIdpCertificate(String idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         this.idpCertificate = JsonNullable.of(idpCertificate);
@@ -253,11 +289,36 @@ public class Saml {
     }
 
     /**
-     * IdP certificate (PEM)
+     * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+     * PEM certificates; replaces the connection's whole certificate set
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Saml withIdpCertificate(JsonNullable<String> idpCertificate) {
         Utils.checkNotNull(idpCertificate, "idpCertificate");
         this.idpCertificate = idpCertificate;
+        return this;
+    }
+
+    /**
+     * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+     * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+     */
+    public Saml withIdpCertificates(List<String> idpCertificates) {
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
+        this.idpCertificates = Optional.ofNullable(idpCertificates);
+        return this;
+    }
+
+
+    /**
+     * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+     * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+     */
+    public Saml withIdpCertificates(Optional<? extends List<String>> idpCertificates) {
+        Utils.checkNotNull(idpCertificates, "idpCertificates");
+        this.idpCertificates = idpCertificates;
         return this;
     }
 
@@ -382,6 +443,7 @@ public class Saml {
             Utils.enhancedDeepEquals(this.idpEntityId, other.idpEntityId) &&
             Utils.enhancedDeepEquals(this.idpSsoUrl, other.idpSsoUrl) &&
             Utils.enhancedDeepEquals(this.idpCertificate, other.idpCertificate) &&
+            Utils.enhancedDeepEquals(this.idpCertificates, other.idpCertificates) &&
             Utils.enhancedDeepEquals(this.idpMetadataUrl, other.idpMetadataUrl) &&
             Utils.enhancedDeepEquals(this.idpMetadata, other.idpMetadata) &&
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
@@ -395,9 +457,9 @@ public class Saml {
     public int hashCode() {
         return Utils.enhancedHash(
             idpEntityId, idpSsoUrl, idpCertificate,
-            idpMetadataUrl, idpMetadata, attributeMapping,
-            allowSubdomains, allowIdpInitiated, forceAuthn,
-            loginHint);
+            idpCertificates, idpMetadataUrl, idpMetadata,
+            attributeMapping, allowSubdomains, allowIdpInitiated,
+            forceAuthn, loginHint);
     }
     
     @Override
@@ -406,6 +468,7 @@ public class Saml {
                 "idpEntityId", idpEntityId,
                 "idpSsoUrl", idpSsoUrl,
                 "idpCertificate", idpCertificate,
+                "idpCertificates", idpCertificates,
                 "idpMetadataUrl", idpMetadataUrl,
                 "idpMetadata", idpMetadata,
                 "attributeMapping", attributeMapping,
@@ -422,7 +485,10 @@ public class Saml {
 
         private JsonNullable<String> idpSsoUrl = JsonNullable.undefined();
 
+        @Deprecated
         private JsonNullable<String> idpCertificate = JsonNullable.undefined();
+
+        private Optional<? extends List<String>> idpCertificates = Optional.empty();
 
         private JsonNullable<String> idpMetadataUrl = JsonNullable.undefined();
 
@@ -482,8 +548,12 @@ public class Saml {
 
 
         /**
-         * IdP certificate (PEM)
+         * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+         * PEM certificates; replaces the connection's whole certificate set
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder idpCertificate(String idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
             this.idpCertificate = JsonNullable.of(idpCertificate);
@@ -491,11 +561,36 @@ public class Saml {
         }
 
         /**
-         * IdP certificate (PEM)
+         * Deprecated, use idp_certificates. One X.509 certificate, PEM or bare base64, or several concatenated
+         * PEM certificates; replaces the connection's whole certificate set
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder idpCertificate(JsonNullable<String> idpCertificate) {
             Utils.checkNotNull(idpCertificate, "idpCertificate");
             this.idpCertificate = idpCertificate;
+            return this;
+        }
+
+
+        /**
+         * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+         * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+         */
+        public Builder idpCertificates(List<String> idpCertificates) {
+            Utils.checkNotNull(idpCertificates, "idpCertificates");
+            this.idpCertificates = Optional.ofNullable(idpCertificates);
+            return this;
+        }
+
+        /**
+         * The IdP X.509 signing certificates the connection trusts, one per entry, in PEM or bare base64.
+         * Replaces the connection's whole certificate set and takes precedence over idp_certificate
+         */
+        public Builder idpCertificates(Optional<? extends List<String>> idpCertificates) {
+            Utils.checkNotNull(idpCertificates, "idpCertificates");
+            this.idpCertificates = idpCertificates;
             return this;
         }
 
@@ -618,9 +713,9 @@ public class Saml {
 
             return new Saml(
                 idpEntityId, idpSsoUrl, idpCertificate,
-                idpMetadataUrl, idpMetadata, attributeMapping,
-                allowSubdomains, allowIdpInitiated, forceAuthn,
-                loginHint);
+                idpCertificates, idpMetadataUrl, idpMetadata,
+                attributeMapping, allowSubdomains, allowIdpInitiated,
+                forceAuthn, loginHint);
         }
 
     }

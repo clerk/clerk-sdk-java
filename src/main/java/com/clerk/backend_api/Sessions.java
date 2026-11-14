@@ -16,6 +16,9 @@ import com.clerk.backend_api.models.operations.CreateSessionTokenRequest;
 import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBody;
 import com.clerk.backend_api.models.operations.CreateSessionTokenRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateSessionTokenResponse;
+import com.clerk.backend_api.models.operations.GetReverificationRequest;
+import com.clerk.backend_api.models.operations.GetReverificationRequestBuilder;
+import com.clerk.backend_api.models.operations.GetReverificationResponse;
 import com.clerk.backend_api.models.operations.GetSessionListRequest;
 import com.clerk.backend_api.models.operations.GetSessionListRequestBuilder;
 import com.clerk.backend_api.models.operations.GetSessionListResponse;
@@ -27,15 +30,22 @@ import com.clerk.backend_api.models.operations.RefreshSessionRequestBody;
 import com.clerk.backend_api.models.operations.RefreshSessionRequestBuilder;
 import com.clerk.backend_api.models.operations.RefreshSessionResponse;
 import com.clerk.backend_api.models.operations.RevokeSessionRequest;
+import com.clerk.backend_api.models.operations.RevokeSessionRequestBody;
 import com.clerk.backend_api.models.operations.RevokeSessionRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeSessionResponse;
+import com.clerk.backend_api.models.operations.UpdateSessionRequest;
+import com.clerk.backend_api.models.operations.UpdateSessionRequestBody;
+import com.clerk.backend_api.models.operations.UpdateSessionRequestBuilder;
+import com.clerk.backend_api.models.operations.UpdateSessionResponse;
 import com.clerk.backend_api.operations.CreateSession;
 import com.clerk.backend_api.operations.CreateSessionToken;
 import com.clerk.backend_api.operations.CreateSessionTokenFromTemplate;
+import com.clerk.backend_api.operations.GetReverification;
 import com.clerk.backend_api.operations.GetSession;
 import com.clerk.backend_api.operations.GetSessionList;
 import com.clerk.backend_api.operations.RefreshSession;
 import com.clerk.backend_api.operations.RevokeSession;
+import com.clerk.backend_api.operations.UpdateSession;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import java.lang.String;
@@ -214,6 +224,107 @@ public class Sessions {
     }
 
     /**
+     * Update a session
+     * 
+     * <p>Changes when a session expires. Use this to give one session a longer or shorter lifetime than the
+     * one configured for your instance, for example to keep a user signed in on a device they chose to
+     * remember.
+     * 
+     * <p>`expire_at` can exceed the instance's session lifetime. The change applies only to this session, so
+     * new sign-ins still start from the instance's session lifetime. If `expire_at` is later than the
+     * session's `abandon_at`, `abandon_at` moves to the same time.
+     * 
+     * <p>The inactivity timeout, if your instance has one, still applies.
+     * 
+     * <p>Only active and pending sessions can be updated. Expired, revoked, and other ended sessions can't be
+     * revived, and sessions with an actor, such as impersonation and agent sessions, can't be updated. To
+     * end a session immediately, revoke it instead.
+     * 
+     * <p>Take the session ID from the `sid` claim of a verified session token. Never take it from an
+     * unverified client request, or a user could change another user's session.
+     * 
+     * <p>Requires a plan that includes custom session duration.
+     * 
+     * @return The call builder
+     */
+    public UpdateSessionRequestBuilder update() {
+        return new UpdateSessionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update a session
+     * 
+     * <p>Changes when a session expires. Use this to give one session a longer or shorter lifetime than the
+     * one configured for your instance, for example to keep a user signed in on a device they chose to
+     * remember.
+     * 
+     * <p>`expire_at` can exceed the instance's session lifetime. The change applies only to this session, so
+     * new sign-ins still start from the instance's session lifetime. If `expire_at` is later than the
+     * session's `abandon_at`, `abandon_at` moves to the same time.
+     * 
+     * <p>The inactivity timeout, if your instance has one, still applies.
+     * 
+     * <p>Only active and pending sessions can be updated. Expired, revoked, and other ended sessions can't be
+     * revived, and sessions with an actor, such as impersonation and agent sessions, can't be updated. To
+     * end a session immediately, revoke it instead.
+     * 
+     * <p>Take the session ID from the `sid` claim of a verified session token. Never take it from an
+     * unverified client request, or a user could change another user's session.
+     * 
+     * <p>Requires a plan that includes custom session duration.
+     * 
+     * @param sessionId The ID of the session
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateSessionResponse update(String sessionId, UpdateSessionRequestBody requestBody) {
+        return update(sessionId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Update a session
+     * 
+     * <p>Changes when a session expires. Use this to give one session a longer or shorter lifetime than the
+     * one configured for your instance, for example to keep a user signed in on a device they chose to
+     * remember.
+     * 
+     * <p>`expire_at` can exceed the instance's session lifetime. The change applies only to this session, so
+     * new sign-ins still start from the instance's session lifetime. If `expire_at` is later than the
+     * session's `abandon_at`, `abandon_at` moves to the same time.
+     * 
+     * <p>The inactivity timeout, if your instance has one, still applies.
+     * 
+     * <p>Only active and pending sessions can be updated. Expired, revoked, and other ended sessions can't be
+     * revived, and sessions with an actor, such as impersonation and agent sessions, can't be updated. To
+     * end a session immediately, revoke it instead.
+     * 
+     * <p>Take the session ID from the `sid` claim of a verified session token. Never take it from an
+     * unverified client request, or a user could change another user's session.
+     * 
+     * <p>Requires a plan that includes custom session duration.
+     * 
+     * @param sessionId The ID of the session
+     * @param requestBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateSessionResponse update(
+            String sessionId, UpdateSessionRequestBody requestBody,
+            Optional<Options> options) {
+        UpdateSessionRequest request =
+            UpdateSessionRequest
+                .builder()
+                .sessionId(sessionId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<UpdateSessionRequest, UpdateSessionResponse> operation
+              = new UpdateSession.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Refresh a session
      * 
      * <p>Refreshes a session by creating a new session token. A 401 is returned when there
@@ -266,6 +377,65 @@ public class Sessions {
     }
 
     /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @return The call builder
+     */
+    public GetReverificationRequestBuilder getReverification() {
+        return new GetReverificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @param sessionId The ID of the session the reverification belongs to
+     * @param reverificationId The ID of the reverification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetReverificationResponse getReverification(String sessionId, String reverificationId) {
+        return getReverification(sessionId, reverificationId, Optional.empty());
+    }
+
+    /**
+     * Retrieve a reverification
+     * 
+     * <p>Retrieve a reverification scoped to a session. A resource server can use this to validate a
+     * reverification id it received from its client: confirm it is real, scoped to the expected session,
+     * completed, and how fresh each factor is. Single-use / replay detection is the caller's
+     * responsibility (the id is stable, so the caller dedups consumed ids).
+     * 
+     * @param sessionId The ID of the session the reverification belongs to
+     * @param reverificationId The ID of the reverification
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetReverificationResponse getReverification(
+            String sessionId, String reverificationId,
+            Optional<Options> options) {
+        GetReverificationRequest request =
+            GetReverificationRequest
+                .builder()
+                .sessionId(sessionId)
+                .reverificationId(reverificationId)
+                .build();
+        RequestOperation<GetReverificationRequest, GetReverificationResponse> operation
+              = new GetReverification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Revoke a session
      * 
      * <p>Sets the status of a session as "revoked", which is an unauthenticated state.
@@ -290,7 +460,7 @@ public class Sessions {
      * @throws RuntimeException subclass if the API call fails
      */
     public RevokeSessionResponse revoke(String sessionId) {
-        return revoke(sessionId, Optional.empty());
+        return revoke(sessionId, Optional.empty(), Optional.empty());
     }
 
     /**
@@ -301,15 +471,19 @@ public class Sessions {
      * however the user will need to sign in again.
      * 
      * @param sessionId The ID of the session
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public RevokeSessionResponse revoke(String sessionId, Optional<Options> options) {
+    public RevokeSessionResponse revoke(
+            String sessionId, Optional<? extends RevokeSessionRequestBody> requestBody,
+            Optional<Options> options) {
         RevokeSessionRequest request =
             RevokeSessionRequest
                 .builder()
                 .sessionId(sessionId)
+                .requestBody(requestBody)
                 .build();
         RequestOperation<RevokeSessionRequest, RevokeSessionResponse> operation
               = new RevokeSession.Sync(sdkConfiguration, options, _headers);

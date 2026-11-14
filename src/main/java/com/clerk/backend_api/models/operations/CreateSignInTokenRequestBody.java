@@ -11,9 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -34,28 +37,64 @@ public class CreateSignInTokenRequestBody {
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
-     * By default, the duration is 30 days.
+     * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expires_in_seconds")
     private JsonNullable<Long> expiresInSeconds;
 
+    /**
+     * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+     * prompted for it.
+     * When omitted, redeeming the token completes only the first factor, and the user must still complete
+     * their second factor.
+     * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+     * reports a second factor age of 0.
+     * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+     * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+     * user to complete one.
+     * Has no effect for users without a second factor enabled.
+     * A token created with this parameter signs in a user with a second factor enabled without prompting
+     * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("second_factor_verification")
+    private JsonNullable<? extends SecondFactorVerification> secondFactorVerification;
+
+    /**
+     * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+     * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+     * unlocked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("honor_lockout")
+    private Optional<Boolean> honorLockout;
+
     @JsonCreator
     public CreateSignInTokenRequestBody(
             @JsonProperty("user_id") String userId,
             @JsonProperty("org_id") JsonNullable<String> orgId,
-            @JsonProperty("expires_in_seconds") JsonNullable<Long> expiresInSeconds) {
+            @JsonProperty("expires_in_seconds") JsonNullable<Long> expiresInSeconds,
+            @JsonProperty("second_factor_verification") JsonNullable<? extends SecondFactorVerification> secondFactorVerification,
+            @JsonProperty("honor_lockout") Optional<Boolean> honorLockout) {
         Utils.checkNotNull(userId, "userId");
         Utils.checkNotNull(orgId, "orgId");
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
+        Utils.checkNotNull(secondFactorVerification, "secondFactorVerification");
+        Utils.checkNotNull(honorLockout, "honorLockout");
         this.userId = userId;
         this.orgId = orgId;
         this.expiresInSeconds = expiresInSeconds;
+        this.secondFactorVerification = secondFactorVerification;
+        this.honorLockout = honorLockout;
     }
     
     public CreateSignInTokenRequestBody(
             String userId) {
-        this(userId, JsonNullable.undefined(), JsonNullable.undefined());
+        this(userId, JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -77,11 +116,43 @@ public class CreateSignInTokenRequestBody {
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
-     * By default, the duration is 30 days.
+     * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
      */
     @JsonIgnore
     public JsonNullable<Long> expiresInSeconds() {
         return expiresInSeconds;
+    }
+
+    /**
+     * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+     * prompted for it.
+     * When omitted, redeeming the token completes only the first factor, and the user must still complete
+     * their second factor.
+     * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+     * reports a second factor age of 0.
+     * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+     * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+     * user to complete one.
+     * Has no effect for users without a second factor enabled.
+     * A token created with this parameter signs in a user with a second factor enabled without prompting
+     * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<SecondFactorVerification> secondFactorVerification() {
+        return (JsonNullable<SecondFactorVerification>) secondFactorVerification;
+    }
+
+    /**
+     * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+     * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+     * unlocked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonIgnore
+    public Optional<Boolean> honorLockout() {
+        return honorLockout;
     }
 
     public static Builder builder() {
@@ -120,7 +191,7 @@ public class CreateSignInTokenRequestBody {
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
-     * By default, the duration is 30 days.
+     * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
      */
     public CreateSignInTokenRequestBody withExpiresInSeconds(long expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -130,11 +201,78 @@ public class CreateSignInTokenRequestBody {
 
     /**
      * Optional parameter to specify the life duration of the sign in token in seconds.
-     * By default, the duration is 30 days.
+     * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
      */
     public CreateSignInTokenRequestBody withExpiresInSeconds(JsonNullable<Long> expiresInSeconds) {
         Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
         this.expiresInSeconds = expiresInSeconds;
+        return this;
+    }
+
+    /**
+     * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+     * prompted for it.
+     * When omitted, redeeming the token completes only the first factor, and the user must still complete
+     * their second factor.
+     * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+     * reports a second factor age of 0.
+     * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+     * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+     * user to complete one.
+     * Has no effect for users without a second factor enabled.
+     * A token created with this parameter signs in a user with a second factor enabled without prompting
+     * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+     */
+    public CreateSignInTokenRequestBody withSecondFactorVerification(SecondFactorVerification secondFactorVerification) {
+        Utils.checkNotNull(secondFactorVerification, "secondFactorVerification");
+        this.secondFactorVerification = JsonNullable.of(secondFactorVerification);
+        return this;
+    }
+
+    /**
+     * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+     * prompted for it.
+     * When omitted, redeeming the token completes only the first factor, and the user must still complete
+     * their second factor.
+     * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+     * reports a second factor age of 0.
+     * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+     * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+     * user to complete one.
+     * Has no effect for users without a second factor enabled.
+     * A token created with this parameter signs in a user with a second factor enabled without prompting
+     * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+     */
+    public CreateSignInTokenRequestBody withSecondFactorVerification(JsonNullable<? extends SecondFactorVerification> secondFactorVerification) {
+        Utils.checkNotNull(secondFactorVerification, "secondFactorVerification");
+        this.secondFactorVerification = secondFactorVerification;
+        return this;
+    }
+
+    /**
+     * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+     * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+     * unlocked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public CreateSignInTokenRequestBody withHonorLockout(boolean honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = Optional.ofNullable(honorLockout);
+        return this;
+    }
+
+
+    /**
+     * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+     * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+     * unlocked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public CreateSignInTokenRequestBody withHonorLockout(Optional<Boolean> honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = honorLockout;
         return this;
     }
 
@@ -150,13 +288,16 @@ public class CreateSignInTokenRequestBody {
         return 
             Utils.enhancedDeepEquals(this.userId, other.userId) &&
             Utils.enhancedDeepEquals(this.orgId, other.orgId) &&
-            Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds);
+            Utils.enhancedDeepEquals(this.expiresInSeconds, other.expiresInSeconds) &&
+            Utils.enhancedDeepEquals(this.secondFactorVerification, other.secondFactorVerification) &&
+            Utils.enhancedDeepEquals(this.honorLockout, other.honorLockout);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            userId, orgId, expiresInSeconds);
+            userId, orgId, expiresInSeconds,
+            secondFactorVerification, honorLockout);
     }
     
     @Override
@@ -164,7 +305,9 @@ public class CreateSignInTokenRequestBody {
         return Utils.toString(CreateSignInTokenRequestBody.class,
                 "userId", userId,
                 "orgId", orgId,
-                "expiresInSeconds", expiresInSeconds);
+                "expiresInSeconds", expiresInSeconds,
+                "secondFactorVerification", secondFactorVerification,
+                "honorLockout", honorLockout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -174,7 +317,11 @@ public class CreateSignInTokenRequestBody {
 
         private JsonNullable<String> orgId = JsonNullable.undefined();
 
-        private JsonNullable<Long> expiresInSeconds;
+        private JsonNullable<Long> expiresInSeconds = JsonNullable.undefined();
+
+        private JsonNullable<? extends SecondFactorVerification> secondFactorVerification = JsonNullable.undefined();
+
+        private Optional<Boolean> honorLockout;
 
         private Builder() {
           // force use of static builder() method
@@ -214,7 +361,7 @@ public class CreateSignInTokenRequestBody {
 
         /**
          * Optional parameter to specify the life duration of the sign in token in seconds.
-         * By default, the duration is 30 days.
+         * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
          */
         public Builder expiresInSeconds(long expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -224,7 +371,7 @@ public class CreateSignInTokenRequestBody {
 
         /**
          * Optional parameter to specify the life duration of the sign in token in seconds.
-         * By default, the duration is 30 days.
+         * By default, the duration is 30 days, or 10 minutes when `second_factor_verification` is set.
          */
         public Builder expiresInSeconds(JsonNullable<Long> expiresInSeconds) {
             Utils.checkNotNull(expiresInSeconds, "expiresInSeconds");
@@ -232,20 +379,89 @@ public class CreateSignInTokenRequestBody {
             return this;
         }
 
-        public CreateSignInTokenRequestBody build() {
-            if (expiresInSeconds == null) {
-                expiresInSeconds = _SINGLETON_VALUE_ExpiresInSeconds.value();
-            }
 
-            return new CreateSignInTokenRequestBody(
-                userId, orgId, expiresInSeconds);
+        /**
+         * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+         * prompted for it.
+         * When omitted, redeeming the token completes only the first factor, and the user must still complete
+         * their second factor.
+         * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+         * reports a second factor age of 0.
+         * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+         * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+         * user to complete one.
+         * Has no effect for users without a second factor enabled.
+         * A token created with this parameter signs in a user with a second factor enabled without prompting
+         * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+         */
+        public Builder secondFactorVerification(SecondFactorVerification secondFactorVerification) {
+            Utils.checkNotNull(secondFactorVerification, "secondFactorVerification");
+            this.secondFactorVerification = JsonNullable.of(secondFactorVerification);
+            return this;
+        }
+
+        /**
+         * Optional parameter that lets a user with a second factor enabled complete the sign in without being
+         * prompted for it.
+         * When omitted, redeeming the token completes only the first factor, and the user must still complete
+         * their second factor.
+         * `fresh`: the second factor is treated as verified at sign in. The session token's `fva` claim
+         * reports a second factor age of 0.
+         * `stale`: the second factor is treated as unverified. The session token's `fva` claim reports the
+         * maximum second factor age of 99999, so any reverification that requires a second factor prompts the
+         * user to complete one.
+         * Has no effect for users without a second factor enabled.
+         * A token created with this parameter signs in a user with a second factor enabled without prompting
+         * for it, so `expires_in_seconds` defaults to 10 minutes. We recommend keeping it short.
+         */
+        public Builder secondFactorVerification(JsonNullable<? extends SecondFactorVerification> secondFactorVerification) {
+            Utils.checkNotNull(secondFactorVerification, "secondFactorVerification");
+            this.secondFactorVerification = secondFactorVerification;
+            return this;
         }
 
 
-        private static final LazySingletonValue<JsonNullable<Long>> _SINGLETON_VALUE_ExpiresInSeconds =
+        /**
+         * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+         * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+         * unlocked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(boolean honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = Optional.ofNullable(honorLockout);
+            return this;
+        }
+
+        /**
+         * When `true`, creating the token is rejected with a `user_locked` error if the user is locked, and so
+         * is redeeming it. A token rejected on redemption stays pending and can be redeemed once the user is
+         * unlocked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(Optional<Boolean> honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = honorLockout;
+            return this;
+        }
+
+        public CreateSignInTokenRequestBody build() {
+            if (honorLockout == null) {
+                honorLockout = _SINGLETON_VALUE_HonorLockout.value();
+            }
+
+            return new CreateSignInTokenRequestBody(
+                userId, orgId, expiresInSeconds,
+                secondFactorVerification, honorLockout);
+        }
+
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_HonorLockout =
                 new LazySingletonValue<>(
-                        "expires_in_seconds",
-                        "2592000",
-                        new TypeReference<JsonNullable<Long>>() {});
+                        "honor_lockout",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

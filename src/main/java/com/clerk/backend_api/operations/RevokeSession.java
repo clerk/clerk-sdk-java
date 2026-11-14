@@ -24,10 +24,13 @@ import com.clerk.backend_api.utils.Hook.BeforeRequestContextImpl;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.Retries;
 import com.clerk.backend_api.utils.RetryConfig;
+import com.clerk.backend_api.utils.SerializedBody;
+import com.clerk.backend_api.utils.Utils.JsonShape;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
+import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -101,13 +104,23 @@ public class RevokeSession {
                     java.util.Optional.empty(),
                     securitySource());
         }
-        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
                     "/sessions/{session_id}/revoke",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "POST");
+            Object convertedRequest = Utils.convertToShape(
+                    request,
+                    JsonShape.DEFAULT,
+                    typeReference);
+            SerializedBody serializedRequestBody = Utils.serializeRequestBody(
+                    convertedRequest,
+                    "requestBody",
+                    "json",
+                    false);
+            req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
@@ -128,7 +141,7 @@ public class RevokeSession {
         }
 
         private HttpRequest onBuildRequest(RevokeSessionRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, RevokeSessionRequest.class);
+            HttpRequest req = buildRequest(request, RevokeSessionRequest.class, new TypeReference<RevokeSessionRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -192,7 +205,7 @@ public class RevokeSession {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "404", "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw ClerkErrors.from(response);
                 } else {
