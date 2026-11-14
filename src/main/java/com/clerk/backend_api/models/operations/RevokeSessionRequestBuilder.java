@@ -17,6 +17,7 @@ import java.util.Optional;
 public class RevokeSessionRequestBuilder {
 
     private String sessionId;
+    private Optional<? extends RevokeSessionRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -28,6 +29,18 @@ public class RevokeSessionRequestBuilder {
     public RevokeSessionRequestBuilder sessionId(String sessionId) {
         Utils.checkNotNull(sessionId, "sessionId");
         this.sessionId = sessionId;
+        return this;
+    }
+                
+    public RevokeSessionRequestBuilder requestBody(RevokeSessionRequestBody requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = Optional.of(requestBody);
+        return this;
+    }
+
+    public RevokeSessionRequestBuilder requestBody(Optional<? extends RevokeSessionRequestBody> requestBody) {
+        Utils.checkNotNull(requestBody, "requestBody");
+        this.requestBody = requestBody;
         return this;
     }
                 
@@ -46,7 +59,8 @@ public class RevokeSessionRequestBuilder {
 
     private RevokeSessionRequest buildRequest() {
 
-        RevokeSessionRequest request = new RevokeSessionRequest(sessionId);
+        RevokeSessionRequest request = new RevokeSessionRequest(sessionId,
+            requestBody);
 
         return request;
     }

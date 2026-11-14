@@ -79,6 +79,9 @@ public class BetaFeatures {
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
+     * 
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -99,6 +102,9 @@ public class BetaFeatures {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -121,6 +127,9 @@ public class BetaFeatures {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options

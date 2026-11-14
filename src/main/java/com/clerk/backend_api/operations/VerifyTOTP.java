@@ -212,7 +212,7 @@ public class VerifyTOTP {
                     throw SDKError.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "404", "422", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404", "422", "4XX")) {
                 // no content
                 throw SDKError.from("API error occurred", response);
             }

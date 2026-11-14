@@ -47,7 +47,7 @@ afterEvaluate {
                     description = config.description
                     url = 'https://github.com/owner/repo'
                     scm {
-                        url = 'github.com/owner/repo'
+                        url = 'https://github.com/owner/repo'
                         connection = 'scm:git:ssh://git@github.com/owner/repo.git'
                     }
                     licenses {
