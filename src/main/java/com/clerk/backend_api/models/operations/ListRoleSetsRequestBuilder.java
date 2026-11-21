@@ -15,6 +15,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ListRoleSetsRequestBuilder {
@@ -33,6 +34,7 @@ public class ListRoleSetsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -99,6 +101,18 @@ public class ListRoleSetsRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ListRoleSetsRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ListRoleSetsRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private ListRoleSetsRequest buildRequest() {
@@ -123,6 +137,7 @@ public class ListRoleSetsRequestBuilder {
     public ListRoleSetsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ListRoleSetsRequest, ListRoleSetsResponse> operation

@@ -84,6 +84,30 @@ public class ProxyChecks {
      * already configured to work with a proxy.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public VerifyDomainProxyResponse verify(Optional<? extends VerifyDomainProxyRequestBody> request) {
+        return verify(request, Optional.empty());
+    }
+
+    /**
+     * Verify the proxy configuration for your domain
+     * 
+     * <p>This endpoint can be used to validate that a proxy-enabled domain is operational.
+     * It tries to verify that the proxy URL provided in the parameters maps to a functional proxy that can
+     * reach the Clerk Frontend API.
+     * 
+     * <p>You can use this endpoint before you set a proxy URL for a domain. This way you can ensure that
+     * switching to proxy-based
+     * configuration will not lead to downtime for your instance.
+     * 
+     * <p>The `proxy_url` parameter allows for testing proxy configurations for domains that don't have a
+     * proxy URL yet, or operate on
+     * a different proxy URL than the one provided. It can also be used to re-validate a domain that is
+     * already configured to work with a proxy.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

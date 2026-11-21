@@ -106,6 +106,35 @@ public class Machines {
      *         For example, to return machines in descending order by `created_at`, use `-created_at`.
      *         If you don't use `+` or `-`, then `+` is implied.
      *         Defaults to `-created_at`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListMachinesResponse list(
+            Optional<Long> limit, Optional<Long> offset,
+            Optional<String> query, Optional<String> orderBy) {
+        return list(limit, offset, query,
+            orderBy, Optional.empty());
+    }
+
+    /**
+     * Get a list of machines for an instance
+     * 
+     * <p>This request returns the list of machines for an instance. The machines are
+     * ordered by descending creation date (i.e. most recent machines will be
+     * returned first)
+     * 
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param query Returns machines with ID or name that match the given query. Uses exact match for machine ID and partial match for name.
+     * @param orderBy Allows to return machines in a particular order.
+     *         You can order the returned machines by their `name` or `created_at`.
+     *         To specify the direction, use the `+` or `-` symbols prepended to the property to order by.
+     *         For example, to return machines in descending order by `created_at`, use `-created_at`.
+     *         If you don't use `+` or `-`, then `+` is implied.
+     *         Defaults to `-created_at`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -148,6 +177,19 @@ public class Machines {
      */
     public CreateMachineResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a machine
+     * 
+     * <p>Creates a new machine.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateMachineResponse create(Optional<? extends CreateMachineRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -235,6 +277,21 @@ public class Machines {
      */
     public UpdateMachineResponse update(String machineId) {
         return update(machineId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update a machine
+     * 
+     * <p>Updates an existing machine.
+     * Only the provided fields will be updated.
+     * 
+     * @param machineId The ID of the machine to update
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateMachineResponse update(String machineId, Optional<? extends UpdateMachineRequestBody> requestBody) {
+        return update(machineId, requestBody, Optional.empty());
     }
 
     /**
@@ -436,6 +493,21 @@ public class Machines {
      */
     public CreateMachineScopeResponse createScope(String machineId) {
         return createScope(machineId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a machine scope
+     * 
+     * <p>Creates a new machine scope, allowing the specified machine to access another machine.
+     * Maximum of 150 scopes per machine.
+     * 
+     * @param machineId The ID of the machine that will have access to another machine
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateMachineScopeResponse createScope(String machineId, Optional<? extends CreateMachineScopeRequestBody> requestBody) {
+        return createScope(machineId, requestBody, Optional.empty());
     }
 
     /**

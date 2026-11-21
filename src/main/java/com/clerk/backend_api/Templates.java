@@ -63,6 +63,26 @@ public class Templates {
      * @param templateType The type of template to preview
      * @param slug The slug of the template to preview
      * @param requestBody Required parameters
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public PreviewTemplateResponse preview(
+            String templateType, String slug,
+            Optional<? extends PreviewTemplateRequestBody> requestBody) {
+        return preview(templateType, slug, requestBody,
+            Optional.empty());
+    }
+
+    /**
+     * Preview changes to a template
+     * 
+     * <p>Returns a preview of a template for a given template_type, slug and body
+     * 
+     * @param templateType The type of template to preview
+     * @param slug The slug of the template to preview
+     * @param requestBody Required parameters
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

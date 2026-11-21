@@ -11,12 +11,14 @@ import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.time.Duration;
 import java.util.Optional;
 
 public class VerifyM2MTokenRequestBuilder {
 
     private VerifyM2MTokenRequestBody request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -41,10 +43,23 @@ public class VerifyM2MTokenRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public VerifyM2MTokenRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public VerifyM2MTokenRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
     public VerifyM2MTokenResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<VerifyM2MTokenRequestBody, VerifyM2MTokenResponse> operation

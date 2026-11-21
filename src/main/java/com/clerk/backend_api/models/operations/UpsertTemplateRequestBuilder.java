@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class UpsertTemplateRequestBuilder {
@@ -20,6 +21,7 @@ public class UpsertTemplateRequestBuilder {
     private String slug;
     private Optional<? extends UpsertTemplateRequestBody> requestBody = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -62,6 +64,18 @@ public class UpsertTemplateRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public UpsertTemplateRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public UpsertTemplateRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private UpsertTemplateRequest buildRequest() {
@@ -76,6 +90,7 @@ public class UpsertTemplateRequestBuilder {
     public UpsertTemplateResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<UpsertTemplateRequest, UpsertTemplateResponse> operation

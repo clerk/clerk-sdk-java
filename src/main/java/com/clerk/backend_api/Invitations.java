@@ -10,6 +10,9 @@ import com.clerk.backend_api.models.operations.CreateBulkInvitationsResponse;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBody;
 import com.clerk.backend_api.models.operations.CreateInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.CreateInvitationResponse;
+import com.clerk.backend_api.models.operations.DeleteInvitationRequest;
+import com.clerk.backend_api.models.operations.DeleteInvitationRequestBuilder;
+import com.clerk.backend_api.models.operations.DeleteInvitationResponse;
 import com.clerk.backend_api.models.operations.ListInvitationsRequest;
 import com.clerk.backend_api.models.operations.ListInvitationsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListInvitationsResponse;
@@ -19,6 +22,7 @@ import com.clerk.backend_api.models.operations.RevokeInvitationRequestBuilder;
 import com.clerk.backend_api.models.operations.RevokeInvitationResponse;
 import com.clerk.backend_api.operations.CreateBulkInvitations;
 import com.clerk.backend_api.operations.CreateInvitation;
+import com.clerk.backend_api.operations.DeleteInvitation;
 import com.clerk.backend_api.operations.ListInvitations;
 import com.clerk.backend_api.operations.RevokeInvitation;
 import com.clerk.backend_api.utils.Headers;
@@ -77,6 +81,23 @@ public class Invitations {
      * will result to an error.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateInvitationResponse create(Optional<? extends CreateInvitationRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create an invitation
+     * 
+     * <p>Creates a new invitation for the given email address and sends the invitation email.
+     * Keep in mind that you cannot create an invitation if there is already one for the given email
+     * address.
+     * Also, trying to create an invitation for an email address that already exists in your application
+     * will result to an error.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -90,7 +111,8 @@ public class Invitations {
     /**
      * List all invitations
      * 
-     * <p>Returns all non-revoked invitations for your application, sorted by creation date
+     * <p>Returns non-revoked invitations for your application, sorted by creation date.
+     * Without `limit`, `offset` or `paginated=true`, returns at most 500 invitations.
      * 
      * @return The call builder
      */
@@ -101,7 +123,8 @@ public class Invitations {
     /**
      * List all invitations
      * 
-     * <p>Returns all non-revoked invitations for your application, sorted by creation date
+     * <p>Returns non-revoked invitations for your application, sorted by creation date.
+     * Without `limit`, `offset` or `paginated=true`, returns at most 500 invitations.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -114,7 +137,8 @@ public class Invitations {
     /**
      * List all invitations
      * 
-     * <p>Returns all non-revoked invitations for your application, sorted by creation date
+     * <p>Returns non-revoked invitations for your application, sorted by creation date.
+     * Without `limit`, `offset` or `paginated=true`, returns at most 500 invitations.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -186,6 +210,29 @@ public class Invitations {
      * invitations, please make multiple requests.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request) {
+        return bulkCreate(request, Optional.empty());
+    }
+
+    /**
+     * Create multiple invitations
+     * 
+     * <p>Use this API operation to create multiple invitations for the provided email addresses. You can
+     * choose to send the
+     * invitations as emails by setting the `notify` parameter to `true`. There cannot be an existing
+     * invitation for any
+     * of the email addresses you provide unless you set `ignore_existing` to `true` for specific email
+     * addresses. Please
+     * note that there must be no existing user for any of the email addresses you provide, and this rule
+     * cannot be bypassed.
+     * 
+     * <p>This endpoint is limited to a maximum of 10 invitations per API call. If you need to send more
+     * invitations, please make multiple requests.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -193,6 +240,69 @@ public class Invitations {
     public CreateBulkInvitationsResponse bulkCreate(Optional<? extends List<RequestBody>> request, Optional<Options> options) {
         RequestOperation<Optional<? extends List<RequestBody>>, CreateBulkInvitationsResponse> operation
               = new CreateBulkInvitations.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @return The call builder
+     */
+    public DeleteInvitationRequestBuilder delete() {
+        return new DeleteInvitationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @param invitationId The ID of the invitation to delete
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteInvitationResponse delete(String invitationId) {
+        return delete(invitationId, Optional.empty());
+    }
+
+    /**
+     * Delete an invitation
+     * 
+     * <p>Permanently deletes the given invitation and the copies of the invitation email Clerk stored for its
+     * recipient.
+     * Unlike revoking, deleting removes the invitation record itself, which helps honor a data erasure
+     * request from someone who was invited but never signed up.
+     * Other records that contain the same email address, such as users or organization invitations, are
+     * not affected.
+     * Invitations of any status can be deleted.
+     * 
+     * @param invitationId The ID of the invitation to delete
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteInvitationResponse delete(String invitationId, Optional<Options> options) {
+        DeleteInvitationRequest request =
+            DeleteInvitationRequest
+                .builder()
+                .invitationId(invitationId)
+                .build();
+        RequestOperation<DeleteInvitationRequest, DeleteInvitationResponse> operation
+              = new DeleteInvitation.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

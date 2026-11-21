@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -63,6 +64,32 @@ public class CreateAgentTaskRequestBody {
     @JsonProperty("session_max_duration_in_seconds")
     private Optional<Long> sessionMaxDurationInSeconds;
 
+    /**
+     * When true, the session created by the agent task can refresh only its own session token and read.
+     * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+     * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+     * and organization writes, sign-in and sign-up, and OAuth approval.
+     * It also refuses changing the session's workspace (its active organization).
+     * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+     * errors.
+     * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+     * session.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("session_restricted")
+    private Optional<Boolean> sessionRestricted;
+
+    /**
+     * The organization the agent task session starts in. The user must be a member of it.
+     * If omitted, the user's last active organization is used, or the personal workspace
+     * when the user has none. When session_restricted is true, the session cannot use another
+     * workspace and ends when this one is no longer available, and creation fails when
+     * the result is the personal workspace but the user must choose an organization.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("session_organization_id")
+    private Optional<String> sessionOrganizationId;
+
     @JsonCreator
     public CreateAgentTaskRequestBody(
             @JsonProperty("on_behalf_of") OnBehalfOf onBehalfOf,
@@ -70,19 +97,25 @@ public class CreateAgentTaskRequestBody {
             @JsonProperty("agent_name") String agentName,
             @JsonProperty("task_description") String taskDescription,
             @JsonProperty("redirect_url") String redirectUrl,
-            @JsonProperty("session_max_duration_in_seconds") Optional<Long> sessionMaxDurationInSeconds) {
+            @JsonProperty("session_max_duration_in_seconds") Optional<Long> sessionMaxDurationInSeconds,
+            @JsonProperty("session_restricted") Optional<Boolean> sessionRestricted,
+            @JsonProperty("session_organization_id") Optional<String> sessionOrganizationId) {
         Utils.checkNotNull(onBehalfOf, "onBehalfOf");
         Utils.checkNotNull(permissions, "permissions");
         Utils.checkNotNull(agentName, "agentName");
         Utils.checkNotNull(taskDescription, "taskDescription");
         Utils.checkNotNull(redirectUrl, "redirectUrl");
         Utils.checkNotNull(sessionMaxDurationInSeconds, "sessionMaxDurationInSeconds");
+        Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
         this.onBehalfOf = onBehalfOf;
         this.permissions = permissions;
         this.agentName = agentName;
         this.taskDescription = taskDescription;
         this.redirectUrl = redirectUrl;
         this.sessionMaxDurationInSeconds = sessionMaxDurationInSeconds;
+        this.sessionRestricted = sessionRestricted;
+        this.sessionOrganizationId = sessionOrganizationId;
     }
     
     public CreateAgentTaskRequestBody(
@@ -92,7 +125,8 @@ public class CreateAgentTaskRequestBody {
             String taskDescription,
             String redirectUrl) {
         this(onBehalfOf, permissions, agentName,
-            taskDescription, redirectUrl, Optional.empty());
+            taskDescription, redirectUrl, Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -149,6 +183,34 @@ public class CreateAgentTaskRequestBody {
     @JsonIgnore
     public Optional<Long> sessionMaxDurationInSeconds() {
         return sessionMaxDurationInSeconds;
+    }
+
+    /**
+     * When true, the session created by the agent task can refresh only its own session token and read.
+     * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+     * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+     * and organization writes, sign-in and sign-up, and OAuth approval.
+     * It also refuses changing the session's workspace (its active organization).
+     * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+     * errors.
+     * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+     * session.
+     */
+    @JsonIgnore
+    public Optional<Boolean> sessionRestricted() {
+        return sessionRestricted;
+    }
+
+    /**
+     * The organization the agent task session starts in. The user must be a member of it.
+     * If omitted, the user's last active organization is used, or the personal workspace
+     * when the user has none. When session_restricted is true, the session cannot use another
+     * workspace and ends when this one is no longer available, and creation fails when
+     * the result is the personal workspace but the user must choose an organization.
+     */
+    @JsonIgnore
+    public Optional<String> sessionOrganizationId() {
+        return sessionOrganizationId;
     }
 
     public static Builder builder() {
@@ -229,6 +291,68 @@ public class CreateAgentTaskRequestBody {
         return this;
     }
 
+    /**
+     * When true, the session created by the agent task can refresh only its own session token and read.
+     * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+     * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+     * and organization writes, sign-in and sign-up, and OAuth approval.
+     * It also refuses changing the session's workspace (its active organization).
+     * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+     * errors.
+     * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+     * session.
+     */
+    public CreateAgentTaskRequestBody withSessionRestricted(boolean sessionRestricted) {
+        Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+        this.sessionRestricted = Optional.ofNullable(sessionRestricted);
+        return this;
+    }
+
+
+    /**
+     * When true, the session created by the agent task can refresh only its own session token and read.
+     * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+     * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+     * and organization writes, sign-in and sign-up, and OAuth approval.
+     * It also refuses changing the session's workspace (its active organization).
+     * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+     * errors.
+     * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+     * session.
+     */
+    public CreateAgentTaskRequestBody withSessionRestricted(Optional<Boolean> sessionRestricted) {
+        Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+        this.sessionRestricted = sessionRestricted;
+        return this;
+    }
+
+    /**
+     * The organization the agent task session starts in. The user must be a member of it.
+     * If omitted, the user's last active organization is used, or the personal workspace
+     * when the user has none. When session_restricted is true, the session cannot use another
+     * workspace and ends when this one is no longer available, and creation fails when
+     * the result is the personal workspace but the user must choose an organization.
+     */
+    public CreateAgentTaskRequestBody withSessionOrganizationId(String sessionOrganizationId) {
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+        this.sessionOrganizationId = Optional.ofNullable(sessionOrganizationId);
+        return this;
+    }
+
+
+    /**
+     * The organization the agent task session starts in. The user must be a member of it.
+     * If omitted, the user's last active organization is used, or the personal workspace
+     * when the user has none. When session_restricted is true, the session cannot use another
+     * workspace and ends when this one is no longer available, and creation fails when
+     * the result is the personal workspace but the user must choose an organization.
+     */
+    public CreateAgentTaskRequestBody withSessionOrganizationId(Optional<String> sessionOrganizationId) {
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+        this.sessionOrganizationId = sessionOrganizationId;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -244,14 +368,17 @@ public class CreateAgentTaskRequestBody {
             Utils.enhancedDeepEquals(this.agentName, other.agentName) &&
             Utils.enhancedDeepEquals(this.taskDescription, other.taskDescription) &&
             Utils.enhancedDeepEquals(this.redirectUrl, other.redirectUrl) &&
-            Utils.enhancedDeepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds);
+            Utils.enhancedDeepEquals(this.sessionMaxDurationInSeconds, other.sessionMaxDurationInSeconds) &&
+            Utils.enhancedDeepEquals(this.sessionRestricted, other.sessionRestricted) &&
+            Utils.enhancedDeepEquals(this.sessionOrganizationId, other.sessionOrganizationId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             onBehalfOf, permissions, agentName,
-            taskDescription, redirectUrl, sessionMaxDurationInSeconds);
+            taskDescription, redirectUrl, sessionMaxDurationInSeconds,
+            sessionRestricted, sessionOrganizationId);
     }
     
     @Override
@@ -262,7 +389,9 @@ public class CreateAgentTaskRequestBody {
                 "agentName", agentName,
                 "taskDescription", taskDescription,
                 "redirectUrl", redirectUrl,
-                "sessionMaxDurationInSeconds", sessionMaxDurationInSeconds);
+                "sessionMaxDurationInSeconds", sessionMaxDurationInSeconds,
+                "sessionRestricted", sessionRestricted,
+                "sessionOrganizationId", sessionOrganizationId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -279,6 +408,10 @@ public class CreateAgentTaskRequestBody {
         private String redirectUrl;
 
         private Optional<Long> sessionMaxDurationInSeconds;
+
+        private Optional<Boolean> sessionRestricted;
+
+        private Optional<String> sessionOrganizationId = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -362,14 +495,80 @@ public class CreateAgentTaskRequestBody {
             return this;
         }
 
+
+        /**
+         * When true, the session created by the agent task can refresh only its own session token and read.
+         * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+         * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+         * and organization writes, sign-in and sign-up, and OAuth approval.
+         * It also refuses changing the session's workspace (its active organization).
+         * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+         * errors.
+         * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+         * session.
+         */
+        public Builder sessionRestricted(boolean sessionRestricted) {
+            Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+            this.sessionRestricted = Optional.ofNullable(sessionRestricted);
+            return this;
+        }
+
+        /**
+         * When true, the session created by the agent task can refresh only its own session token and read.
+         * Clerk's Frontend API refuses every other write from a browser client that holds the session,
+         * including touch, sign-out through the API (the browser's cookie sign-out GET stays allowed), profile
+         * and organization writes, sign-in and sign-up, and OAuth approval.
+         * It also refuses changing the session's workspace (its active organization).
+         * Expect an app that relies on those calls, such as the clerk-js touch and sign-out, to receive 403
+         * errors.
+         * The session token's `agt` claim then carries `rst: true`; it omits `rst` for an unrestricted
+         * session.
+         */
+        public Builder sessionRestricted(Optional<Boolean> sessionRestricted) {
+            Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+            this.sessionRestricted = sessionRestricted;
+            return this;
+        }
+
+
+        /**
+         * The organization the agent task session starts in. The user must be a member of it.
+         * If omitted, the user's last active organization is used, or the personal workspace
+         * when the user has none. When session_restricted is true, the session cannot use another
+         * workspace and ends when this one is no longer available, and creation fails when
+         * the result is the personal workspace but the user must choose an organization.
+         */
+        public Builder sessionOrganizationId(String sessionOrganizationId) {
+            Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+            this.sessionOrganizationId = Optional.ofNullable(sessionOrganizationId);
+            return this;
+        }
+
+        /**
+         * The organization the agent task session starts in. The user must be a member of it.
+         * If omitted, the user's last active organization is used, or the personal workspace
+         * when the user has none. When session_restricted is true, the session cannot use another
+         * workspace and ends when this one is no longer available, and creation fails when
+         * the result is the personal workspace but the user must choose an organization.
+         */
+        public Builder sessionOrganizationId(Optional<String> sessionOrganizationId) {
+            Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+            this.sessionOrganizationId = sessionOrganizationId;
+            return this;
+        }
+
         public CreateAgentTaskRequestBody build() {
             if (sessionMaxDurationInSeconds == null) {
                 sessionMaxDurationInSeconds = _SINGLETON_VALUE_SessionMaxDurationInSeconds.value();
             }
+            if (sessionRestricted == null) {
+                sessionRestricted = _SINGLETON_VALUE_SessionRestricted.value();
+            }
 
             return new CreateAgentTaskRequestBody(
                 onBehalfOf, permissions, agentName,
-                taskDescription, redirectUrl, sessionMaxDurationInSeconds);
+                taskDescription, redirectUrl, sessionMaxDurationInSeconds,
+                sessionRestricted, sessionOrganizationId);
         }
 
 
@@ -378,5 +577,11 @@ public class CreateAgentTaskRequestBody {
                         "session_max_duration_in_seconds",
                         "1800",
                         new TypeReference<Optional<Long>>() {});
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_SessionRestricted =
+                new LazySingletonValue<>(
+                        "session_restricted",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

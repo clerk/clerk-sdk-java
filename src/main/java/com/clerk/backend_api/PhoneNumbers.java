@@ -79,6 +79,19 @@ public class PhoneNumbers {
      * <p>Create a new phone number
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreatePhoneNumberResponse create(Optional<? extends CreatePhoneNumberRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create a phone number
+     * 
+     * <p>Create a new phone number
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -210,6 +223,20 @@ public class PhoneNumbers {
      * 
      * @param phoneNumberId The ID of the phone number to update
      * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdatePhoneNumberResponse update(String phoneNumberId, Optional<? extends UpdatePhoneNumberRequestBody> requestBody) {
+        return update(phoneNumberId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Update a phone number
+     * 
+     * <p>Updates a phone number
+     * 
+     * @param phoneNumberId The ID of the phone number to update
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -291,7 +318,15 @@ public class PhoneNumbers {
      * backend driving its own frontend can react on every attempt — an incorrect
      * or expired code is reported through the status, not as an error. Resubmitting
      * a verification whose code was already accepted is rejected with a
-     * `verification_already_verified` error. If the code
+     * `verification_already_verified` error. If the code for this verification
+     * could not be sent (the SMS provider refused or failed the send after
+     * prepare_verification had returned), the attempt is rejected with a
+     * `verification_code_not_sent` error and no attempt is counted; call
+     * prepare_verification again to send a new code. If too many codes have been
+     * checked for this phone number recently, the attempt is rejected with a
+     * `verification_code_too_many_attempts` error and no attempt is counted; the
+     * limit is per phone number, so wait for the `Retry-After` period rather than
+     * sending a new code. If the code
      * is correct and the phone number is not already verified, it is also marked
      * as verified as a side effect (just as it would be in a frontend verification
      * flow); an already verified phone number is left unchanged. It never creates
@@ -312,7 +347,15 @@ public class PhoneNumbers {
      * backend driving its own frontend can react on every attempt — an incorrect
      * or expired code is reported through the status, not as an error. Resubmitting
      * a verification whose code was already accepted is rejected with a
-     * `verification_already_verified` error. If the code
+     * `verification_already_verified` error. If the code for this verification
+     * could not be sent (the SMS provider refused or failed the send after
+     * prepare_verification had returned), the attempt is rejected with a
+     * `verification_code_not_sent` error and no attempt is counted; call
+     * prepare_verification again to send a new code. If too many codes have been
+     * checked for this phone number recently, the attempt is rejected with a
+     * `verification_code_too_many_attempts` error and no attempt is counted; the
+     * limit is per phone number, so wait for the `Retry-After` period rather than
+     * sending a new code. If the code
      * is correct and the phone number is not already verified, it is also marked
      * as verified as a side effect (just as it would be in a frontend verification
      * flow); an already verified phone number is left unchanged. It never creates
@@ -336,7 +379,15 @@ public class PhoneNumbers {
      * backend driving its own frontend can react on every attempt — an incorrect
      * or expired code is reported through the status, not as an error. Resubmitting
      * a verification whose code was already accepted is rejected with a
-     * `verification_already_verified` error. If the code
+     * `verification_already_verified` error. If the code for this verification
+     * could not be sent (the SMS provider refused or failed the send after
+     * prepare_verification had returned), the attempt is rejected with a
+     * `verification_code_not_sent` error and no attempt is counted; call
+     * prepare_verification again to send a new code. If too many codes have been
+     * checked for this phone number recently, the attempt is rejected with a
+     * `verification_code_too_many_attempts` error and no attempt is counted; the
+     * limit is per phone number, so wait for the `Retry-After` period rather than
+     * sending a new code. If the code
      * is correct and the phone number is not already verified, it is also marked
      * as verified as a side effect (just as it would be in a frontend verification
      * flow); an already verified phone number is left unchanged. It never creates

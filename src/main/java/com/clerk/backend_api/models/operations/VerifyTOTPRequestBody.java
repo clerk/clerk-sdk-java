@@ -3,12 +3,18 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class VerifyTOTPRequestBody {
@@ -18,11 +24,29 @@ public class VerifyTOTPRequestBody {
     @JsonProperty("code")
     private String code;
 
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("honor_lockout")
+    private Optional<Boolean> honorLockout;
+
     @JsonCreator
     public VerifyTOTPRequestBody(
-            @JsonProperty("code") String code) {
+            @JsonProperty("code") String code,
+            @JsonProperty("honor_lockout") Optional<Boolean> honorLockout) {
         Utils.checkNotNull(code, "code");
+        Utils.checkNotNull(honorLockout, "honorLockout");
         this.code = code;
+        this.honorLockout = honorLockout;
+    }
+    
+    public VerifyTOTPRequestBody(
+            String code) {
+        this(code, Optional.empty());
     }
 
     /**
@@ -31,6 +55,17 @@ public class VerifyTOTPRequestBody {
     @JsonIgnore
     public String code() {
         return code;
+    }
+
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonIgnore
+    public Optional<Boolean> honorLockout() {
+        return honorLockout;
     }
 
     public static Builder builder() {
@@ -47,6 +82,31 @@ public class VerifyTOTPRequestBody {
         return this;
     }
 
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public VerifyTOTPRequestBody withHonorLockout(boolean honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = Optional.ofNullable(honorLockout);
+        return this;
+    }
+
+
+    /**
+     * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the code is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public VerifyTOTPRequestBody withHonorLockout(Optional<Boolean> honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = honorLockout;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -57,25 +117,29 @@ public class VerifyTOTPRequestBody {
         }
         VerifyTOTPRequestBody other = (VerifyTOTPRequestBody) o;
         return 
-            Utils.enhancedDeepEquals(this.code, other.code);
+            Utils.enhancedDeepEquals(this.code, other.code) &&
+            Utils.enhancedDeepEquals(this.honorLockout, other.honorLockout);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            code);
+            code, honorLockout);
     }
     
     @Override
     public String toString() {
         return Utils.toString(VerifyTOTPRequestBody.class,
-                "code", code);
+                "code", code,
+                "honorLockout", honorLockout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String code;
+
+        private Optional<Boolean> honorLockout;
 
         private Builder() {
           // force use of static builder() method
@@ -91,11 +155,45 @@ public class VerifyTOTPRequestBody {
             return this;
         }
 
-        public VerifyTOTPRequestBody build() {
 
-            return new VerifyTOTPRequestBody(
-                code);
+        /**
+         * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the code is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(boolean honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = Optional.ofNullable(honorLockout);
+            return this;
         }
 
+        /**
+         * When `true`, a wrong code counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the code is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(Optional<Boolean> honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = honorLockout;
+            return this;
+        }
+
+        public VerifyTOTPRequestBody build() {
+            if (honorLockout == null) {
+                honorLockout = _SINGLETON_VALUE_HonorLockout.value();
+            }
+
+            return new VerifyTOTPRequestBody(
+                code, honorLockout);
+        }
+
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_HonorLockout =
+                new LazySingletonValue<>(
+                        "honor_lockout",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

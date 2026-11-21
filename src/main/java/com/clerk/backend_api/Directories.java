@@ -18,15 +18,24 @@ import com.clerk.backend_api.models.operations.DeleteDirectoryGroupRoleMappingRe
 import com.clerk.backend_api.models.operations.DeleteDirectoryRequest;
 import com.clerk.backend_api.models.operations.DeleteDirectoryRequestBuilder;
 import com.clerk.backend_api.models.operations.DeleteDirectoryResponse;
+import com.clerk.backend_api.models.operations.GetDirectoryGroupRequest;
+import com.clerk.backend_api.models.operations.GetDirectoryGroupRequestBuilder;
+import com.clerk.backend_api.models.operations.GetDirectoryGroupResponse;
 import com.clerk.backend_api.models.operations.GetDirectoryRequest;
 import com.clerk.backend_api.models.operations.GetDirectoryRequestBuilder;
 import com.clerk.backend_api.models.operations.GetDirectoryResponse;
 import com.clerk.backend_api.models.operations.ListDirectoriesRequest;
 import com.clerk.backend_api.models.operations.ListDirectoriesRequestBuilder;
 import com.clerk.backend_api.models.operations.ListDirectoriesResponse;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupMembersRequest;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupMembersRequestBuilder;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupMembersResponse;
 import com.clerk.backend_api.models.operations.ListDirectoryGroupRoleMappingsRequest;
 import com.clerk.backend_api.models.operations.ListDirectoryGroupRoleMappingsRequestBuilder;
 import com.clerk.backend_api.models.operations.ListDirectoryGroupRoleMappingsResponse;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupsRequest;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupsRequestBuilder;
+import com.clerk.backend_api.models.operations.ListDirectoryGroupsResponse;
 import com.clerk.backend_api.models.operations.ReplaceDirectoryGroupRoleMappingsRequest;
 import com.clerk.backend_api.models.operations.ReplaceDirectoryGroupRoleMappingsRequestBody;
 import com.clerk.backend_api.models.operations.ReplaceDirectoryGroupRoleMappingsRequestBuilder;
@@ -43,8 +52,11 @@ import com.clerk.backend_api.operations.CreateDirectoryGroupRoleMapping;
 import com.clerk.backend_api.operations.DeleteDirectory;
 import com.clerk.backend_api.operations.DeleteDirectoryGroupRoleMapping;
 import com.clerk.backend_api.operations.GetDirectory;
+import com.clerk.backend_api.operations.GetDirectoryGroup;
 import com.clerk.backend_api.operations.ListDirectories;
+import com.clerk.backend_api.operations.ListDirectoryGroupMembers;
 import com.clerk.backend_api.operations.ListDirectoryGroupRoleMappings;
+import com.clerk.backend_api.operations.ListDirectoryGroups;
 import com.clerk.backend_api.operations.ReplaceDirectoryGroupRoleMappings;
 import com.clerk.backend_api.operations.RotateDirectoryAPIKey;
 import com.clerk.backend_api.operations.UpdateDirectory;
@@ -96,6 +108,23 @@ public class Directories {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoriesResponse list(Optional<Long> limit, Optional<Long> offset) {
+        return list(limit, offset, Optional.empty());
+    }
+
+    /**
+     * List all directories
+     * 
+     * <p>Returns a list of all directories for the instance.
+     * 
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -135,6 +164,19 @@ public class Directories {
      */
     public CreateDirectoryResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a directory
+     * 
+     * <p>Create a new directory for the instance.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateDirectoryResponse create(Optional<? extends CreateDirectoryRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -220,6 +262,20 @@ public class Directories {
      */
     public UpdateDirectoryResponse update(String directoryId) {
         return update(directoryId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update a directory
+     * 
+     * <p>Updates a directory.
+     * 
+     * @param directoryId The ID of the directory to update
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateDirectoryResponse update(String directoryId, Optional<? extends UpdateDirectoryRequestBody> requestBody) {
+        return update(directoryId, requestBody, Optional.empty());
     }
 
     /**
@@ -346,6 +402,220 @@ public class Directories {
                 .build();
         RequestOperation<RotateDirectoryAPIKeyRequest, RotateDirectoryAPIKeyResponse> operation
               = new RotateDirectoryAPIKey.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List directory groups
+     * 
+     * <p>Returns the groups available in a directory, as reported by the identity provider,
+     * using cursor-based pagination.
+     * 
+     * @return The call builder
+     */
+    public ListDirectoryGroupsRequestBuilder listGroups() {
+        return new ListDirectoryGroupsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List directory groups
+     * 
+     * <p>Returns the groups available in a directory, as reported by the identity provider,
+     * using cursor-based pagination.
+     * 
+     * @param directoryId The ID of the directory.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupsResponse listGroups(String directoryId) {
+        return listGroups(directoryId, Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List directory groups
+     * 
+     * <p>Returns the groups available in a directory, as reported by the identity provider,
+     * using cursor-based pagination.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `starting_after` or `ending_before`.
+     * @param startingAfter A cursor for pagination. Provide the `starting_after` cursor from a previous response to fetch the next page.
+     * @param endingBefore A cursor for pagination. Provide the `ending_before` cursor from a previous response to fetch the previous page.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupsResponse listGroups(
+            String directoryId, Optional<Long> limit,
+            Optional<String> startingAfter, Optional<String> endingBefore) {
+        return listGroups(directoryId, limit, startingAfter,
+            endingBefore, Optional.empty());
+    }
+
+    /**
+     * List directory groups
+     * 
+     * <p>Returns the groups available in a directory, as reported by the identity provider,
+     * using cursor-based pagination.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `starting_after` or `ending_before`.
+     * @param startingAfter A cursor for pagination. Provide the `starting_after` cursor from a previous response to fetch the next page.
+     * @param endingBefore A cursor for pagination. Provide the `ending_before` cursor from a previous response to fetch the previous page.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupsResponse listGroups(
+            String directoryId, Optional<Long> limit,
+            Optional<String> startingAfter, Optional<String> endingBefore,
+            Optional<Options> options) {
+        ListDirectoryGroupsRequest request =
+            ListDirectoryGroupsRequest
+                .builder()
+                .directoryId(directoryId)
+                .limit(limit)
+                .startingAfter(startingAfter)
+                .endingBefore(endingBefore)
+                .build();
+        RequestOperation<ListDirectoryGroupsRequest, ListDirectoryGroupsResponse> operation
+              = new ListDirectoryGroups.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve a directory group
+     * 
+     * <p>Returns one group of the directory, as reported by the identity provider.
+     * Responds with 404 once the identity provider has deleted the group.
+     * 
+     * @return The call builder
+     */
+    public GetDirectoryGroupRequestBuilder getGroup() {
+        return new GetDirectoryGroupRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve a directory group
+     * 
+     * <p>Returns one group of the directory, as reported by the identity provider.
+     * Responds with 404 once the identity provider has deleted the group.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param groupId The ID of the group, as assigned by the directory.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetDirectoryGroupResponse getGroup(String directoryId, String groupId) {
+        return getGroup(directoryId, groupId, Optional.empty());
+    }
+
+    /**
+     * Retrieve a directory group
+     * 
+     * <p>Returns one group of the directory, as reported by the identity provider.
+     * Responds with 404 once the identity provider has deleted the group.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param groupId The ID of the group, as assigned by the directory.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetDirectoryGroupResponse getGroup(
+            String directoryId, String groupId,
+            Optional<Options> options) {
+        GetDirectoryGroupRequest request =
+            GetDirectoryGroupRequest
+                .builder()
+                .directoryId(directoryId)
+                .groupId(groupId)
+                .build();
+        RequestOperation<GetDirectoryGroupRequest, GetDirectoryGroupResponse> operation
+              = new GetDirectoryGroup.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * List directory group members
+     * 
+     * <p>Returns the members of a group, as reported by the identity provider, using cursor-based pagination.
+     * Each member carries the Clerk user it is linked to, or null until that user has been provisioned.
+     * 
+     * @return The call builder
+     */
+    public ListDirectoryGroupMembersRequestBuilder listGroupMembers() {
+        return new ListDirectoryGroupMembersRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List directory group members
+     * 
+     * <p>Returns the members of a group, as reported by the identity provider, using cursor-based pagination.
+     * Each member carries the Clerk user it is linked to, or null until that user has been provisioned.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param groupId The ID of the group, as assigned by the directory.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupMembersResponse listGroupMembers(String directoryId, String groupId) {
+        return listGroupMembers(directoryId, groupId, Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List directory group members
+     * 
+     * <p>Returns the members of a group, as reported by the identity provider, using cursor-based pagination.
+     * Each member carries the Clerk user it is linked to, or null until that user has been provisioned.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param groupId The ID of the group, as assigned by the directory.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `starting_after`.
+     * @param startingAfter A cursor for pagination. Provide the `starting_after` cursor from a previous response to fetch the next page.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupMembersResponse listGroupMembers(
+            String directoryId, String groupId,
+            Optional<Long> limit, Optional<String> startingAfter) {
+        return listGroupMembers(directoryId, groupId, limit,
+            startingAfter, Optional.empty());
+    }
+
+    /**
+     * List directory group members
+     * 
+     * <p>Returns the members of a group, as reported by the identity provider, using cursor-based pagination.
+     * Each member carries the Clerk user it is linked to, or null until that user has been provisioned.
+     * 
+     * @param directoryId The ID of the directory.
+     * @param groupId The ID of the group, as assigned by the directory.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `starting_after`.
+     * @param startingAfter A cursor for pagination. Provide the `starting_after` cursor from a previous response to fetch the next page.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListDirectoryGroupMembersResponse listGroupMembers(
+            String directoryId, String groupId,
+            Optional<Long> limit, Optional<String> startingAfter,
+            Optional<Options> options) {
+        ListDirectoryGroupMembersRequest request =
+            ListDirectoryGroupMembersRequest
+                .builder()
+                .directoryId(directoryId)
+                .groupId(groupId)
+                .limit(limit)
+                .startingAfter(startingAfter)
+                .build();
+        RequestOperation<ListDirectoryGroupMembersRequest, ListDirectoryGroupMembersResponse> operation
+              = new ListDirectoryGroupMembers.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

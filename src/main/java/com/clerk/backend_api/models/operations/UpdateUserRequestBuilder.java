@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class UpdateUserRequestBuilder {
@@ -19,6 +20,7 @@ public class UpdateUserRequestBuilder {
     private String userId;
     private UpdateUserRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class UpdateUserRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public UpdateUserRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public UpdateUserRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private UpdateUserRequest buildRequest() {
@@ -62,6 +76,7 @@ public class UpdateUserRequestBuilder {
     public UpdateUserResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<UpdateUserRequest, UpdateUserResponse> operation

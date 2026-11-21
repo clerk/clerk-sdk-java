@@ -11,12 +11,14 @@ import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ListSAMLConnectionsRequestBuilder {
 
     private ListSAMLConnectionsRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -41,10 +43,23 @@ public class ListSAMLConnectionsRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ListSAMLConnectionsRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ListSAMLConnectionsRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
     public ListSAMLConnectionsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ListSAMLConnectionsRequest, ListSAMLConnectionsResponse> operation

@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class GetOrganizationInvitationRequestBuilder {
@@ -19,6 +20,7 @@ public class GetOrganizationInvitationRequestBuilder {
     private String organizationId;
     private String invitationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class GetOrganizationInvitationRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public GetOrganizationInvitationRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public GetOrganizationInvitationRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private GetOrganizationInvitationRequest buildRequest() {
@@ -62,6 +76,7 @@ public class GetOrganizationInvitationRequestBuilder {
     public GetOrganizationInvitationResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<GetOrganizationInvitationRequest, GetOrganizationInvitationResponse> operation

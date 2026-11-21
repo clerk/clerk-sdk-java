@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -71,9 +72,37 @@ public class UpdateOAuthApplicationRequestBody {
     private JsonNullable<Boolean> pkceRequired;
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+     * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+     * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+     * resource quota.
+     * 
+     * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+     * their lifetime. Clearing requires exchange disabled in an earlier update.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("audience_uri")
+    private JsonNullable<String> audienceUri;
+
+    /**
+     * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+     * configuration.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("token_exchange_enabled")
+    private Optional<Boolean> tokenExchangeEnabled;
+
+    /**
+     * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+     * references. Does not override another application's reservation.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("adopt_audience_resource")
+    private Optional<Boolean> adoptAudienceResource;
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("device_authorization_grant_enabled")
@@ -94,6 +123,9 @@ public class UpdateOAuthApplicationRequestBody {
             @JsonProperty("scopes") JsonNullable<String> scopes,
             @JsonProperty("consent_screen_enabled") JsonNullable<Boolean> consentScreenEnabled,
             @JsonProperty("pkce_required") JsonNullable<Boolean> pkceRequired,
+            @JsonProperty("audience_uri") JsonNullable<String> audienceUri,
+            @JsonProperty("token_exchange_enabled") Optional<Boolean> tokenExchangeEnabled,
+            @JsonProperty("adopt_audience_resource") Optional<Boolean> adoptAudienceResource,
             @JsonProperty("device_authorization_grant_enabled") JsonNullable<Boolean> deviceAuthorizationGrantEnabled,
             @JsonProperty("public") JsonNullable<Boolean> public_) {
         Utils.checkNotNull(name, "name");
@@ -102,6 +134,9 @@ public class UpdateOAuthApplicationRequestBody {
         Utils.checkNotNull(scopes, "scopes");
         Utils.checkNotNull(consentScreenEnabled, "consentScreenEnabled");
         Utils.checkNotNull(pkceRequired, "pkceRequired");
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+        Utils.checkNotNull(adoptAudienceResource, "adoptAudienceResource");
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
         Utils.checkNotNull(public_, "public_");
         this.name = name;
@@ -110,6 +145,9 @@ public class UpdateOAuthApplicationRequestBody {
         this.scopes = scopes;
         this.consentScreenEnabled = consentScreenEnabled;
         this.pkceRequired = pkceRequired;
+        this.audienceUri = audienceUri;
+        this.tokenExchangeEnabled = tokenExchangeEnabled;
+        this.adoptAudienceResource = adoptAudienceResource;
         this.deviceAuthorizationGrantEnabled = deviceAuthorizationGrantEnabled;
         this.public_ = public_;
     }
@@ -117,6 +155,7 @@ public class UpdateOAuthApplicationRequestBody {
     public UpdateOAuthApplicationRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined());
     }
 
@@ -179,9 +218,40 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+     * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+     * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+     * resource quota.
+     * 
+     * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+     * their lifetime. Clearing requires exchange disabled in an earlier update.
+     */
+    @JsonIgnore
+    public JsonNullable<String> audienceUri() {
+        return audienceUri;
+    }
+
+    /**
+     * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+     * configuration.
+     */
+    @JsonIgnore
+    public Optional<Boolean> tokenExchangeEnabled() {
+        return tokenExchangeEnabled;
+    }
+
+    /**
+     * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+     * references. Does not override another application's reservation.
+     */
+    @JsonIgnore
+    public Optional<Boolean> adoptAudienceResource() {
+        return adoptAudienceResource;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     @JsonIgnore
     public JsonNullable<Boolean> deviceAuthorizationGrantEnabled() {
@@ -328,9 +398,80 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+     * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+     * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+     * resource quota.
+     * 
+     * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+     * their lifetime. Clearing requires exchange disabled in an earlier update.
+     */
+    public UpdateOAuthApplicationRequestBody withAudienceUri(String audienceUri) {
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        this.audienceUri = JsonNullable.of(audienceUri);
+        return this;
+    }
+
+    /**
+     * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+     * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+     * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+     * resource quota.
+     * 
+     * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+     * their lifetime. Clearing requires exchange disabled in an earlier update.
+     */
+    public UpdateOAuthApplicationRequestBody withAudienceUri(JsonNullable<String> audienceUri) {
+        Utils.checkNotNull(audienceUri, "audienceUri");
+        this.audienceUri = audienceUri;
+        return this;
+    }
+
+    /**
+     * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+     * configuration.
+     */
+    public UpdateOAuthApplicationRequestBody withTokenExchangeEnabled(boolean tokenExchangeEnabled) {
+        Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+        this.tokenExchangeEnabled = Optional.ofNullable(tokenExchangeEnabled);
+        return this;
+    }
+
+
+    /**
+     * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+     * configuration.
+     */
+    public UpdateOAuthApplicationRequestBody withTokenExchangeEnabled(Optional<Boolean> tokenExchangeEnabled) {
+        Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+        this.tokenExchangeEnabled = tokenExchangeEnabled;
+        return this;
+    }
+
+    /**
+     * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+     * references. Does not override another application's reservation.
+     */
+    public UpdateOAuthApplicationRequestBody withAdoptAudienceResource(boolean adoptAudienceResource) {
+        Utils.checkNotNull(adoptAudienceResource, "adoptAudienceResource");
+        this.adoptAudienceResource = Optional.ofNullable(adoptAudienceResource);
+        return this;
+    }
+
+
+    /**
+     * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+     * references. Does not override another application's reservation.
+     */
+    public UpdateOAuthApplicationRequestBody withAdoptAudienceResource(Optional<Boolean> adoptAudienceResource) {
+        Utils.checkNotNull(adoptAudienceResource, "adoptAudienceResource");
+        this.adoptAudienceResource = adoptAudienceResource;
+        return this;
+    }
+
+    /**
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -339,9 +480,8 @@ public class UpdateOAuthApplicationRequestBody {
     }
 
     /**
-     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-     * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-     * the setting unchanged.
+     * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+     * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
      */
     public UpdateOAuthApplicationRequestBody withDeviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
         Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -383,6 +523,9 @@ public class UpdateOAuthApplicationRequestBody {
             Utils.enhancedDeepEquals(this.scopes, other.scopes) &&
             Utils.enhancedDeepEquals(this.consentScreenEnabled, other.consentScreenEnabled) &&
             Utils.enhancedDeepEquals(this.pkceRequired, other.pkceRequired) &&
+            Utils.enhancedDeepEquals(this.audienceUri, other.audienceUri) &&
+            Utils.enhancedDeepEquals(this.tokenExchangeEnabled, other.tokenExchangeEnabled) &&
+            Utils.enhancedDeepEquals(this.adoptAudienceResource, other.adoptAudienceResource) &&
             Utils.enhancedDeepEquals(this.deviceAuthorizationGrantEnabled, other.deviceAuthorizationGrantEnabled) &&
             Utils.enhancedDeepEquals(this.public_, other.public_);
     }
@@ -392,6 +535,7 @@ public class UpdateOAuthApplicationRequestBody {
         return Utils.enhancedHash(
             name, redirectUris, callbackUrl,
             scopes, consentScreenEnabled, pkceRequired,
+            audienceUri, tokenExchangeEnabled, adoptAudienceResource,
             deviceAuthorizationGrantEnabled, public_);
     }
     
@@ -404,6 +548,9 @@ public class UpdateOAuthApplicationRequestBody {
                 "scopes", scopes,
                 "consentScreenEnabled", consentScreenEnabled,
                 "pkceRequired", pkceRequired,
+                "audienceUri", audienceUri,
+                "tokenExchangeEnabled", tokenExchangeEnabled,
+                "adoptAudienceResource", adoptAudienceResource,
                 "deviceAuthorizationGrantEnabled", deviceAuthorizationGrantEnabled,
                 "public_", public_);
     }
@@ -423,6 +570,12 @@ public class UpdateOAuthApplicationRequestBody {
         private JsonNullable<Boolean> consentScreenEnabled = JsonNullable.undefined();
 
         private JsonNullable<Boolean> pkceRequired = JsonNullable.undefined();
+
+        private JsonNullable<String> audienceUri = JsonNullable.undefined();
+
+        private Optional<Boolean> tokenExchangeEnabled = Optional.empty();
+
+        private Optional<Boolean> adoptAudienceResource = Optional.empty();
 
         private JsonNullable<Boolean> deviceAuthorizationGrantEnabled = JsonNullable.undefined();
 
@@ -566,9 +719,81 @@ public class UpdateOAuthApplicationRequestBody {
 
 
         /**
-         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-         * the setting unchanged.
+         * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+         * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+         * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+         * resource quota.
+         * 
+         * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+         * their lifetime. Clearing requires exchange disabled in an earlier update.
+         */
+        public Builder audienceUri(String audienceUri) {
+            Utils.checkNotNull(audienceUri, "audienceUri");
+            this.audienceUri = JsonNullable.of(audienceUri);
+            return this;
+        }
+
+        /**
+         * An absolute resource URI for a confidential application (RFC 8707 section 2). Registers a resource
+         * with no accepted scopes, or adopts an unowned resource with confirmation. Every claimed URI remains
+         * permanently reserved to this app, including retirement and deletion, and counts toward the instance
+         * resource quota.
+         * 
+         * <p>Changing it stops new exchanges from the old audience immediately. Already-issued tokens retain
+         * their lifetime. Clearing requires exchange disabled in an earlier update.
+         */
+        public Builder audienceUri(JsonNullable<String> audienceUri) {
+            Utils.checkNotNull(audienceUri, "audienceUri");
+            this.audienceUri = audienceUri;
+            return this;
+        }
+
+
+        /**
+         * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+         * configuration.
+         */
+        public Builder tokenExchangeEnabled(boolean tokenExchangeEnabled) {
+            Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+            this.tokenExchangeEnabled = Optional.ofNullable(tokenExchangeEnabled);
+            return this;
+        }
+
+        /**
+         * Enable exchanges from the active audience. Requires an audience URI. Disabling preserves target
+         * configuration.
+         */
+        public Builder tokenExchangeEnabled(Optional<Boolean> tokenExchangeEnabled) {
+            Utils.checkNotNull(tokenExchangeEnabled, "tokenExchangeEnabled");
+            this.tokenExchangeEnabled = tokenExchangeEnabled;
+            return this;
+        }
+
+
+        /**
+         * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+         * references. Does not override another application's reservation.
+         */
+        public Builder adoptAudienceResource(boolean adoptAudienceResource) {
+            Utils.checkNotNull(adoptAudienceResource, "adoptAudienceResource");
+            this.adoptAudienceResource = Optional.ofNullable(adoptAudienceResource);
+            return this;
+        }
+
+        /**
+         * Confirm adoption of an existing unowned resource, preserving its accepted scopes and target
+         * references. Does not override another application's reservation.
+         */
+        public Builder adoptAudienceResource(Optional<Boolean> adoptAudienceResource) {
+            Utils.checkNotNull(adoptAudienceResource, "adoptAudienceResource");
+            this.adoptAudienceResource = adoptAudienceResource;
+            return this;
+        }
+
+
+        /**
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+         * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
          */
         public Builder deviceAuthorizationGrantEnabled(boolean deviceAuthorizationGrantEnabled) {
             Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -577,9 +802,8 @@ public class UpdateOAuthApplicationRequestBody {
         }
 
         /**
-         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the
-         * OAuth Device Authorization Grant feature to be enabled for the instance. Omit this field to leave
-         * the setting unchanged.
+         * True to enable the OAuth Device Authorization Grant for this application. Enabling requires the new
+         * OAuth IdP and a reachable device verification page. Omit this field to leave the setting unchanged.
          */
         public Builder deviceAuthorizationGrantEnabled(JsonNullable<Boolean> deviceAuthorizationGrantEnabled) {
             Utils.checkNotNull(deviceAuthorizationGrantEnabled, "deviceAuthorizationGrantEnabled");
@@ -611,6 +835,7 @@ public class UpdateOAuthApplicationRequestBody {
             return new UpdateOAuthApplicationRequestBody(
                 name, redirectUris, callbackUrl,
                 scopes, consentScreenEnabled, pkceRequired,
+                audienceUri, tokenExchangeEnabled, adoptAudienceResource,
                 deviceAuthorizationGrantEnabled, public_);
         }
 

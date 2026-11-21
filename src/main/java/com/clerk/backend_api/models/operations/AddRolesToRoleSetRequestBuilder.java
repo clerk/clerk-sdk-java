@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class AddRolesToRoleSetRequestBuilder {
@@ -19,6 +20,7 @@ public class AddRolesToRoleSetRequestBuilder {
     private String roleSetKeyOrId;
     private AddRolesToRoleSetRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class AddRolesToRoleSetRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public AddRolesToRoleSetRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public AddRolesToRoleSetRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private AddRolesToRoleSetRequest buildRequest() {
@@ -62,6 +76,7 @@ public class AddRolesToRoleSetRequestBuilder {
     public AddRolesToRoleSetResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<AddRolesToRoleSetRequest, AddRolesToRoleSetResponse> operation

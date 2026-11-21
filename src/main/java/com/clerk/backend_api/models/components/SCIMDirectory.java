@@ -69,6 +69,14 @@ public class SCIMDirectory {
     private boolean enabled;
 
     /**
+     * Whether syncing is paused. A paused directory rejects SCIM requests and skips
+     * scheduled syncs, but keeps the organization memberships it granted. Disabling a directory
+     * removes them instead.
+     */
+    @JsonProperty("paused")
+    private boolean paused;
+
+    /**
      * Whether group-to-role mapping is enabled for this directory.
      */
     @JsonProperty("group_role_mapping_enabled")
@@ -117,6 +125,7 @@ public class SCIMDirectory {
             @JsonProperty("endpoint_url") String endpointUrl,
             @JsonProperty("provider") String provider,
             @JsonProperty("enabled") boolean enabled,
+            @JsonProperty("paused") boolean paused,
             @JsonProperty("group_role_mapping_enabled") boolean groupRoleMappingEnabled,
             @JsonProperty("attribute_mapping") Map<String, String> attributeMapping,
             @JsonProperty("custom_attributes") Optional<? extends List<SCIMDirectoryCustomAttributes>> customAttributes,
@@ -130,6 +139,7 @@ public class SCIMDirectory {
         Utils.checkNotNull(endpointUrl, "endpointUrl");
         Utils.checkNotNull(provider, "provider");
         Utils.checkNotNull(enabled, "enabled");
+        Utils.checkNotNull(paused, "paused");
         Utils.checkNotNull(groupRoleMappingEnabled, "groupRoleMappingEnabled");
         attributeMapping = Utils.emptyMapIfNull(attributeMapping);
         Utils.checkNotNull(attributeMapping, "attributeMapping");
@@ -144,6 +154,7 @@ public class SCIMDirectory {
         this.endpointUrl = endpointUrl;
         this.provider = provider;
         this.enabled = enabled;
+        this.paused = paused;
         this.groupRoleMappingEnabled = groupRoleMappingEnabled;
         this.attributeMapping = attributeMapping;
         this.customAttributes = customAttributes;
@@ -159,15 +170,16 @@ public class SCIMDirectory {
             String endpointUrl,
             String provider,
             boolean enabled,
+            boolean paused,
             boolean groupRoleMappingEnabled,
             Map<String, String> attributeMapping,
             long createdAt,
             long updatedAt) {
         this(object, id, name,
             JsonNullable.undefined(), endpointUrl, provider,
-            enabled, groupRoleMappingEnabled, attributeMapping,
-            Optional.empty(), JsonNullable.undefined(), createdAt,
-            updatedAt);
+            enabled, paused, groupRoleMappingEnabled,
+            attributeMapping, Optional.empty(), JsonNullable.undefined(),
+            createdAt, updatedAt);
     }
 
     /**
@@ -224,6 +236,16 @@ public class SCIMDirectory {
     @JsonIgnore
     public boolean enabled() {
         return enabled;
+    }
+
+    /**
+     * Whether syncing is paused. A paused directory rejects SCIM requests and skips
+     * scheduled syncs, but keeps the organization memberships it granted. Disabling a directory
+     * removes them instead.
+     */
+    @JsonIgnore
+    public boolean paused() {
+        return paused;
     }
 
     /**
@@ -355,6 +377,17 @@ public class SCIMDirectory {
     }
 
     /**
+     * Whether syncing is paused. A paused directory rejects SCIM requests and skips
+     * scheduled syncs, but keeps the organization memberships it granted. Disabling a directory
+     * removes them instead.
+     */
+    public SCIMDirectory withPaused(boolean paused) {
+        Utils.checkNotNull(paused, "paused");
+        this.paused = paused;
+        return this;
+    }
+
+    /**
      * Whether group-to-role mapping is enabled for this directory.
      */
     public SCIMDirectory withGroupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
@@ -448,6 +481,7 @@ public class SCIMDirectory {
             Utils.enhancedDeepEquals(this.endpointUrl, other.endpointUrl) &&
             Utils.enhancedDeepEquals(this.provider, other.provider) &&
             Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
+            Utils.enhancedDeepEquals(this.paused, other.paused) &&
             Utils.enhancedDeepEquals(this.groupRoleMappingEnabled, other.groupRoleMappingEnabled) &&
             Utils.enhancedDeepEquals(this.attributeMapping, other.attributeMapping) &&
             Utils.enhancedDeepEquals(this.customAttributes, other.customAttributes) &&
@@ -461,9 +495,9 @@ public class SCIMDirectory {
         return Utils.enhancedHash(
             object, id, name,
             enterpriseConnectionId, endpointUrl, provider,
-            enabled, groupRoleMappingEnabled, attributeMapping,
-            customAttributes, apiKey, createdAt,
-            updatedAt);
+            enabled, paused, groupRoleMappingEnabled,
+            attributeMapping, customAttributes, apiKey,
+            createdAt, updatedAt);
     }
     
     @Override
@@ -476,6 +510,7 @@ public class SCIMDirectory {
                 "endpointUrl", endpointUrl,
                 "provider", provider,
                 "enabled", enabled,
+                "paused", paused,
                 "groupRoleMappingEnabled", groupRoleMappingEnabled,
                 "attributeMapping", attributeMapping,
                 "customAttributes", customAttributes,
@@ -500,6 +535,8 @@ public class SCIMDirectory {
         private String provider;
 
         private Boolean enabled;
+
+        private Boolean paused;
 
         private Boolean groupRoleMappingEnabled;
 
@@ -598,6 +635,18 @@ public class SCIMDirectory {
 
 
         /**
+         * Whether syncing is paused. A paused directory rejects SCIM requests and skips
+         * scheduled syncs, but keeps the organization memberships it granted. Disabling a directory
+         * removes them instead.
+         */
+        public Builder paused(boolean paused) {
+            Utils.checkNotNull(paused, "paused");
+            this.paused = paused;
+            return this;
+        }
+
+
+        /**
          * Whether group-to-role mapping is enabled for this directory.
          */
         public Builder groupRoleMappingEnabled(boolean groupRoleMappingEnabled) {
@@ -683,9 +732,9 @@ public class SCIMDirectory {
             return new SCIMDirectory(
                 object, id, name,
                 enterpriseConnectionId, endpointUrl, provider,
-                enabled, groupRoleMappingEnabled, attributeMapping,
-                customAttributes, apiKey, createdAt,
-                updatedAt);
+                enabled, paused, groupRoleMappingEnabled,
+                attributeMapping, customAttributes, apiKey,
+                createdAt, updatedAt);
         }
 
     }

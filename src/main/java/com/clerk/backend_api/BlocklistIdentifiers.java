@@ -98,6 +98,19 @@ public class BlocklistIdentifiers {
      * <p>Create an identifier that is blocked from accessing an instance
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBlocklistIdentifierResponse create(Optional<? extends CreateBlocklistIdentifierRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Add identifier to the block-list
+     * 
+     * <p>Create an identifier that is blocked from accessing an instance
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
