@@ -120,6 +120,33 @@ public class Billing {
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
      * @param payerType Filter plans by payer type
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetCommercePlanListResponse listPlans(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<? extends PayerType> payerType) {
+        return listPlans(paginated, limit, offset,
+            payerType, Optional.empty());
+    }
+
+    /**
+     * List all billing plans
+     * 
+     * <p>Returns a list of all billing plans for the instance. The plans are returned sorted by creation
+     * date,
+     * with the newest plans appearing first. This includes both free and paid plans. Pagination is
+     * supported.
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param payerType Filter plans by payer type
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -167,6 +194,32 @@ public class Billing {
     public GetBillingPriceListResponse listPricesDirect() {
         return listPrices(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List all billing prices
+     * 
+     * <p>Returns a list of all prices for the instance. The prices are returned sorted by amount ascending,
+     * then by creation date descending. This includes both default and custom prices. Pagination is
+     * supported.
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param planId Filter prices by plan ID
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetBillingPriceListResponse listPrices(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset, Optional<String> planId) {
+        return listPrices(paginated, limit, offset,
+            planId, Optional.empty());
     }
 
     /**
@@ -322,6 +375,21 @@ public class Billing {
      */
     public CancelCommerceSubscriptionItemResponse cancelSubscriptionItem(String subscriptionItemId) {
         return cancelSubscriptionItem(subscriptionItemId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Cancel a subscription item
+     * 
+     * <p>Cancel a specific subscription item. The subscription item can be canceled immediately or at the end
+     * of the current billing period.
+     * 
+     * @param subscriptionItemId The ID of the subscription item to cancel
+     * @param endNow Whether to cancel the subscription immediately (true) or at the end of the current billing period (false, default)
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CancelCommerceSubscriptionItemResponse cancelSubscriptionItem(String subscriptionItemId, Optional<Boolean> endNow) {
+        return cancelSubscriptionItem(subscriptionItemId, endNow, Optional.empty());
     }
 
     /**
@@ -629,6 +697,31 @@ public class Billing {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetBillingStatementListResponse listStatements(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset) {
+        return listStatements(paginated, limit, offset,
+            Optional.empty());
+    }
+
+    /**
+     * List all billing statements
+     * 
+     * <p>Returns a list of all billing statements for the instance. The statements are returned sorted by
+     * creation date,
+     * with the newest statements appearing first. Pagination is supported.
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -720,6 +813,32 @@ public class Billing {
     public GetBillingStatementPaymentAttemptsResponse getStatementPaymentAttempts(String statementID) {
         return getStatementPaymentAttempts(statementID, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List payment attempts for a billing statement
+     * 
+     * <p>Returns a list of all payment attempts for a specific billing statement. The payment attempts are
+     * returned sorted by creation date,
+     * with the newest payment attempts appearing first. Pagination is supported.
+     * 
+     * @param statementID The ID of the statement to retrieve payment attempts for.
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetBillingStatementPaymentAttemptsResponse getStatementPaymentAttempts(
+            String statementID, Optional<Boolean> paginated,
+            Optional<Long> limit, Optional<Long> offset) {
+        return getStatementPaymentAttempts(statementID, paginated, limit,
+            offset, Optional.empty());
     }
 
     /**

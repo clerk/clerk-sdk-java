@@ -91,6 +91,29 @@ public class EnterpriseConnections {
      *         To be used in conjunction with `limit`.
      * @param organizationId Filter enterprise connections by organization ID
      * @param active Filter by active status. If true, only active connections are returned. If false, only inactive connections are returned. If omitted, all connections are returned.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListEnterpriseConnectionsResponse list(
+            Optional<Long> limit, Optional<Long> offset,
+            Optional<String> organizationId, Optional<Boolean> active) {
+        return list(limit, offset, organizationId,
+            active, Optional.empty());
+    }
+
+    /**
+     * List enterprise connections
+     * 
+     * <p>Returns the list of enterprise connections for the instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * 
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param organizationId Filter enterprise connections by organization ID
+     * @param active Filter by active status. If true, only active connections are returned. If false, only inactive connections are returned. If omitted, all connections are returned.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -133,6 +156,19 @@ public class EnterpriseConnections {
      */
     public CreateEnterpriseConnectionResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create an enterprise connection
+     * 
+     * <p>Create a new enterprise connection.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateEnterpriseConnectionResponse create(Optional<? extends CreateEnterpriseConnectionRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -332,6 +368,28 @@ public class EnterpriseConnections {
     public ListEnterpriseConnectionTestRunsResponse listTestRuns(String enterpriseConnectionId) {
         return listTestRuns(enterpriseConnectionId, Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * List enterprise connection test runs
+     * 
+     * <p>Returns a paginated list of SAML or OIDC debug test runs for an enterprise connection.
+     * 
+     * @param enterpriseConnectionId The ID of the enterprise connection
+     * @param status Filter test runs by status (may be repeated)
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListEnterpriseConnectionTestRunsResponse listTestRuns(
+            String enterpriseConnectionId, Optional<? extends List<ListEnterpriseConnectionTestRunsQueryParamStatus>> status,
+            Optional<Long> limit, Optional<Long> offset) {
+        return listTestRuns(enterpriseConnectionId, status, limit,
+            offset, Optional.empty());
     }
 
     /**

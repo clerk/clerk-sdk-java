@@ -15,6 +15,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Long;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ListMachinesRequestBuilder {
@@ -33,6 +34,7 @@ public class ListMachinesRequestBuilder {
                             "\"-created_at\"",
                             new TypeReference<Optional<String>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -99,6 +101,18 @@ public class ListMachinesRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ListMachinesRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ListMachinesRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private ListMachinesRequest buildRequest() {
@@ -123,6 +137,7 @@ public class ListMachinesRequestBuilder {
     public ListMachinesResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ListMachinesRequest, ListMachinesResponse> operation

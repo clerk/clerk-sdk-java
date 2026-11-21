@@ -100,6 +100,37 @@ public class OrganizationRoles {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListOrganizationRolesResponse list(
+            Optional<String> query, Optional<String> orderBy,
+            Optional<Long> limit, Optional<Long> offset) {
+        return list(query, orderBy, limit,
+            offset, Optional.empty());
+    }
+
+    /**
+     * Get a list of organization roles
+     * 
+     * <p>This request returns the list of organization roles for the instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * The organization roles are ordered by descending creation date.
+     * Most recent roles will be returned first.
+     * 
+     * @param query Returns organization roles with ID, name, or key that match the given query.
+     *         Uses exact match for organization role ID and partial match for name and key.
+     * @param orderBy Allows to return organization roles in a particular order.
+     *         At the moment, you can order the returned organization roles by their `created_at`, `name`, or `key`.
+     *         In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     *         For example, if you want organization roles to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     *         If you don't use `+` or `-`, then `+` is implied.
+     *         Defaults to `-created_at`.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

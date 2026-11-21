@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class DeleteExternalAccountRequestBuilder {
@@ -19,6 +20,7 @@ public class DeleteExternalAccountRequestBuilder {
     private String userId;
     private String externalAccountId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class DeleteExternalAccountRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public DeleteExternalAccountRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public DeleteExternalAccountRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private DeleteExternalAccountRequest buildRequest() {
@@ -62,6 +76,7 @@ public class DeleteExternalAccountRequestBuilder {
     public DeleteExternalAccountResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<DeleteExternalAccountRequest, DeleteExternalAccountResponse> operation

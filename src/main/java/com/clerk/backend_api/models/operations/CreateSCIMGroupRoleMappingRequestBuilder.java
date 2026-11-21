@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class CreateSCIMGroupRoleMappingRequestBuilder {
@@ -19,6 +20,7 @@ public class CreateSCIMGroupRoleMappingRequestBuilder {
     private String scimDirectoryId;
     private CreateSCIMGroupRoleMappingRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class CreateSCIMGroupRoleMappingRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public CreateSCIMGroupRoleMappingRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public CreateSCIMGroupRoleMappingRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private CreateSCIMGroupRoleMappingRequest buildRequest() {
@@ -62,6 +76,7 @@ public class CreateSCIMGroupRoleMappingRequestBuilder {
     public CreateSCIMGroupRoleMappingResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<CreateSCIMGroupRoleMappingRequest, CreateSCIMGroupRoleMappingResponse> operation

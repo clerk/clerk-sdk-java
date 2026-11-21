@@ -74,6 +74,29 @@ public class RedirectUrls {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListRedirectURLsResponse list(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset) {
+        return list(paginated, limit, offset,
+            Optional.empty());
+    }
+
+    /**
+     * List all redirect URLs
+     * 
+     * <p>Lists all whitelisted redirect_urls for the instance
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -114,6 +137,19 @@ public class RedirectUrls {
      */
     public CreateRedirectURLResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a redirect URL
+     * 
+     * <p>Create a redirect URL
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateRedirectURLResponse create(Optional<? extends CreateRedirectURLRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**

@@ -11,12 +11,14 @@ import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.time.Duration;
 import java.util.Optional;
 
 public class CreateRedirectURLRequestBuilder {
 
     private Optional<? extends CreateRedirectURLRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -47,10 +49,23 @@ public class CreateRedirectURLRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public CreateRedirectURLRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public CreateRedirectURLRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
     public CreateRedirectURLResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<Optional<? extends CreateRedirectURLRequestBody>, CreateRedirectURLResponse> operation

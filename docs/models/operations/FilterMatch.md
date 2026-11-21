@@ -1,0 +1,25 @@
+# FilterMatch
+
+Controls how `subject`, `type`, `actor`, `user_id`, `identifier`,
+`trace_id`, `client_id`, `session_id`, `impersonator_user_id`,
+`ip_address`, and `payload_filter` entries
+are combined: `all` (default) requires every supplied filter to
+match; `any` returns events that match at least one of the
+supplied filters. `event_time_after` and `event_time_before` are
+always ANDed with the (possibly OR-ed) string filter group.
+
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.operations.FilterMatch;
+
+FilterMatch value = FilterMatch.ALL;
+```
+
+
+## Values
+
+| Name  | Value |
+| ----- | ----- |
+| `ALL` | all   |
+| `ANY` | any   |

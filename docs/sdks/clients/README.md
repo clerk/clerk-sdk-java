@@ -7,6 +7,7 @@
 * [~~list~~](#list) - List all clients :warning: **Deprecated**
 * [verify](#verify) - Verify a client
 * [get](#get) - Get a client
+* [revoke](#revoke) - Revoke a client
 
 ## ~~list~~
 
@@ -165,4 +166,57 @@ public class Application {
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
 | models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## revoke
+
+Permanently revokes a client in a development or production instance, including its active and pending sessions and its linked development browser tokens. Other clients are unaffected. Repeating the request is safe.
+Returns the client with a non-null revoked_at timestamp and no current sessions. Revoked development browser tokens receive dev_browser_unauthenticated on authenticated Frontend API routes. Previously issued session JWTs remain valid until their expiration.
+To sign in again, the browser must initialize a new client. Unlike Frontend API DELETE /client, this operation requires a backend credential and the target client ID, not the affected browser's cookies.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="RevokeClient" method="post" path="/clients/{client_id}/revoke" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.RevokeClientResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        RevokeClientResponse res = sdk.clients().revoke()
+                .clientId("<id>")
+                .call();
+
+        if (res.client2().isPresent()) {
+            System.out.println(res.client2().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter          | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `clientId`         | *String*           | :heavy_check_mark: | N/A                |
+
+### Response
+
+**[RevokeClientResponse](../../models/operations/RevokeClientResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 401, 404                  | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

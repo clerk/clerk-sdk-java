@@ -62,6 +62,21 @@ public class AgentTasks {
      * The agent_id is stable per agent_name within an instance. The agent_task_id is unique per call.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateAgentTaskResponse create(Optional<? extends CreateAgentTaskRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create agent task
+     * 
+     * <p>Create an agent task on behalf of a user.
+     * The response contains a URL that, when visited, creates a session for the user.
+     * The agent_id is stable per agent_name within an instance. The agent_task_id is unique per call.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

@@ -202,6 +202,41 @@ public class OrganizationInvitations {
      * 
      * @param organizationId The ID of the organization for which to send the invitation
      * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateOrganizationInvitationResponse create(String organizationId, Optional<? extends CreateOrganizationInvitationRequestBody> requestBody) {
+        return create(organizationId, requestBody, Optional.empty());
+    }
+
+    /**
+     * Create and send an organization invitation
+     * 
+     * <p>Creates a new organization invitation and sends an email to the provided `email_address` with a link
+     * to accept the invitation and join the organization.
+     * You can specify the `role` for the invited organization member.
+     * 
+     * <p>New organization invitations get a "pending" status until they are revoked by an organization
+     * administrator or accepted by the invitee.
+     * 
+     * <p>The request body supports passing an optional `redirect_url` parameter.
+     * When the invited user clicks the link to accept the invitation, they will be redirected to the URL
+     * provided.
+     * Use this parameter to implement a custom invitation acceptance flow.
+     * 
+     * <p>You can specify the ID of the user that will send the invitation with the `inviter_user_id`
+     * parameter.
+     * That user must be a member with administrator privileges in the organization.
+     * Only "admin" members can create organization invitations.
+     * 
+     * <p>You can optionally provide public and private metadata for the organization invitation.
+     * The public metadata are visible by both the Frontend and the Backend whereas the private ones only
+     * by the Backend.
+     * When the organization invitation is accepted, the metadata will be transferred to the newly created
+     * organization membership.
+     * 
+     * @param organizationId The ID of the organization for which to send the invitation
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -449,6 +484,35 @@ public class OrganizationInvitations {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public ListPendingOrganizationInvitationsResponse listPending(
+            String organizationId, Optional<Long> limit,
+            Optional<Long> offset) {
+        return listPending(organizationId, limit, offset,
+            Optional.empty());
+    }
+
+    /**
+     * Get a list of pending organization invitations
+     * 
+     * <p>This request returns the list of organization invitations with "pending" status.
+     * These are the organization invitations that can still be used to join the organization, but have not
+     * been accepted by the invited user yet.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * The organization invitations are ordered by descending creation date.
+     * Most recent invitations will be returned first.
+     * Any invitations created as a result of an Organization Domain are not included in the results.
+     * 
+     * @param organizationId The organization ID.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -555,6 +619,30 @@ public class OrganizationInvitations {
      */
     public RevokeOrganizationInvitationResponse revoke(String organizationId, String invitationId) {
         return revoke(organizationId, invitationId, Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * Revoke a pending organization invitation
+     * 
+     * <p>Use this request to revoke a previously issued organization invitation.
+     * Revoking an organization invitation makes it invalid; the invited user will no longer be able to
+     * join the organization with the revoked invitation.
+     * Only organization invitations with "pending" status can be revoked.
+     * The request accepts the `requesting_user_id` parameter to specify the user which revokes the
+     * invitation.
+     * Only users with "admin" role can revoke invitations.
+     * 
+     * @param organizationId The organization ID.
+     * @param invitationId The organization invitation ID.
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeOrganizationInvitationResponse revoke(
+            String organizationId, String invitationId,
+            Optional<? extends RevokeOrganizationInvitationRequestBody> requestBody) {
+        return revoke(organizationId, invitationId, requestBody,
             Optional.empty());
     }
 

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ListEnterpriseConnectionsRequestBuilder {
@@ -31,6 +32,7 @@ public class ListEnterpriseConnectionsRequestBuilder {
     private Optional<String> organizationId = Optional.empty();
     private Optional<Boolean> active = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -97,6 +99,18 @@ public class ListEnterpriseConnectionsRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ListEnterpriseConnectionsRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ListEnterpriseConnectionsRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private ListEnterpriseConnectionsRequest buildRequest() {
@@ -118,6 +132,7 @@ public class ListEnterpriseConnectionsRequestBuilder {
     public ListEnterpriseConnectionsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ListEnterpriseConnectionsRequest, ListEnterpriseConnectionsResponse> operation

@@ -15,6 +15,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ListRedirectURLsRequestBuilder {
@@ -29,6 +30,7 @@ public class ListRedirectURLsRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -83,6 +85,18 @@ public class ListRedirectURLsRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ListRedirectURLsRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ListRedirectURLsRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private ListRedirectURLsRequest buildRequest() {
@@ -103,6 +117,7 @@ public class ListRedirectURLsRequestBuilder {
     public ListRedirectURLsResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ListRedirectURLsRequest, ListRedirectURLsResponse> operation

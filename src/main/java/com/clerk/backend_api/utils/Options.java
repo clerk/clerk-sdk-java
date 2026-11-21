@@ -3,29 +3,41 @@
  */
 package com.clerk.backend_api.utils;
 
+import java.time.Duration;
 import java.util.Optional;
 import java.util.List;
 
 public class Options {
 
     public enum Option {
-        RETRY_CONFIG;
+        RETRY_CONFIG,
+        TIMEOUT;
     }
 
-    private Optional<RetryConfig> retryConfig = Optional.empty();
+    private final Optional<RetryConfig> retryConfig;
+    private final Optional<Duration> timeout;
 
-    private Options(Optional<RetryConfig> retryConfig) {
+    private Options(Optional<RetryConfig> retryConfig, Optional<Duration> timeout) {
         Utils.checkNotNull(retryConfig, "retryConfig");
+        Utils.checkNotNull(timeout, "timeout");
         this.retryConfig = retryConfig;
+        this.timeout = timeout;
     }
 
     public Optional<RetryConfig> retryConfig() {
         return retryConfig;
     }
 
+    public Optional<Duration> timeout() {
+        return timeout;
+    }
+
     public final void validate(List<Option> supportedOptions) throws IllegalArgumentException {
         if (this.retryConfig.isPresent() && !supportedOptions.contains(Option.RETRY_CONFIG)) {
             throw new IllegalArgumentException("retryConfig is not supported for this operation.");
+        }
+        if (this.timeout.isPresent() && !supportedOptions.contains(Option.TIMEOUT)) {
+            throw new IllegalArgumentException("timeout is not supported for this operation.");
         }
     }
 
@@ -36,6 +48,7 @@ public class Options {
     public final static class Builder {
 
         private Optional<RetryConfig> retryConfig = Optional.empty();
+        private Optional<Duration> timeout = Optional.empty();
 
         private Builder() {}
 
@@ -51,8 +64,22 @@ public class Options {
             return this;
         }
 
+        public Builder timeout(Duration timeout) throws IllegalArgumentException {
+            Utils.checkNotNull(timeout, "timeout");
+            return timeout(Optional.of(timeout));
+        }
+
+        public Builder timeout(Optional<Duration> timeout) throws IllegalArgumentException {
+            Utils.checkNotNull(timeout, "timeout");
+            if (timeout.isPresent() && (timeout.get().isZero() || timeout.get().isNegative())) {
+                throw new IllegalArgumentException("timeout must be positive");
+            }
+            this.timeout = timeout;
+            return this;
+        }
+
         public Options build() {
-            return new Options(retryConfig);
+            return new Options(retryConfig, timeout);
         }
     }
 }

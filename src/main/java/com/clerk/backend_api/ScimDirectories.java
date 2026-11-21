@@ -96,6 +96,23 @@ public class ScimDirectories {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListSCIMDirectoriesResponse list(Optional<Long> limit, Optional<Long> offset) {
+        return list(limit, offset, Optional.empty());
+    }
+
+    /**
+     * List all directories
+     * 
+     * <p>Returns a list of all directories for the instance.
+     * 
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -135,6 +152,19 @@ public class ScimDirectories {
      */
     public CreateSCIMDirectoryResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a directory
+     * 
+     * <p>Create a new directory for the instance.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateSCIMDirectoryResponse create(Optional<? extends CreateSCIMDirectoryRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -220,6 +250,20 @@ public class ScimDirectories {
      */
     public UpdateSCIMDirectoryResponse update(String scimDirectoryId) {
         return update(scimDirectoryId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update a directory
+     * 
+     * <p>Updates a directory.
+     * 
+     * @param scimDirectoryId The ID of the directory to update
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateSCIMDirectoryResponse update(String scimDirectoryId, Optional<? extends UpdateSCIMDirectoryRequestBody> requestBody) {
+        return update(scimDirectoryId, requestBody, Optional.empty());
     }
 
     /**
