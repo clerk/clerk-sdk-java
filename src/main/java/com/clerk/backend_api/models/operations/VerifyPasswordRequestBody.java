@@ -3,12 +3,18 @@
  */
 package com.clerk.backend_api.models.operations;
 
+import com.clerk.backend_api.utils.LazySingletonValue;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class VerifyPasswordRequestBody {
@@ -18,11 +24,29 @@ public class VerifyPasswordRequestBody {
     @JsonProperty("password")
     private String password;
 
+    /**
+     * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the password is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("honor_lockout")
+    private Optional<Boolean> honorLockout;
+
     @JsonCreator
     public VerifyPasswordRequestBody(
-            @JsonProperty("password") String password) {
+            @JsonProperty("password") String password,
+            @JsonProperty("honor_lockout") Optional<Boolean> honorLockout) {
         Utils.checkNotNull(password, "password");
+        Utils.checkNotNull(honorLockout, "honorLockout");
         this.password = password;
+        this.honorLockout = honorLockout;
+    }
+    
+    public VerifyPasswordRequestBody(
+            String password) {
+        this(password, Optional.empty());
     }
 
     /**
@@ -31,6 +55,17 @@ public class VerifyPasswordRequestBody {
     @JsonIgnore
     public String password() {
         return password;
+    }
+
+    /**
+     * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the password is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    @JsonIgnore
+    public Optional<Boolean> honorLockout() {
+        return honorLockout;
     }
 
     public static Builder builder() {
@@ -47,6 +82,31 @@ public class VerifyPasswordRequestBody {
         return this;
     }
 
+    /**
+     * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the password is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public VerifyPasswordRequestBody withHonorLockout(boolean honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = Optional.ofNullable(honorLockout);
+        return this;
+    }
+
+
+    /**
+     * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+     * `user_locked` error before the password is checked.
+     * Has no effect on instances with user lockout disabled.
+     * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+     */
+    public VerifyPasswordRequestBody withHonorLockout(Optional<Boolean> honorLockout) {
+        Utils.checkNotNull(honorLockout, "honorLockout");
+        this.honorLockout = honorLockout;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -57,25 +117,29 @@ public class VerifyPasswordRequestBody {
         }
         VerifyPasswordRequestBody other = (VerifyPasswordRequestBody) o;
         return 
-            Utils.enhancedDeepEquals(this.password, other.password);
+            Utils.enhancedDeepEquals(this.password, other.password) &&
+            Utils.enhancedDeepEquals(this.honorLockout, other.honorLockout);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            password);
+            password, honorLockout);
     }
     
     @Override
     public String toString() {
         return Utils.toString(VerifyPasswordRequestBody.class,
-                "password", password);
+                "password", password,
+                "honorLockout", honorLockout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String password;
+
+        private Optional<Boolean> honorLockout;
 
         private Builder() {
           // force use of static builder() method
@@ -91,11 +155,45 @@ public class VerifyPasswordRequestBody {
             return this;
         }
 
-        public VerifyPasswordRequestBody build() {
 
-            return new VerifyPasswordRequestBody(
-                password);
+        /**
+         * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the password is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(boolean honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = Optional.ofNullable(honorLockout);
+            return this;
         }
 
+        /**
+         * When `true`, a wrong password counts toward the user's lockout, and a locked user is rejected with a
+         * `user_locked` error before the password is checked.
+         * Has no effect on instances with user lockout disabled.
+         * To enforce lockout across a password check and a sign-in token, set this parameter on both requests.
+         */
+        public Builder honorLockout(Optional<Boolean> honorLockout) {
+            Utils.checkNotNull(honorLockout, "honorLockout");
+            this.honorLockout = honorLockout;
+            return this;
+        }
+
+        public VerifyPasswordRequestBody build() {
+            if (honorLockout == null) {
+                honorLockout = _SINGLETON_VALUE_HonorLockout.value();
+            }
+
+            return new VerifyPasswordRequestBody(
+                password, honorLockout);
+        }
+
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_HonorLockout =
+                new LazySingletonValue<>(
+                        "honor_lockout",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

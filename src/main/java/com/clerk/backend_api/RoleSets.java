@@ -100,6 +100,36 @@ public class RoleSets {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListRoleSetsResponse list(
+            Optional<String> query, Optional<String> orderBy,
+            Optional<Long> limit, Optional<Long> offset) {
+        return list(query, orderBy, limit,
+            offset, Optional.empty());
+    }
+
+    /**
+     * Get a list of role sets
+     * 
+     * <p>Returns a list of role sets for the instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * The role sets are ordered by descending creation date by default.
+     * 
+     * @param query Returns role sets with ID, name, or key that match the given query.
+     *         Uses exact match for role set ID and partial match for name and key.
+     * @param orderBy Allows to return role sets in a particular order.
+     *         At the moment, you can order the returned role sets by their `created_at`, `name`, or `key`.
+     *         In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     *         For example, if you want role sets to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     *         If you don't use `+` or `-`, then `+` is implied.
+     *         Defaults to `-created_at`.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

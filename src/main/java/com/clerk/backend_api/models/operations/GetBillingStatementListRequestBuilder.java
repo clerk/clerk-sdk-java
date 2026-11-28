@@ -15,6 +15,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.time.Duration;
 import java.util.Optional;
 
 public class GetBillingStatementListRequestBuilder {
@@ -29,6 +30,7 @@ public class GetBillingStatementListRequestBuilder {
                             "0",
                             new TypeReference<Optional<Long>>() {});
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -83,6 +85,18 @@ public class GetBillingStatementListRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public GetBillingStatementListRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public GetBillingStatementListRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private GetBillingStatementListRequest buildRequest() {
@@ -103,6 +117,7 @@ public class GetBillingStatementListRequestBuilder {
     public GetBillingStatementListResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<GetBillingStatementListRequest, GetBillingStatementListResponse> operation

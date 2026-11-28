@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
     private String organizationId;
     private List<CreateOrganizationInvitationBulkRequestBody> requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -50,6 +52,18 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public CreateOrganizationInvitationBulkRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public CreateOrganizationInvitationBulkRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private CreateOrganizationInvitationBulkRequest buildRequest() {
@@ -63,6 +77,7 @@ public class CreateOrganizationInvitationBulkRequestBuilder {
     public CreateOrganizationInvitationBulkResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<CreateOrganizationInvitationBulkRequest, CreateOrganizationInvitationBulkResponse> operation

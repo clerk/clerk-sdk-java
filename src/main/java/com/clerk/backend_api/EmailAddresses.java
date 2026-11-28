@@ -79,6 +79,19 @@ public class EmailAddresses {
      * <p>Create a new email address
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateEmailAddressResponse create(Optional<? extends CreateEmailAddressRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create an email address
+     * 
+     * <p>Create a new email address
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -201,6 +214,20 @@ public class EmailAddresses {
      */
     public UpdateEmailAddressResponse update(String emailAddressId) {
         return update(emailAddressId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update an email address
+     * 
+     * <p>Updates an email address.
+     * 
+     * @param emailAddressId The ID of the email address to update
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateEmailAddressResponse update(String emailAddressId, Optional<? extends UpdateEmailAddressRequestBody> requestBody) {
+        return update(emailAddressId, requestBody, Optional.empty());
     }
 
     /**

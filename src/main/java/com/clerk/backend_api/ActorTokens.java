@@ -62,6 +62,21 @@ public class ActorTokens {
      * (impersonating) user.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateActorTokenResponse create(Optional<? extends CreateActorTokenRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create actor token
+     * 
+     * <p>Create an actor token that can be used to impersonate the given user.
+     * The `actor` parameter needs to include at least a "sub" key whose value is the ID of the actor
+     * (impersonating) user.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

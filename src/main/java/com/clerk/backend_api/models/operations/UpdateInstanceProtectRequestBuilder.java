@@ -11,12 +11,14 @@ import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
+import java.time.Duration;
 import java.util.Optional;
 
 public class UpdateInstanceProtectRequestBuilder {
 
     private Optional<? extends UpdateInstanceProtectRequestBody> request = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -47,10 +49,23 @@ public class UpdateInstanceProtectRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public UpdateInstanceProtectRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public UpdateInstanceProtectRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
     public UpdateInstanceProtectResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<Optional<? extends UpdateInstanceProtectRequestBody>, UpdateInstanceProtectResponse> operation

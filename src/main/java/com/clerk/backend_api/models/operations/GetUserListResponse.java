@@ -3,7 +3,7 @@
  */
 package com.clerk.backend_api.models.operations;
 
-import com.clerk.backend_api.models.components.User;
+import com.clerk.backend_api.models.components.UserListOrCursorPage;
 import com.clerk.backend_api.utils.Response;
 import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,7 +14,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -37,22 +36,22 @@ public class GetUserListResponse implements Response {
     /**
      * Success
      */
-    private Optional<? extends List<User>> userList;
+    private Optional<? extends UserListOrCursorPage> userListOrCursorPage;
 
     @JsonCreator
     public GetUserListResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<User>> userList) {
+            Optional<? extends UserListOrCursorPage> userListOrCursorPage) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(userList, "userList");
+        Utils.checkNotNull(userListOrCursorPage, "userListOrCursorPage");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.userList = userList;
+        this.userListOrCursorPage = userListOrCursorPage;
     }
     
     public GetUserListResponse(
@@ -92,8 +91,8 @@ public class GetUserListResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<User>> userList() {
-        return (Optional<List<User>>) userList;
+    public Optional<UserListOrCursorPage> userListOrCursorPage() {
+        return (Optional<UserListOrCursorPage>) userListOrCursorPage;
     }
 
     public static Builder builder() {
@@ -131,9 +130,9 @@ public class GetUserListResponse implements Response {
     /**
      * Success
      */
-    public GetUserListResponse withUserList(List<User> userList) {
-        Utils.checkNotNull(userList, "userList");
-        this.userList = Optional.ofNullable(userList);
+    public GetUserListResponse withUserListOrCursorPage(UserListOrCursorPage userListOrCursorPage) {
+        Utils.checkNotNull(userListOrCursorPage, "userListOrCursorPage");
+        this.userListOrCursorPage = Optional.ofNullable(userListOrCursorPage);
         return this;
     }
 
@@ -141,9 +140,9 @@ public class GetUserListResponse implements Response {
     /**
      * Success
      */
-    public GetUserListResponse withUserList(Optional<? extends List<User>> userList) {
-        Utils.checkNotNull(userList, "userList");
-        this.userList = userList;
+    public GetUserListResponse withUserListOrCursorPage(Optional<? extends UserListOrCursorPage> userListOrCursorPage) {
+        Utils.checkNotNull(userListOrCursorPage, "userListOrCursorPage");
+        this.userListOrCursorPage = userListOrCursorPage;
         return this;
     }
 
@@ -160,14 +159,14 @@ public class GetUserListResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.userList, other.userList);
+            Utils.enhancedDeepEquals(this.userListOrCursorPage, other.userListOrCursorPage);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            userList);
+            userListOrCursorPage);
     }
     
     @Override
@@ -176,7 +175,7 @@ public class GetUserListResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "userList", userList);
+                "userListOrCursorPage", userListOrCursorPage);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +187,7 @@ public class GetUserListResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<User>> userList = Optional.empty();
+        private Optional<? extends UserListOrCursorPage> userListOrCursorPage = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -228,18 +227,18 @@ public class GetUserListResponse implements Response {
         /**
          * Success
          */
-        public Builder userList(List<User> userList) {
-            Utils.checkNotNull(userList, "userList");
-            this.userList = Optional.ofNullable(userList);
+        public Builder userListOrCursorPage(UserListOrCursorPage userListOrCursorPage) {
+            Utils.checkNotNull(userListOrCursorPage, "userListOrCursorPage");
+            this.userListOrCursorPage = Optional.ofNullable(userListOrCursorPage);
             return this;
         }
 
         /**
          * Success
          */
-        public Builder userList(Optional<? extends List<User>> userList) {
-            Utils.checkNotNull(userList, "userList");
-            this.userList = userList;
+        public Builder userListOrCursorPage(Optional<? extends UserListOrCursorPage> userListOrCursorPage) {
+            Utils.checkNotNull(userListOrCursorPage, "userListOrCursorPage");
+            this.userListOrCursorPage = userListOrCursorPage;
             return this;
         }
 
@@ -247,7 +246,7 @@ public class GetUserListResponse implements Response {
 
             return new GetUserListResponse(
                 contentType, statusCode, rawResponse,
-                userList);
+                userListOrCursorPage);
         }
 
     }

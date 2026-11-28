@@ -206,6 +206,32 @@ public class GetUserListRequest {
     private Optional<? extends List<String>> providerUserId;
 
     /**
+     * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+     * value
+     * is a JSON object with these fields:
+     * 
+     * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+     * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+     * literal dot in a key as `\.`.
+     * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+     * keys. `equals` matches the whole value, case-insensitively.
+     * - `value`: required for `equals`; not allowed for `exists`.
+     * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+     * key. With `equals` it returns the users who hold the key with a different value.
+     * 
+     * <p>Other fields are rejected.
+     * 
+     * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+     * `GET /v1/users/count` does not accept `metadata`.
+     * 
+     * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+     * yet be reflected in which users are returned or in their order. To read a user right after
+     * writing it, fetch it by ID.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=metadata")
+    private Optional<? extends List<String>> metadata;
+
+    /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
@@ -236,6 +262,56 @@ public class GetUserListRequest {
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=starting_after")
     private Optional<String> startingAfter;
+
+    /**
+     * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+     * then an object in place of the array of users: `data` holds the users, and `cursor` is
+     * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+     * "has_next_page": <boolean>}`.
+     * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+     * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+     * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+     * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+     * with a 422, as is a non-zero `offset`.
+     * 
+     * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+     * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+     * read a user right after writing it, fetch it by ID.
+     * 
+     * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+     * `offset` pages the same way, except that it does not accept `starting_after`.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=pagination")
+    private Optional<? extends Pagination> pagination;
+
+    /**
+     * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+     * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+     * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+     * even when more precede it.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=ending_before")
+    private Optional<String> endingBefore;
+
+    /**
+     * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+     * included. On the first page that is every user the request matches.
+     * 
+     * <p>A number counts up to that many. The response's `cursor` then carries one of two
+     * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+     * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+     * 
+     * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+     * count takes longer the more users match, and a request whose count does not finish in time is
+     * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+     * parameter.
+     * 
+     * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+     * close estimate: it can differ slightly from the number of users that paging through the results
+     * returns.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=remaining_count")
+    private Optional<? extends RemainingCount> remainingCount;
 
     /**
      * Allows to return users in a particular order.
@@ -279,9 +355,13 @@ public class GetUserListRequest {
             Optional<Long> lastSignInAtAfter,
             Optional<String> provider,
             Optional<? extends List<String>> providerUserId,
+            Optional<? extends List<String>> metadata,
             Optional<Long> limit,
             Optional<Long> offset,
             Optional<String> startingAfter,
+            Optional<? extends Pagination> pagination,
+            Optional<String> endingBefore,
+            Optional<? extends RemainingCount> remainingCount,
             Optional<String> orderBy) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(phoneNumber, "phoneNumber");
@@ -305,9 +385,13 @@ public class GetUserListRequest {
         Utils.checkNotNull(lastSignInAtAfter, "lastSignInAtAfter");
         Utils.checkNotNull(provider, "provider");
         Utils.checkNotNull(providerUserId, "providerUserId");
+        Utils.checkNotNull(metadata, "metadata");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         Utils.checkNotNull(startingAfter, "startingAfter");
+        Utils.checkNotNull(pagination, "pagination");
+        Utils.checkNotNull(endingBefore, "endingBefore");
+        Utils.checkNotNull(remainingCount, "remainingCount");
         Utils.checkNotNull(orderBy, "orderBy");
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
@@ -331,9 +415,13 @@ public class GetUserListRequest {
         this.lastSignInAtAfter = lastSignInAtAfter;
         this.provider = provider;
         this.providerUserId = providerUserId;
+        this.metadata = metadata;
         this.limit = limit;
         this.offset = offset;
         this.startingAfter = startingAfter;
+        this.pagination = pagination;
+        this.endingBefore = endingBefore;
+        this.remainingCount = remainingCount;
         this.orderBy = orderBy;
     }
     
@@ -346,7 +434,8 @@ public class GetUserListRequest {
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -587,6 +676,35 @@ public class GetUserListRequest {
     }
 
     /**
+     * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+     * value
+     * is a JSON object with these fields:
+     * 
+     * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+     * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+     * literal dot in a key as `\.`.
+     * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+     * keys. `equals` matches the whole value, case-insensitively.
+     * - `value`: required for `equals`; not allowed for `exists`.
+     * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+     * key. With `equals` it returns the users who hold the key with a different value.
+     * 
+     * <p>Other fields are rejected.
+     * 
+     * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+     * `GET /v1/users/count` does not accept `metadata`.
+     * 
+     * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+     * yet be reflected in which users are returned or in their order. To read a user right after
+     * writing it, fetch it by ID.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> metadata() {
+        return (Optional<List<String>>) metadata;
+    }
+
+    /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
@@ -622,6 +740,64 @@ public class GetUserListRequest {
     @JsonIgnore
     public Optional<String> startingAfter() {
         return startingAfter;
+    }
+
+    /**
+     * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+     * then an object in place of the array of users: `data` holds the users, and `cursor` is
+     * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+     * "has_next_page": <boolean>}`.
+     * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+     * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+     * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+     * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+     * with a 422, as is a non-zero `offset`.
+     * 
+     * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+     * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+     * read a user right after writing it, fetch it by ID.
+     * 
+     * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+     * `offset` pages the same way, except that it does not accept `starting_after`.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Pagination> pagination() {
+        return (Optional<Pagination>) pagination;
+    }
+
+    /**
+     * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+     * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+     * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+     * even when more precede it.
+     */
+    @JsonIgnore
+    public Optional<String> endingBefore() {
+        return endingBefore;
+    }
+
+    /**
+     * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+     * included. On the first page that is every user the request matches.
+     * 
+     * <p>A number counts up to that many. The response's `cursor` then carries one of two
+     * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+     * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+     * 
+     * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+     * count takes longer the more users match, and a request whose count does not finish in time is
+     * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+     * parameter.
+     * 
+     * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+     * close estimate: it can differ slightly from the number of users that paging through the results
+     * returns.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<RemainingCount> remainingCount() {
+        return (Optional<RemainingCount>) remainingCount;
     }
 
     /**
@@ -1174,6 +1350,65 @@ public class GetUserListRequest {
     }
 
     /**
+     * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+     * value
+     * is a JSON object with these fields:
+     * 
+     * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+     * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+     * literal dot in a key as `\.`.
+     * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+     * keys. `equals` matches the whole value, case-insensitively.
+     * - `value`: required for `equals`; not allowed for `exists`.
+     * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+     * key. With `equals` it returns the users who hold the key with a different value.
+     * 
+     * <p>Other fields are rejected.
+     * 
+     * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+     * `GET /v1/users/count` does not accept `metadata`.
+     * 
+     * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+     * yet be reflected in which users are returned or in their order. To read a user right after
+     * writing it, fetch it by ID.
+     */
+    public GetUserListRequest withMetadata(List<String> metadata) {
+        Utils.checkNotNull(metadata, "metadata");
+        this.metadata = Optional.ofNullable(metadata);
+        return this;
+    }
+
+
+    /**
+     * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+     * value
+     * is a JSON object with these fields:
+     * 
+     * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+     * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+     * literal dot in a key as `\.`.
+     * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+     * keys. `equals` matches the whole value, case-insensitively.
+     * - `value`: required for `equals`; not allowed for `exists`.
+     * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+     * key. With `equals` it returns the users who hold the key with a different value.
+     * 
+     * <p>Other fields are rejected.
+     * 
+     * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+     * `GET /v1/users/count` does not accept `metadata`.
+     * 
+     * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+     * yet be reflected in which users are returned or in their order. To read a user right after
+     * writing it, fetch it by ID.
+     */
+    public GetUserListRequest withMetadata(Optional<? extends List<String>> metadata) {
+        Utils.checkNotNull(metadata, "metadata");
+        this.metadata = metadata;
+        return this;
+    }
+
+    /**
      * Applies a limit to the number of results returned.
      * Can be used for paginating the results together with `offset`.
      */
@@ -1259,6 +1494,127 @@ public class GetUserListRequest {
     }
 
     /**
+     * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+     * then an object in place of the array of users: `data` holds the users, and `cursor` is
+     * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+     * "has_next_page": <boolean>}`.
+     * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+     * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+     * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+     * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+     * with a 422, as is a non-zero `offset`.
+     * 
+     * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+     * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+     * read a user right after writing it, fetch it by ID.
+     * 
+     * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+     * `offset` pages the same way, except that it does not accept `starting_after`.
+     */
+    public GetUserListRequest withPagination(Pagination pagination) {
+        Utils.checkNotNull(pagination, "pagination");
+        this.pagination = Optional.ofNullable(pagination);
+        return this;
+    }
+
+
+    /**
+     * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+     * then an object in place of the array of users: `data` holds the users, and `cursor` is
+     * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+     * "has_next_page": <boolean>}`.
+     * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+     * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+     * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+     * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+     * with a 422, as is a non-zero `offset`.
+     * 
+     * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+     * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+     * read a user right after writing it, fetch it by ID.
+     * 
+     * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+     * `offset` pages the same way, except that it does not accept `starting_after`.
+     */
+    public GetUserListRequest withPagination(Optional<? extends Pagination> pagination) {
+        Utils.checkNotNull(pagination, "pagination");
+        this.pagination = pagination;
+        return this;
+    }
+
+    /**
+     * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+     * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+     * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+     * even when more precede it.
+     */
+    public GetUserListRequest withEndingBefore(String endingBefore) {
+        Utils.checkNotNull(endingBefore, "endingBefore");
+        this.endingBefore = Optional.ofNullable(endingBefore);
+        return this;
+    }
+
+
+    /**
+     * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+     * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+     * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+     * even when more precede it.
+     */
+    public GetUserListRequest withEndingBefore(Optional<String> endingBefore) {
+        Utils.checkNotNull(endingBefore, "endingBefore");
+        this.endingBefore = endingBefore;
+        return this;
+    }
+
+    /**
+     * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+     * included. On the first page that is every user the request matches.
+     * 
+     * <p>A number counts up to that many. The response's `cursor` then carries one of two
+     * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+     * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+     * 
+     * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+     * count takes longer the more users match, and a request whose count does not finish in time is
+     * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+     * parameter.
+     * 
+     * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+     * close estimate: it can differ slightly from the number of users that paging through the results
+     * returns.
+     */
+    public GetUserListRequest withRemainingCount(RemainingCount remainingCount) {
+        Utils.checkNotNull(remainingCount, "remainingCount");
+        this.remainingCount = Optional.ofNullable(remainingCount);
+        return this;
+    }
+
+
+    /**
+     * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+     * included. On the first page that is every user the request matches.
+     * 
+     * <p>A number counts up to that many. The response's `cursor` then carries one of two
+     * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+     * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+     * 
+     * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+     * count takes longer the more users match, and a request whose count does not finish in time is
+     * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+     * parameter.
+     * 
+     * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+     * close estimate: it can differ slightly from the number of users that paging through the results
+     * returns.
+     */
+    public GetUserListRequest withRemainingCount(Optional<? extends RemainingCount> remainingCount) {
+        Utils.checkNotNull(remainingCount, "remainingCount");
+        this.remainingCount = remainingCount;
+        return this;
+    }
+
+    /**
      * Allows to return users in a particular order.
      * At the moment, you can order the returned users by their
      * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -1333,9 +1689,13 @@ public class GetUserListRequest {
             Utils.enhancedDeepEquals(this.lastSignInAtAfter, other.lastSignInAtAfter) &&
             Utils.enhancedDeepEquals(this.provider, other.provider) &&
             Utils.enhancedDeepEquals(this.providerUserId, other.providerUserId) &&
+            Utils.enhancedDeepEquals(this.metadata, other.metadata) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.offset, other.offset) &&
             Utils.enhancedDeepEquals(this.startingAfter, other.startingAfter) &&
+            Utils.enhancedDeepEquals(this.pagination, other.pagination) &&
+            Utils.enhancedDeepEquals(this.endingBefore, other.endingBefore) &&
+            Utils.enhancedDeepEquals(this.remainingCount, other.remainingCount) &&
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy);
     }
     
@@ -1349,8 +1709,9 @@ public class GetUserListRequest {
             banned, lastActiveAtBefore, lastActiveAtAfter,
             lastActiveAtSince, createdAtBefore, createdAtAfter,
             lastSignInAtBefore, lastSignInAtAfter, provider,
-            providerUserId, limit, offset,
-            startingAfter, orderBy);
+            providerUserId, metadata, limit,
+            offset, startingAfter, pagination,
+            endingBefore, remainingCount, orderBy);
     }
     
     @Override
@@ -1378,9 +1739,13 @@ public class GetUserListRequest {
                 "lastSignInAtAfter", lastSignInAtAfter,
                 "provider", provider,
                 "providerUserId", providerUserId,
+                "metadata", metadata,
                 "limit", limit,
                 "offset", offset,
                 "startingAfter", startingAfter,
+                "pagination", pagination,
+                "endingBefore", endingBefore,
+                "remainingCount", remainingCount,
                 "orderBy", orderBy);
     }
 
@@ -1432,11 +1797,19 @@ public class GetUserListRequest {
 
         private Optional<? extends List<String>> providerUserId = Optional.empty();
 
+        private Optional<? extends List<String>> metadata = Optional.empty();
+
         private Optional<Long> limit;
 
         private Optional<Long> offset;
 
         private Optional<String> startingAfter = Optional.empty();
+
+        private Optional<? extends Pagination> pagination = Optional.empty();
+
+        private Optional<String> endingBefore = Optional.empty();
+
+        private Optional<? extends RemainingCount> remainingCount = Optional.empty();
 
         private Optional<String> orderBy;
 
@@ -1970,6 +2343,65 @@ public class GetUserListRequest {
 
 
         /**
+         * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+         * value
+         * is a JSON object with these fields:
+         * 
+         * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+         * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+         * literal dot in a key as `\.`.
+         * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+         * keys. `equals` matches the whole value, case-insensitively.
+         * - `value`: required for `equals`; not allowed for `exists`.
+         * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+         * key. With `equals` it returns the users who hold the key with a different value.
+         * 
+         * <p>Other fields are rejected.
+         * 
+         * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+         * `GET /v1/users/count` does not accept `metadata`.
+         * 
+         * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+         * yet be reflected in which users are returned or in their order. To read a user right after
+         * writing it, fetch it by ID.
+         */
+        public Builder metadata(List<String> metadata) {
+            Utils.checkNotNull(metadata, "metadata");
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        /**
+         * Returns users matching every one of the given metadata filters. Repeat it once per filter; each
+         * value
+         * is a JSON object with these fields:
+         * 
+         * <p>- `scope` (required): `public`, `private` or `unsafe`, the metadata to match against.
+         * - `key` (required): a dot-separated path into the metadata, e.g. `settings.theme`. Escape a
+         * literal dot in a key as `\.`.
+         * - `match` (required): `exists` matches users holding the key, whether it holds a value or nested
+         * keys. `equals` matches the whole value, case-insensitively.
+         * - `value`: required for `equals`; not allowed for `exists`.
+         * - `negate`: `true` inverts the filter. With `exists` it returns the users who do not hold the
+         * key. With `equals` it returns the users who hold the key with a different value.
+         * 
+         * <p>Other fields are rejected.
+         * 
+         * <p>With `metadata`, `offset` plus `limit` cannot exceed 1000, and `starting_after` is not accepted.
+         * `GET /v1/users/count` does not accept `metadata`.
+         * 
+         * <p>Results are eventually consistent. A user created, updated or deleted a short time ago may not
+         * yet be reflected in which users are returned or in their order. To read a user right after
+         * writing it, fetch it by ID.
+         */
+        public Builder metadata(Optional<? extends List<String>> metadata) {
+            Utils.checkNotNull(metadata, "metadata");
+            this.metadata = metadata;
+            return this;
+        }
+
+
+        /**
          * Applies a limit to the number of results returned.
          * Can be used for paginating the results together with `offset`.
          */
@@ -2055,6 +2487,127 @@ public class GetUserListRequest {
 
 
         /**
+         * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+         * then an object in place of the array of users: `data` holds the users, and `cursor` is
+         * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+         * "has_next_page": <boolean>}`.
+         * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+         * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+         * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+         * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+         * with a 422, as is a non-zero `offset`.
+         * 
+         * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+         * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+         * read a user right after writing it, fetch it by ID.
+         * 
+         * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+         * `offset` pages the same way, except that it does not accept `starting_after`.
+         */
+        public Builder pagination(Pagination pagination) {
+            Utils.checkNotNull(pagination, "pagination");
+            this.pagination = Optional.ofNullable(pagination);
+            return this;
+        }
+
+        /**
+         * `cursor` pages by cursor, with any `order_by` and any filter, including `metadata`. The response is
+         * then an object in place of the array of users: `data` holds the users, and `cursor` is
+         * `{"starting_after": &lt;string or null&gt;, "ending_before": &lt;string or null&gt;,
+         * "has_next_page": <boolean>}`.
+         * Pass its `starting_after` back as `starting_after` for the next page, or its `ending_before` back
+         * as `ending_before` for the previous one, keeping every other parameter identical. Stop when
+         * `has_next_page` is `false`; `ending_before` is null on the first page. In this mode
+         * `starting_after` is that cursor, not a user ID; a cursor from a different `order_by` is rejected
+         * with a 422, as is a non-zero `offset`.
+         * 
+         * <p>Results in this mode are eventually consistent. A user created, updated or deleted a short time
+         * ago may not yet be reflected in which users are returned, in their order, or in any count. To
+         * read a user right after writing it, fetch it by ID.
+         * 
+         * <p>Without this parameter the list pages by offset, and `starting_after` takes a user ID.
+         * `offset` pages the same way, except that it does not accept `starting_after`.
+         */
+        public Builder pagination(Optional<? extends Pagination> pagination) {
+            Utils.checkNotNull(pagination, "pagination");
+            this.pagination = pagination;
+            return this;
+        }
+
+
+        /**
+         * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+         * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+         * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+         * even when more precede it.
+         */
+        public Builder endingBefore(String endingBefore) {
+            Utils.checkNotNull(endingBefore, "endingBefore");
+            this.endingBefore = Optional.ofNullable(endingBefore);
+            return this;
+        }
+
+        /**
+         * With `pagination=cursor`, the `cursor.ending_before` of a previous response. Returns the page
+         * before it, in the same order. Cannot be combined with `starting_after`, and a cursor from a
+         * different `order_by` is rejected with a 422. A previous page can hold fewer than `limit` users
+         * even when more precede it.
+         */
+        public Builder endingBefore(Optional<String> endingBefore) {
+            Utils.checkNotNull(endingBefore, "endingBefore");
+            this.endingBefore = endingBefore;
+            return this;
+        }
+
+
+        /**
+         * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+         * included. On the first page that is every user the request matches.
+         * 
+         * <p>A number counts up to that many. The response's `cursor` then carries one of two
+         * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+         * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+         * 
+         * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+         * count takes longer the more users match, and a request whose count does not finish in time is
+         * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+         * parameter.
+         * 
+         * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+         * close estimate: it can differ slightly from the number of users that paging through the results
+         * returns.
+         */
+        public Builder remainingCount(RemainingCount remainingCount) {
+            Utils.checkNotNull(remainingCount, "remainingCount");
+            this.remainingCount = Optional.ofNullable(remainingCount);
+            return this;
+        }
+
+        /**
+         * With `pagination=cursor`, also counts the users from the start of this page onward, this page
+         * included. On the first page that is every user the request matches.
+         * 
+         * <p>A number counts up to that many. The response's `cursor` then carries one of two
+         * fields: `remaining_count_exact` when there are fewer users than the number given, and otherwise
+         * `remaining_count_at_least`, set to that number. Larger numbers make the request slower.
+         * 
+         * <p>`exact` counts them all, with no ceiling, and the `cursor` carries `remaining_count_exact`. The
+         * count takes longer the more users match, and a request whose count does not finish in time is
+         * rejected with a 422 `users_exact_count_timed_out`; retry it with a number, or without this
+         * parameter.
+         * 
+         * <p>The count is computed separately from the page and is subject to the same delay. Treat it as a
+         * close estimate: it can differ slightly from the number of users that paging through the results
+         * returns.
+         */
+        public Builder remainingCount(Optional<? extends RemainingCount> remainingCount) {
+            Utils.checkNotNull(remainingCount, "remainingCount");
+            this.remainingCount = remainingCount;
+            return this;
+        }
+
+
+        /**
          * Allows to return users in a particular order.
          * At the moment, you can order the returned users by their
          * `created_at`,`updated_at`,`email_address`,`web3wallet`,`first_name`,`last_name`,`phone_number`,`username`,`last_active_at`,`last_sign_in_at`.
@@ -2115,8 +2668,9 @@ public class GetUserListRequest {
                 banned, lastActiveAtBefore, lastActiveAtAfter,
                 lastActiveAtSince, createdAtBefore, createdAtAfter,
                 lastSignInAtBefore, lastSignInAtAfter, provider,
-                providerUserId, limit, offset,
-                startingAfter, orderBy);
+                providerUserId, metadata, limit,
+                offset, startingAfter, pagination,
+                endingBefore, remainingCount, orderBy);
         }
 
 

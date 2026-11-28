@@ -126,6 +126,21 @@ public class WaitlistEntries {
      * waitlist entry will be returned.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateWaitlistEntryResponse create(Optional<? extends CreateWaitlistEntryRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create a waitlist entry
+     * 
+     * <p>Creates a new waitlist entry for the given email address.
+     * If the email address is already on the waitlist, no new entry will be created and the existing
+     * waitlist entry will be returned.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -177,6 +192,29 @@ public class WaitlistEntries {
      */
     public CreateBulkWaitlistEntriesResponse bulkCreateDirect() {
         return bulkCreate(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create multiple waitlist entries
+     * 
+     * <p>Creates multiple waitlist entries for the provided email addresses.
+     * You can choose whether to send confirmation emails by setting the `notify` parameter to `true` or
+     * `false` for each entry.
+     * If the `notify` parameter is omitted, it defaults to `true`.
+     * 
+     * <p>If an email address is already on the waitlist, no new entry will be created and the existing
+     * waitlist entry will be returned.
+     * Duplicate email addresses within the same request are not allowed.
+     * 
+     * <p>This endpoint is limited to a maximum of 50 entries per API call. If you need to add more entries,
+     * please make multiple requests.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateBulkWaitlistEntriesResponse bulkCreate(Optional<? extends List<CreateBulkWaitlistEntriesRequestBody>> request) {
+        return bulkCreate(request, Optional.empty());
     }
 
     /**
@@ -272,6 +310,20 @@ public class WaitlistEntries {
      */
     public InviteWaitlistEntryResponse invite(String waitlistEntryId) {
         return invite(waitlistEntryId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Invite a waitlist entry
+     * 
+     * <p>Send an invite to the email address in a waitlist entry.
+     * 
+     * @param waitlistEntryId The ID of the waitlist entry to invite
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public InviteWaitlistEntryResponse invite(String waitlistEntryId, Optional<? extends InviteWaitlistEntryRequestBody> requestBody) {
+        return invite(waitlistEntryId, requestBody, Optional.empty());
     }
 
     /**

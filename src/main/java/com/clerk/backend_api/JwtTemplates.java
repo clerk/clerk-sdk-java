@@ -73,6 +73,27 @@ public class JwtTemplates {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListJWTTemplatesResponse list(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset) {
+        return list(paginated, limit, offset,
+            Optional.empty());
+    }
+
+    /**
+     * List all templates
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -113,6 +134,19 @@ public class JwtTemplates {
      */
     public CreateJWTTemplateResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create a JWT template
+     * 
+     * <p>Create a new JWT template
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateJWTTemplateResponse create(Optional<? extends CreateJWTTemplateRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -198,6 +232,20 @@ public class JwtTemplates {
      */
     public UpdateJWTTemplateResponse update(String templateId) {
         return update(templateId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update a JWT template
+     * 
+     * <p>Updates an existing JWT template
+     * 
+     * @param templateId The ID of the JWT template to update
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateJWTTemplateResponse update(String templateId, Optional<? extends UpdateJWTTemplateRequestBody> requestBody) {
+        return update(templateId, requestBody, Optional.empty());
     }
 
     /**

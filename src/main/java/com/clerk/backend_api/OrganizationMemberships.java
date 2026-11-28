@@ -302,6 +302,28 @@ public class OrganizationMemberships {
      * @param organizationId The ID of the organization to which this membership belongs
      * @param userId The ID of the user to which this membership belongs
      * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateOrganizationMembershipMetadataResponse updateMetadata(
+            String organizationId, String userId,
+            Optional<? extends UpdateOrganizationMembershipMetadataRequestBody> requestBody) {
+        return updateMetadata(organizationId, userId, requestBody,
+            Optional.empty());
+    }
+
+    /**
+     * Merge and update organization membership metadata
+     * 
+     * <p>Update an organization membership's metadata attributes by merging existing values with the provided
+     * parameters.
+     * Metadata values will be updated via a deep merge. Deep means that any nested JSON objects will be
+     * merged as well.
+     * You can remove metadata keys at any level by setting their value to `null`.
+     * 
+     * @param organizationId The ID of the organization to which this membership belongs
+     * @param userId The ID of the user to which this membership belongs
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

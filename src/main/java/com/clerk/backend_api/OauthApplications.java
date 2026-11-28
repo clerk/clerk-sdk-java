@@ -107,6 +107,38 @@ public class OauthApplications {
      * @param nameQuery Returns OAuth applications with names that match the given query, via case-insensitive partial match.
      *         Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
      *         resolving a `client_id` to the OAuth application `id` required by the read, update and delete endpoints.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ListOAuthApplicationsResponse list(
+            Optional<Long> limit, Optional<Long> offset,
+            Optional<String> orderBy, Optional<String> nameQuery) {
+        return list(limit, offset, orderBy,
+            nameQuery, Optional.empty());
+    }
+
+    /**
+     * Get a list of OAuth applications for an instance
+     * 
+     * <p>This request returns the list of OAuth applications for an instance.
+     * Results can be paginated using the optional `limit` and `offset` query parameters.
+     * The OAuth applications are ordered by descending creation date.
+     * Most recent OAuth applications will be returned first.
+     * 
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @param orderBy Allows to return OAuth applications in a particular order.
+     *         At the moment, you can order the returned OAuth applications by their `created_at` and `name`.
+     *         In order to specify the direction, you can use the `+/-` symbols prepended in the property to order by.
+     *         For example, if you want OAuth applications to be returned in descending order according to their `created_at` property, you can use `-created_at`.
+     *         If you don't use `+` or `-`, then `+` is implied. We only support one `order_by` parameter, and if multiple `order_by` parameters are provided, we will only keep the first one. For example,
+     *         if you pass `order_by=name&order_by=created_at`, we will consider only the first `order_by` parameter, which is `name`. The `created_at` parameter will be ignored in this case.
+     * @param nameQuery Returns OAuth applications with names that match the given query, via case-insensitive partial match.
+     *         Also returns the OAuth application whose `client_id` is exactly the given query, which is useful for
+     *         resolving a `client_id` to the OAuth application `id` required by the read, update and delete endpoints.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -153,6 +185,21 @@ public class OauthApplications {
      */
     public CreateOAuthApplicationResponse createDirect() {
         return create(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Create an OAuth application
+     * 
+     * <p>Creates a new OAuth application with the given name and callback URL for an instance.
+     * The callback URL must be a valid URL.
+     * All URL schemes are allowed such as `http://`, `https://`, `myapp://`, etc...
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateOAuthApplicationResponse create(Optional<? extends CreateOAuthApplicationRequestBody> request) {
+        return create(request, Optional.empty());
     }
 
     /**
@@ -346,6 +393,24 @@ public class OauthApplications {
      */
     public UploadOAuthApplicationLogoResponse uploadLogo(String oauthApplicationId) {
         return uploadLogo(oauthApplicationId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Upload a logo for the OAuth application
+     * 
+     * <p>Set or replace an OAuth application's logo by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
+     * 
+     * @param oauthApplicationId The ID of the OAuth application for which to upload a logo
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UploadOAuthApplicationLogoResponse uploadLogo(String oauthApplicationId, Optional<? extends UploadOAuthApplicationLogoRequestBody> requestBody) {
+        return uploadLogo(oauthApplicationId, requestBody, Optional.empty());
     }
 
     /**

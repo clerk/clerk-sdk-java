@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class UserWeb3WalletDeleteRequestBuilder {
@@ -19,6 +20,7 @@ public class UserWeb3WalletDeleteRequestBuilder {
     private String userId;
     private String web3WalletIdentificationId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class UserWeb3WalletDeleteRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public UserWeb3WalletDeleteRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public UserWeb3WalletDeleteRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private UserWeb3WalletDeleteRequest buildRequest() {
@@ -62,6 +76,7 @@ public class UserWeb3WalletDeleteRequestBuilder {
     public UserWeb3WalletDeleteResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<UserWeb3WalletDeleteRequest, UserWeb3WalletDeleteResponse> operation

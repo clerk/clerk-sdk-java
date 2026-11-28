@@ -14,6 +14,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Client
@@ -32,6 +33,13 @@ public class Client {
      */
     @JsonProperty("id")
     private String id;
+
+    /**
+     * Unix timestamp in milliseconds when this client was revoked.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("revoked_at")
+    private JsonNullable<Long> revokedAt;
 
 
     @JsonProperty("session_ids")
@@ -81,6 +89,7 @@ public class Client {
     public Client(
             @JsonProperty("object") Object object,
             @JsonProperty("id") String id,
+            @JsonProperty("revoked_at") JsonNullable<Long> revokedAt,
             @JsonProperty("session_ids") List<String> sessionIds,
             @JsonProperty("sessions") List<Session> sessions,
             @JsonProperty("sign_in_id") Optional<String> signInId,
@@ -91,6 +100,7 @@ public class Client {
             @JsonProperty("created_at") long createdAt) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(revokedAt, "revokedAt");
         Utils.checkNotNull(sessionIds, "sessionIds");
         Utils.checkNotNull(sessions, "sessions");
         Utils.checkNotNull(signInId, "signInId");
@@ -101,6 +111,7 @@ public class Client {
         Utils.checkNotNull(createdAt, "createdAt");
         this.object = object;
         this.id = id;
+        this.revokedAt = revokedAt;
         this.sessionIds = sessionIds;
         this.sessions = sessions;
         this.signInId = signInId;
@@ -118,10 +129,10 @@ public class Client {
             List<Session> sessions,
             long updatedAt,
             long createdAt) {
-        this(object, id, sessionIds,
-            sessions, Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), updatedAt,
-            createdAt);
+        this(object, id, JsonNullable.undefined(),
+            sessionIds, sessions, Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            updatedAt, createdAt);
     }
 
     /**
@@ -138,6 +149,14 @@ public class Client {
     @JsonIgnore
     public String id() {
         return id;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when this client was revoked.
+     */
+    @JsonIgnore
+    public JsonNullable<Long> revokedAt() {
+        return revokedAt;
     }
 
     @JsonIgnore
@@ -212,6 +231,24 @@ public class Client {
     public Client withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
+        return this;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when this client was revoked.
+     */
+    public Client withRevokedAt(long revokedAt) {
+        Utils.checkNotNull(revokedAt, "revokedAt");
+        this.revokedAt = JsonNullable.of(revokedAt);
+        return this;
+    }
+
+    /**
+     * Unix timestamp in milliseconds when this client was revoked.
+     */
+    public Client withRevokedAt(JsonNullable<Long> revokedAt) {
+        Utils.checkNotNull(revokedAt, "revokedAt");
+        this.revokedAt = revokedAt;
         return this;
     }
 
@@ -321,6 +358,7 @@ public class Client {
         return 
             Utils.enhancedDeepEquals(this.object, other.object) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.revokedAt, other.revokedAt) &&
             Utils.enhancedDeepEquals(this.sessionIds, other.sessionIds) &&
             Utils.enhancedDeepEquals(this.sessions, other.sessions) &&
             Utils.enhancedDeepEquals(this.signInId, other.signInId) &&
@@ -334,10 +372,10 @@ public class Client {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            object, id, sessionIds,
-            sessions, signInId, signUpId,
-            lastActiveSessionId, lastAuthenticationStrategy, updatedAt,
-            createdAt);
+            object, id, revokedAt,
+            sessionIds, sessions, signInId,
+            signUpId, lastActiveSessionId, lastAuthenticationStrategy,
+            updatedAt, createdAt);
     }
     
     @Override
@@ -345,6 +383,7 @@ public class Client {
         return Utils.toString(Client.class,
                 "object", object,
                 "id", id,
+                "revokedAt", revokedAt,
                 "sessionIds", sessionIds,
                 "sessions", sessions,
                 "signInId", signInId,
@@ -361,6 +400,8 @@ public class Client {
         private Object object;
 
         private String id;
+
+        private JsonNullable<Long> revokedAt = JsonNullable.undefined();
 
         private List<String> sessionIds;
 
@@ -399,6 +440,25 @@ public class Client {
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
+            return this;
+        }
+
+
+        /**
+         * Unix timestamp in milliseconds when this client was revoked.
+         */
+        public Builder revokedAt(long revokedAt) {
+            Utils.checkNotNull(revokedAt, "revokedAt");
+            this.revokedAt = JsonNullable.of(revokedAt);
+            return this;
+        }
+
+        /**
+         * Unix timestamp in milliseconds when this client was revoked.
+         */
+        public Builder revokedAt(JsonNullable<Long> revokedAt) {
+            Utils.checkNotNull(revokedAt, "revokedAt");
+            this.revokedAt = revokedAt;
             return this;
         }
 
@@ -503,10 +563,10 @@ public class Client {
         public Client build() {
 
             return new Client(
-                object, id, sessionIds,
-                sessions, signInId, signUpId,
-                lastActiveSessionId, lastAuthenticationStrategy, updatedAt,
-                createdAt);
+                object, id, revokedAt,
+                sessionIds, sessions, signInId,
+                signUpId, lastActiveSessionId, lastAuthenticationStrategy,
+                updatedAt, createdAt);
         }
 
     }

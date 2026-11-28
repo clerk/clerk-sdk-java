@@ -56,6 +56,19 @@ public class BetaFeatures {
      * <p>Updates the settings of an instance
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceAuthConfigResponse updateInstanceSettings(Optional<? extends UpdateInstanceAuthConfigRequestBody> request) {
+        return updateInstanceSettings(request, Optional.empty());
+    }
+
+    /**
+     * Update instance settings
+     * 
+     * <p>Updates the settings of an instance
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -79,6 +92,9 @@ public class BetaFeatures {
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
+     * 
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -99,6 +115,9 @@ public class BetaFeatures {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -121,6 +140,35 @@ public class BetaFeatures {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public UpdateProductionInstanceDomainResponse updateProductionInstanceDomain(Optional<? extends UpdateProductionInstanceDomainRequestBody> request) {
+        return updateProductionInstanceDomain(request, Optional.empty());
+    }
+
+    /**
+     * Update production instance domain
+     * 
+     * <p>Change the domain of a production instance.
+     * 
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
+     * 
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options

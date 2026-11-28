@@ -8,12 +8,15 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Actor
@@ -28,16 +31,31 @@ public class Actor {
     @JsonProperty("sub")
     private String sub;
 
+    /**
+     * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private Optional<String> type;
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties;
 
     @JsonCreator
     public Actor(
-            @JsonProperty("sub") String sub) {
+            @JsonProperty("sub") String sub,
+            @JsonProperty("type") Optional<String> type) {
         Utils.checkNotNull(sub, "sub");
+        Utils.checkNotNull(type, "type");
         this.sub = sub;
+        this.type = type;
         this.additionalProperties = new HashMap<>();
+    }
+    
+    public Actor(
+            String sub) {
+        this(sub, Optional.empty());
     }
 
     /**
@@ -46,6 +64,14 @@ public class Actor {
     @JsonIgnore
     public String sub() {
         return sub;
+    }
+
+    /**
+     * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+     */
+    @JsonIgnore
+    public Optional<String> type() {
+        return type;
     }
 
     @JsonAnyGetter
@@ -64,6 +90,25 @@ public class Actor {
     public Actor withSub(String sub) {
         Utils.checkNotNull(sub, "sub");
         this.sub = sub;
+        return this;
+    }
+
+    /**
+     * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+     */
+    public Actor withType(String type) {
+        Utils.checkNotNull(type, "type");
+        this.type = Optional.ofNullable(type);
+        return this;
+    }
+
+
+    /**
+     * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+     */
+    public Actor withType(Optional<String> type) {
+        Utils.checkNotNull(type, "type");
+        this.type = type;
         return this;
     }
 
@@ -91,19 +136,21 @@ public class Actor {
         Actor other = (Actor) o;
         return 
             Utils.enhancedDeepEquals(this.sub, other.sub) &&
+            Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            sub, additionalProperties);
+            sub, type, additionalProperties);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Actor.class,
                 "sub", sub,
+                "type", type,
                 "additionalProperties", additionalProperties);
     }
 
@@ -111,6 +158,8 @@ public class Actor {
     public final static class Builder {
 
         private String sub;
+
+        private Optional<String> type = Optional.empty();
 
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -125,6 +174,25 @@ public class Actor {
         public Builder sub(String sub) {
             Utils.checkNotNull(sub, "sub");
             this.sub = sub;
+            return this;
+        }
+
+
+        /**
+         * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+         */
+        public Builder type(String type) {
+            Utils.checkNotNull(type, "type");
+            this.type = Optional.ofNullable(type);
+            return this;
+        }
+
+        /**
+         * Optional actor type. The value `agent` is reserved for agent task sessions and is rejected.
+         */
+        public Builder type(Optional<String> type) {
+            Utils.checkNotNull(type, "type");
+            this.type = type;
             return this;
         }
 
@@ -147,7 +215,7 @@ public class Actor {
         public Actor build() {
 
             return new Actor(
-                sub)
+                sub, type)
                 .withAdditionalProperties(additionalProperties);
         }
 

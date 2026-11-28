@@ -187,6 +187,31 @@ public class Organizations {
      * active before then.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateOrganizationResponse create(Optional<? extends CreateOrganizationRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create an organization
+     * 
+     * <p>Creates a new organization with the given name for an instance.
+     * You can specify an optional slug for the new organization.
+     * If provided, the organization slug can contain only lowercase alphanumeric characters (letters and
+     * digits) and the dash "-".
+     * Organization slugs must be unique for the instance.
+     * You can provide additional metadata for the organization and set any custom attribute you want.
+     * Organizations support private and public metadata.
+     * Private metadata can only be accessed from the Backend API.
+     * Public metadata can be accessed from the Backend API, and are read-only from the Frontend API.
+     * The `created_by` user will see this as their [active
+     * organization](https://clerk.com/docs/organizations/overview#active-organization)
+     * the next time they create a session, presuming they don't explicitly set a different organization as
+     * active before then.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -219,6 +244,24 @@ public class Organizations {
      */
     public GetOrganizationResponse get(String organizationId) {
         return get(organizationId, Optional.empty(), Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * Retrieve an organization by ID or slug
+     * 
+     * <p>Fetches the organization whose ID or slug matches the provided `id_or_slug` URL query parameter.
+     * 
+     * @param organizationId The ID or slug of the organization
+     * @param includeMembersCount Flag to denote whether or not the organization's members count should be included in the response.
+     * @param includeMissingMemberWithElevatedPermissions Flag to denote whether or not to include a member with elevated permissions who is not currently a member of the organization.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetOrganizationResponse get(
+            String organizationId, Optional<Boolean> includeMembersCount,
+            Optional<Boolean> includeMissingMemberWithElevatedPermissions) {
+        return get(organizationId, includeMembersCount, includeMissingMemberWithElevatedPermissions,
             Optional.empty());
     }
 
@@ -528,6 +571,24 @@ public class Organizations {
      */
     public UploadOrganizationLogoResponse uploadLogo(String organizationId) {
         return uploadLogo(organizationId, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Upload a logo for the organization
+     * 
+     * <p>Set or replace an organization's logo, by uploading an image file.
+     * This endpoint uses the `multipart/form-data` request content type and accepts a file of image type.
+     * The file size cannot exceed 10MB.
+     * Only the following file content types are supported: `image/jpeg`, `image/png`, `image/gif`,
+     * `image/webp`.
+     * 
+     * @param organizationId The ID of the organization for which to upload a logo
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UploadOrganizationLogoResponse uploadLogo(String organizationId, Optional<? extends UploadOrganizationLogoRequestBody> requestBody) {
+        return uploadLogo(organizationId, requestBody, Optional.empty());
     }
 
     /**
