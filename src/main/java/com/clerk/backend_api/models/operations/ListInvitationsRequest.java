@@ -14,6 +14,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,6 +30,13 @@ public class ListInvitationsRequest {
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
+
+    /**
+     * Returns invitations with the specified email addresses.
+     * Accepts up to 100 email addresses.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email_address")
+    private Optional<? extends List<String>> emailAddress;
 
     /**
      * Allows to return invitations in a particular order.
@@ -71,18 +79,21 @@ public class ListInvitationsRequest {
     public ListInvitationsRequest(
             Optional<? extends ListInvitationsQueryParamStatus> status,
             Optional<String> query,
+            Optional<? extends List<String>> emailAddress,
             Optional<String> orderBy,
             Optional<Boolean> paginated,
             Optional<Long> limit,
             Optional<Long> offset) {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(orderBy, "orderBy");
         Utils.checkNotNull(paginated, "paginated");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(offset, "offset");
         this.status = status;
         this.query = query;
+        this.emailAddress = emailAddress;
         this.orderBy = orderBy;
         this.paginated = paginated;
         this.limit = limit;
@@ -91,7 +102,8 @@ public class ListInvitationsRequest {
     
     public ListInvitationsRequest() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -109,6 +121,16 @@ public class ListInvitationsRequest {
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Returns invitations with the specified email addresses.
+     * Accepts up to 100 email addresses.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> emailAddress() {
+        return (Optional<List<String>>) emailAddress;
     }
 
     /**
@@ -196,6 +218,27 @@ public class ListInvitationsRequest {
     public ListInvitationsRequest withQuery(Optional<String> query) {
         Utils.checkNotNull(query, "query");
         this.query = query;
+        return this;
+    }
+
+    /**
+     * Returns invitations with the specified email addresses.
+     * Accepts up to 100 email addresses.
+     */
+    public ListInvitationsRequest withEmailAddress(List<String> emailAddress) {
+        Utils.checkNotNull(emailAddress, "emailAddress");
+        this.emailAddress = Optional.ofNullable(emailAddress);
+        return this;
+    }
+
+
+    /**
+     * Returns invitations with the specified email addresses.
+     * Accepts up to 100 email addresses.
+     */
+    public ListInvitationsRequest withEmailAddress(Optional<? extends List<String>> emailAddress) {
+        Utils.checkNotNull(emailAddress, "emailAddress");
+        this.emailAddress = emailAddress;
         return this;
     }
 
@@ -313,6 +356,7 @@ public class ListInvitationsRequest {
         return 
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.query, other.query) &&
+            Utils.enhancedDeepEquals(this.emailAddress, other.emailAddress) &&
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
             Utils.enhancedDeepEquals(this.paginated, other.paginated) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
@@ -322,8 +366,9 @@ public class ListInvitationsRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            status, query, orderBy,
-            paginated, limit, offset);
+            status, query, emailAddress,
+            orderBy, paginated, limit,
+            offset);
     }
     
     @Override
@@ -331,6 +376,7 @@ public class ListInvitationsRequest {
         return Utils.toString(ListInvitationsRequest.class,
                 "status", status,
                 "query", query,
+                "emailAddress", emailAddress,
                 "orderBy", orderBy,
                 "paginated", paginated,
                 "limit", limit,
@@ -343,6 +389,8 @@ public class ListInvitationsRequest {
         private Optional<? extends ListInvitationsQueryParamStatus> status = Optional.empty();
 
         private Optional<String> query = Optional.empty();
+
+        private Optional<? extends List<String>> emailAddress = Optional.empty();
 
         private Optional<String> orderBy;
 
@@ -391,6 +439,27 @@ public class ListInvitationsRequest {
         public Builder query(Optional<String> query) {
             Utils.checkNotNull(query, "query");
             this.query = query;
+            return this;
+        }
+
+
+        /**
+         * Returns invitations with the specified email addresses.
+         * Accepts up to 100 email addresses.
+         */
+        public Builder emailAddress(List<String> emailAddress) {
+            Utils.checkNotNull(emailAddress, "emailAddress");
+            this.emailAddress = Optional.ofNullable(emailAddress);
+            return this;
+        }
+
+        /**
+         * Returns invitations with the specified email addresses.
+         * Accepts up to 100 email addresses.
+         */
+        public Builder emailAddress(Optional<? extends List<String>> emailAddress) {
+            Utils.checkNotNull(emailAddress, "emailAddress");
+            this.emailAddress = emailAddress;
             return this;
         }
 
@@ -508,8 +577,9 @@ public class ListInvitationsRequest {
             }
 
             return new ListInvitationsRequest(
-                status, query, orderBy,
-                paginated, limit, offset);
+                status, query, emailAddress,
+                orderBy, paginated, limit,
+                offset);
         }
 
 

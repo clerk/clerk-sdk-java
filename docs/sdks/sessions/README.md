@@ -7,7 +7,9 @@
 * [list](#list) - List all sessions
 * [create](#create) - Create a new active session
 * [get](#get) - Retrieve a session
+* [update](#update) - Update a session
 * [refresh](#refresh) - Refresh a session
+* [getReverification](#getreverification) - Retrieve a reverification
 * [revoke](#revoke) - Revoke a session
 * [createToken](#createtoken) - Create a session token
 * [createTokenFromTemplate](#createtokenfromtemplate) - Create a session token from a JWT template
@@ -177,6 +179,71 @@ public class Application {
 | models/errors/ClerkErrors | 400, 401, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
+## update
+
+Changes when a session expires. Use this to give one session a longer or shorter lifetime than the one configured for your instance, for example to keep a user signed in on a device they chose to remember.
+
+`expire_at` can exceed the instance's session lifetime. The change applies only to this session, so new sign-ins still start from the instance's session lifetime. If `expire_at` is later than the session's `abandon_at`, `abandon_at` moves to the same time. The inactivity timeout, if your instance has one, still applies.
+
+Only active and pending sessions can be updated. Expired, revoked, and other ended sessions can't be revived, and sessions with an actor, such as impersonation and agent sessions, can't be updated. To end a session immediately, revoke it instead.
+
+Take the session ID from the `sid` claim of a verified session token. Never take it from an unverified client request, or a user could change another user's session.
+
+Requires a plan that includes custom session duration.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="UpdateSession" method="patch" path="/sessions/{session_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.UpdateSessionRequestBody;
+import com.clerk.backend_api.models.operations.UpdateSessionResponse;
+import java.lang.Exception;
+import java.time.OffsetDateTime;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        UpdateSessionResponse res = sdk.sessions().update()
+                .sessionId("<id>")
+                .requestBody(UpdateSessionRequestBody.builder()
+                    .expireAt(OffsetDateTime.parse("2024-10-26T14:00:58.586Z"))
+                    .build())
+                .call();
+
+        if (res.session().isPresent()) {
+            System.out.println(res.session().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `sessionId`                                                                     | *String*                                                                        | :heavy_check_mark:                                                              | The ID of the session                                                           |
+| `requestBody`                                                                   | [UpdateSessionRequestBody](../../models/operations/UpdateSessionRequestBody.md) | :heavy_check_mark:                                                              | N/A                                                                             |
+
+### Response
+
+**[UpdateSessionResponse](../../models/operations/UpdateSessionResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 402, 404, 422   | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
 ## refresh
 
 Refreshes a session by creating a new session token. A 401 is returned when there
@@ -239,7 +306,61 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401                  | application/json          |
+| models/errors/ClerkErrors | 400, 401, 403             | application/json          |
+| models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
+
+## getReverification
+
+Retrieve a reverification scoped to a session. A resource server can use this to validate a reverification id it received from its client: confirm it is real, scoped to the expected session, completed, and how fresh each factor is. Single-use / replay detection is the caller's responsibility (the id is stable, so the caller dedups consumed ids).
+
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="GetReverification" method="get" path="/sessions/{session_id}/reverifications/{reverification_id}" -->
+```java
+package hello.world;
+
+import com.clerk.backend_api.Clerk;
+import com.clerk.backend_api.models.errors.ClerkErrors;
+import com.clerk.backend_api.models.operations.GetReverificationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ClerkErrors, Exception {
+
+        Clerk sdk = Clerk.builder()
+                .bearerAuth(System.getenv().getOrDefault("BEARER_AUTH", ""))
+            .build();
+
+        GetReverificationResponse res = sdk.sessions().getReverification()
+                .sessionId("<id>")
+                .reverificationId("<id>")
+                .call();
+
+        if (res.reverification().isPresent()) {
+            System.out.println(res.reverification().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                           | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `sessionId`                                         | *String*                                            | :heavy_check_mark:                                  | The ID of the session the reverification belongs to |
+| `reverificationId`                                  | *String*                                            | :heavy_check_mark:                                  | The ID of the reverification                        |
+
+### Response
+
+**[GetReverificationResponse](../../models/operations/GetReverificationResponse.md)**
+
+### Errors
+
+| Error Type                | Status Code               | Content Type              |
+| ------------------------- | ------------------------- | ------------------------- |
+| models/errors/ClerkErrors | 400, 401, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## revoke
@@ -279,9 +400,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter             | Type                  | Required              | Description           |
-| --------------------- | --------------------- | --------------------- | --------------------- |
-| `sessionId`           | *String*              | :heavy_check_mark:    | The ID of the session |
+| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `sessionId`                                                                                | *String*                                                                                   | :heavy_check_mark:                                                                         | The ID of the session                                                                      |
+| `requestBody`                                                                              | [Optional\<RevokeSessionRequestBody>](../../models/operations/RevokeSessionRequestBody.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |
 
 ### Response
 
@@ -291,7 +413,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 400, 401, 404             | application/json          |
+| models/errors/ClerkErrors | 400, 401, 404, 422        | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## createToken
@@ -343,7 +465,7 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 401, 404                  | application/json          |
+| models/errors/ClerkErrors | 401, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |
 
 ## createTokenFromTemplate
@@ -397,5 +519,5 @@ public class Application {
 
 | Error Type                | Status Code               | Content Type              |
 | ------------------------- | ------------------------- | ------------------------- |
-| models/errors/ClerkErrors | 401, 404                  | application/json          |
+| models/errors/ClerkErrors | 401, 403, 404             | application/json          |
 | models/errors/SDKError    | 4XX, 5XX                  | \*/\*                     |

@@ -12,12 +12,14 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class GetMachineSecretKeyRequestBuilder {
 
     private String machineId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -42,6 +44,18 @@ public class GetMachineSecretKeyRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public GetMachineSecretKeyRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public GetMachineSecretKeyRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private GetMachineSecretKeyRequest buildRequest() {
@@ -54,6 +68,7 @@ public class GetMachineSecretKeyRequestBuilder {
     public GetMachineSecretKeyResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<GetMachineSecretKeyRequest, GetMachineSecretKeyResponse> operation

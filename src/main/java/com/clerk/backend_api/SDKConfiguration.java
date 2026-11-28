@@ -10,14 +10,15 @@ import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class SDKConfiguration {
 
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "2026-05-12";
-    public static final String SDK_VERSION = "6.1.0";
-    public static final String GEN_VERSION = "2.937.18";
+    public static final String SDK_VERSION = "6.1.1";
+    public static final String GEN_VERSION = "2.969.4";
     private static final String BASE_PACKAGE = "com.clerk.backend_api";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s",
@@ -114,5 +115,16 @@ public class SDKConfiguration {
     public void setRetryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
+    }
+
+    private Optional<Duration> timeout = Optional.empty();
+
+    public Optional<Duration> timeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
     }
 }

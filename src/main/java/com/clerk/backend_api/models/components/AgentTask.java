@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.lang.Boolean;
 import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * AgentTask
@@ -46,6 +48,25 @@ public class AgentTask {
     private String taskId;
 
     /**
+     * Whether the agent task session is restricted. When true, the session can refresh only its own
+     * session token and read. Clerk's Frontend API refuses every other write from a browser client that
+     * holds the session, including touch, sign-out, profile and organization writes, sign-in and sign-up,
+     * and OAuth approval.
+     * 
+     * <p>It also refuses changing the session's workspace (its active organization).
+     */
+    @JsonProperty("session_restricted")
+    private boolean sessionRestricted;
+
+    /**
+     * The organization the agent task session starts in, and the only one a restricted session can use.
+     * Null means the personal workspace.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("session_organization_id")
+    private JsonNullable<String> sessionOrganizationId;
+
+    /**
      * The URL that, when visited, creates a session for the user. Only present in the response to a create
      * request.
      */
@@ -59,16 +80,22 @@ public class AgentTask {
             @JsonProperty("agent_id") String agentId,
             @JsonProperty("agent_task_id") String agentTaskId,
             @JsonProperty("task_id") String taskId,
+            @JsonProperty("session_restricted") boolean sessionRestricted,
+            @JsonProperty("session_organization_id") JsonNullable<String> sessionOrganizationId,
             @JsonProperty("url") Optional<String> url) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(agentId, "agentId");
         Utils.checkNotNull(agentTaskId, "agentTaskId");
         Utils.checkNotNull(taskId, "taskId");
+        Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
         Utils.checkNotNull(url, "url");
         this.object = object;
         this.agentId = agentId;
         this.agentTaskId = agentTaskId;
         this.taskId = taskId;
+        this.sessionRestricted = sessionRestricted;
+        this.sessionOrganizationId = sessionOrganizationId;
         this.url = url;
     }
     
@@ -76,9 +103,11 @@ public class AgentTask {
             AgentTaskObject object,
             String agentId,
             String agentTaskId,
-            String taskId) {
+            String taskId,
+            boolean sessionRestricted) {
         this(object, agentId, agentTaskId,
-            taskId, Optional.empty());
+            taskId, sessionRestricted, JsonNullable.undefined(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -111,6 +140,28 @@ public class AgentTask {
     @JsonIgnore
     public String taskId() {
         return taskId;
+    }
+
+    /**
+     * Whether the agent task session is restricted. When true, the session can refresh only its own
+     * session token and read. Clerk's Frontend API refuses every other write from a browser client that
+     * holds the session, including touch, sign-out, profile and organization writes, sign-in and sign-up,
+     * and OAuth approval.
+     * 
+     * <p>It also refuses changing the session's workspace (its active organization).
+     */
+    @JsonIgnore
+    public boolean sessionRestricted() {
+        return sessionRestricted;
+    }
+
+    /**
+     * The organization the agent task session starts in, and the only one a restricted session can use.
+     * Null means the personal workspace.
+     */
+    @JsonIgnore
+    public JsonNullable<String> sessionOrganizationId() {
+        return sessionOrganizationId;
     }
 
     /**
@@ -164,6 +215,40 @@ public class AgentTask {
     }
 
     /**
+     * Whether the agent task session is restricted. When true, the session can refresh only its own
+     * session token and read. Clerk's Frontend API refuses every other write from a browser client that
+     * holds the session, including touch, sign-out, profile and organization writes, sign-in and sign-up,
+     * and OAuth approval.
+     * 
+     * <p>It also refuses changing the session's workspace (its active organization).
+     */
+    public AgentTask withSessionRestricted(boolean sessionRestricted) {
+        Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+        this.sessionRestricted = sessionRestricted;
+        return this;
+    }
+
+    /**
+     * The organization the agent task session starts in, and the only one a restricted session can use.
+     * Null means the personal workspace.
+     */
+    public AgentTask withSessionOrganizationId(String sessionOrganizationId) {
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+        this.sessionOrganizationId = JsonNullable.of(sessionOrganizationId);
+        return this;
+    }
+
+    /**
+     * The organization the agent task session starts in, and the only one a restricted session can use.
+     * Null means the personal workspace.
+     */
+    public AgentTask withSessionOrganizationId(JsonNullable<String> sessionOrganizationId) {
+        Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+        this.sessionOrganizationId = sessionOrganizationId;
+        return this;
+    }
+
+    /**
      * The URL that, when visited, creates a session for the user. Only present in the response to a create
      * request.
      */
@@ -198,6 +283,8 @@ public class AgentTask {
             Utils.enhancedDeepEquals(this.agentId, other.agentId) &&
             Utils.enhancedDeepEquals(this.agentTaskId, other.agentTaskId) &&
             Utils.enhancedDeepEquals(this.taskId, other.taskId) &&
+            Utils.enhancedDeepEquals(this.sessionRestricted, other.sessionRestricted) &&
+            Utils.enhancedDeepEquals(this.sessionOrganizationId, other.sessionOrganizationId) &&
             Utils.enhancedDeepEquals(this.url, other.url);
     }
     
@@ -205,7 +292,8 @@ public class AgentTask {
     public int hashCode() {
         return Utils.enhancedHash(
             object, agentId, agentTaskId,
-            taskId, url);
+            taskId, sessionRestricted, sessionOrganizationId,
+            url);
     }
     
     @Override
@@ -215,6 +303,8 @@ public class AgentTask {
                 "agentId", agentId,
                 "agentTaskId", agentTaskId,
                 "taskId", taskId,
+                "sessionRestricted", sessionRestricted,
+                "sessionOrganizationId", sessionOrganizationId,
                 "url", url);
     }
 
@@ -229,6 +319,10 @@ public class AgentTask {
 
         @Deprecated
         private String taskId;
+
+        private Boolean sessionRestricted;
+
+        private JsonNullable<String> sessionOrganizationId = JsonNullable.undefined();
 
         private Optional<String> url = Optional.empty();
 
@@ -278,6 +372,42 @@ public class AgentTask {
 
 
         /**
+         * Whether the agent task session is restricted. When true, the session can refresh only its own
+         * session token and read. Clerk's Frontend API refuses every other write from a browser client that
+         * holds the session, including touch, sign-out, profile and organization writes, sign-in and sign-up,
+         * and OAuth approval.
+         * 
+         * <p>It also refuses changing the session's workspace (its active organization).
+         */
+        public Builder sessionRestricted(boolean sessionRestricted) {
+            Utils.checkNotNull(sessionRestricted, "sessionRestricted");
+            this.sessionRestricted = sessionRestricted;
+            return this;
+        }
+
+
+        /**
+         * The organization the agent task session starts in, and the only one a restricted session can use.
+         * Null means the personal workspace.
+         */
+        public Builder sessionOrganizationId(String sessionOrganizationId) {
+            Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+            this.sessionOrganizationId = JsonNullable.of(sessionOrganizationId);
+            return this;
+        }
+
+        /**
+         * The organization the agent task session starts in, and the only one a restricted session can use.
+         * Null means the personal workspace.
+         */
+        public Builder sessionOrganizationId(JsonNullable<String> sessionOrganizationId) {
+            Utils.checkNotNull(sessionOrganizationId, "sessionOrganizationId");
+            this.sessionOrganizationId = sessionOrganizationId;
+            return this;
+        }
+
+
+        /**
          * The URL that, when visited, creates a session for the user. Only present in the response to a create
          * request.
          */
@@ -301,7 +431,8 @@ public class AgentTask {
 
             return new AgentTask(
                 object, agentId, agentTaskId,
-                taskId, url);
+                taskId, sessionRestricted, sessionOrganizationId,
+                url);
         }
 
     }

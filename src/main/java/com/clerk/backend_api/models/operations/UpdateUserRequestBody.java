@@ -52,6 +52,14 @@ public class UpdateUserRequestBody {
     private JsonNullable<String> locale;
 
     /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("timezone")
+    private JsonNullable<String> timezone;
+
+    /**
      * The ID of the email address to set as primary.
      * It must be verified, and present on the current user.
      */
@@ -156,6 +164,18 @@ public class UpdateUserRequestBody {
     private JsonNullable<Boolean> signOutOfOtherSessions;
 
     /**
+     * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+     * instance has Device Trust enabled.
+     * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+     * challenge and trigger the new device email.
+     * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+     * to `true`, otherwise a 422 is returned and the user is not updated.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("reset_client_trust")
+    private JsonNullable<Boolean> resetClientTrust;
+
+    /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
      */
@@ -227,6 +247,7 @@ public class UpdateUserRequestBody {
             @JsonProperty("first_name") JsonNullable<String> firstName,
             @JsonProperty("last_name") JsonNullable<String> lastName,
             @JsonProperty("locale") JsonNullable<String> locale,
+            @JsonProperty("timezone") JsonNullable<String> timezone,
             @JsonProperty("primary_email_address_id") JsonNullable<String> primaryEmailAddressId,
             @JsonProperty("notify_primary_email_address_changed") JsonNullable<Boolean> notifyPrimaryEmailAddressChanged,
             @JsonProperty("primary_phone_number_id") JsonNullable<String> primaryPhoneNumberId,
@@ -238,6 +259,7 @@ public class UpdateUserRequestBody {
             @JsonProperty("password_hasher") Optional<String> passwordHasher,
             @JsonProperty("skip_password_checks") JsonNullable<Boolean> skipPasswordChecks,
             @JsonProperty("sign_out_of_other_sessions") JsonNullable<Boolean> signOutOfOtherSessions,
+            @JsonProperty("reset_client_trust") JsonNullable<Boolean> resetClientTrust,
             @JsonProperty("totp_secret") JsonNullable<String> totpSecret,
             @JsonProperty("backup_codes") Optional<? extends List<String>> backupCodes,
             @JsonProperty("delete_self_enabled") JsonNullable<Boolean> deleteSelfEnabled,
@@ -251,6 +273,7 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(locale, "locale");
+        Utils.checkNotNull(timezone, "timezone");
         Utils.checkNotNull(primaryEmailAddressId, "primaryEmailAddressId");
         Utils.checkNotNull(notifyPrimaryEmailAddressChanged, "notifyPrimaryEmailAddressChanged");
         Utils.checkNotNull(primaryPhoneNumberId, "primaryPhoneNumberId");
@@ -262,6 +285,7 @@ public class UpdateUserRequestBody {
         Utils.checkNotNull(passwordHasher, "passwordHasher");
         Utils.checkNotNull(skipPasswordChecks, "skipPasswordChecks");
         Utils.checkNotNull(signOutOfOtherSessions, "signOutOfOtherSessions");
+        Utils.checkNotNull(resetClientTrust, "resetClientTrust");
         Utils.checkNotNull(totpSecret, "totpSecret");
         Utils.checkNotNull(backupCodes, "backupCodes");
         Utils.checkNotNull(deleteSelfEnabled, "deleteSelfEnabled");
@@ -275,6 +299,7 @@ public class UpdateUserRequestBody {
         this.firstName = firstName;
         this.lastName = lastName;
         this.locale = locale;
+        this.timezone = timezone;
         this.primaryEmailAddressId = primaryEmailAddressId;
         this.notifyPrimaryEmailAddressChanged = notifyPrimaryEmailAddressChanged;
         this.primaryPhoneNumberId = primaryPhoneNumberId;
@@ -286,6 +311,7 @@ public class UpdateUserRequestBody {
         this.passwordHasher = passwordHasher;
         this.skipPasswordChecks = skipPasswordChecks;
         this.signOutOfOtherSessions = signOutOfOtherSessions;
+        this.resetClientTrust = resetClientTrust;
         this.totpSecret = totpSecret;
         this.backupCodes = backupCodes;
         this.deleteSelfEnabled = deleteSelfEnabled;
@@ -301,11 +327,12 @@ public class UpdateUserRequestBody {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -339,6 +366,15 @@ public class UpdateUserRequestBody {
     @JsonIgnore
     public JsonNullable<String> locale() {
         return locale;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    @JsonIgnore
+    public JsonNullable<String> timezone() {
+        return timezone;
     }
 
     /**
@@ -454,6 +490,19 @@ public class UpdateUserRequestBody {
     @JsonIgnore
     public JsonNullable<Boolean> signOutOfOtherSessions() {
         return signOutOfOtherSessions;
+    }
+
+    /**
+     * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+     * instance has Device Trust enabled.
+     * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+     * challenge and trigger the new device email.
+     * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+     * to `true`, otherwise a 422 is returned and the user is not updated.
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> resetClientTrust() {
+        return resetClientTrust;
     }
 
     /**
@@ -608,6 +657,26 @@ public class UpdateUserRequestBody {
     public UpdateUserRequestBody withLocale(JsonNullable<String> locale) {
         Utils.checkNotNull(locale, "locale");
         this.locale = locale;
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public UpdateUserRequestBody withTimezone(String timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = JsonNullable.of(timezone);
+        return this;
+    }
+
+    /**
+     * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+     * clear it and allow automatic capture on a later trusted sign-in.
+     */
+    public UpdateUserRequestBody withTimezone(JsonNullable<String> timezone) {
+        Utils.checkNotNull(timezone, "timezone");
+        this.timezone = timezone;
         return this;
     }
 
@@ -866,6 +935,34 @@ public class UpdateUserRequestBody {
     }
 
     /**
+     * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+     * instance has Device Trust enabled.
+     * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+     * challenge and trigger the new device email.
+     * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+     * to `true`, otherwise a 422 is returned and the user is not updated.
+     */
+    public UpdateUserRequestBody withResetClientTrust(boolean resetClientTrust) {
+        Utils.checkNotNull(resetClientTrust, "resetClientTrust");
+        this.resetClientTrust = JsonNullable.of(resetClientTrust);
+        return this;
+    }
+
+    /**
+     * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+     * instance has Device Trust enabled.
+     * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+     * challenge and trigger the new device email.
+     * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+     * to `true`, otherwise a 422 is returned and the user is not updated.
+     */
+    public UpdateUserRequestBody withResetClientTrust(JsonNullable<Boolean> resetClientTrust) {
+        Utils.checkNotNull(resetClientTrust, "resetClientTrust");
+        this.resetClientTrust = resetClientTrust;
+        return this;
+    }
+
+    /**
      * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
      * user without the need to reset it.
      */
@@ -1048,6 +1145,7 @@ public class UpdateUserRequestBody {
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.locale, other.locale) &&
+            Utils.enhancedDeepEquals(this.timezone, other.timezone) &&
             Utils.enhancedDeepEquals(this.primaryEmailAddressId, other.primaryEmailAddressId) &&
             Utils.enhancedDeepEquals(this.notifyPrimaryEmailAddressChanged, other.notifyPrimaryEmailAddressChanged) &&
             Utils.enhancedDeepEquals(this.primaryPhoneNumberId, other.primaryPhoneNumberId) &&
@@ -1059,6 +1157,7 @@ public class UpdateUserRequestBody {
             Utils.enhancedDeepEquals(this.passwordHasher, other.passwordHasher) &&
             Utils.enhancedDeepEquals(this.skipPasswordChecks, other.skipPasswordChecks) &&
             Utils.enhancedDeepEquals(this.signOutOfOtherSessions, other.signOutOfOtherSessions) &&
+            Utils.enhancedDeepEquals(this.resetClientTrust, other.resetClientTrust) &&
             Utils.enhancedDeepEquals(this.totpSecret, other.totpSecret) &&
             Utils.enhancedDeepEquals(this.backupCodes, other.backupCodes) &&
             Utils.enhancedDeepEquals(this.deleteSelfEnabled, other.deleteSelfEnabled) &&
@@ -1074,13 +1173,14 @@ public class UpdateUserRequestBody {
     public int hashCode() {
         return Utils.enhancedHash(
             externalId, firstName, lastName,
-            locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
-            primaryPhoneNumberId, primaryWeb3WalletId, username,
-            profileImageId, password, passwordDigest,
-            passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-            totpSecret, backupCodes, deleteSelfEnabled,
-            createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
-            createOrganizationsLimit, createdAt, bypassClientTrust);
+            locale, timezone, primaryEmailAddressId,
+            notifyPrimaryEmailAddressChanged, primaryPhoneNumberId, primaryWeb3WalletId,
+            username, profileImageId, password,
+            passwordDigest, passwordHasher, skipPasswordChecks,
+            signOutOfOtherSessions, resetClientTrust, totpSecret,
+            backupCodes, deleteSelfEnabled, createOrganizationEnabled,
+            legalAcceptedAt, skipLegalChecks, createOrganizationsLimit,
+            createdAt, bypassClientTrust);
     }
     
     @Override
@@ -1090,6 +1190,7 @@ public class UpdateUserRequestBody {
                 "firstName", firstName,
                 "lastName", lastName,
                 "locale", locale,
+                "timezone", timezone,
                 "primaryEmailAddressId", primaryEmailAddressId,
                 "notifyPrimaryEmailAddressChanged", notifyPrimaryEmailAddressChanged,
                 "primaryPhoneNumberId", primaryPhoneNumberId,
@@ -1101,6 +1202,7 @@ public class UpdateUserRequestBody {
                 "passwordHasher", passwordHasher,
                 "skipPasswordChecks", skipPasswordChecks,
                 "signOutOfOtherSessions", signOutOfOtherSessions,
+                "resetClientTrust", resetClientTrust,
                 "totpSecret", totpSecret,
                 "backupCodes", backupCodes,
                 "deleteSelfEnabled", deleteSelfEnabled,
@@ -1123,6 +1225,8 @@ public class UpdateUserRequestBody {
 
         private JsonNullable<String> locale = JsonNullable.undefined();
 
+        private JsonNullable<String> timezone = JsonNullable.undefined();
+
         private JsonNullable<String> primaryEmailAddressId = JsonNullable.undefined();
 
         private JsonNullable<Boolean> notifyPrimaryEmailAddressChanged;
@@ -1144,6 +1248,8 @@ public class UpdateUserRequestBody {
         private JsonNullable<Boolean> skipPasswordChecks = JsonNullable.undefined();
 
         private JsonNullable<Boolean> signOutOfOtherSessions = JsonNullable.undefined();
+
+        private JsonNullable<Boolean> resetClientTrust = JsonNullable.undefined();
 
         private JsonNullable<String> totpSecret = JsonNullable.undefined();
 
@@ -1242,6 +1348,27 @@ public class UpdateUserRequestBody {
         public Builder locale(JsonNullable<String> locale) {
             Utils.checkNotNull(locale, "locale");
             this.locale = locale;
+            return this;
+        }
+
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(String timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = JsonNullable.of(timezone);
+            return this;
+        }
+
+        /**
+         * The IANA timezone to assign to the user (e.g., "America/New_York", "Europe/Paris"). Set to null to
+         * clear it and allow automatic capture on a later trusted sign-in.
+         */
+        public Builder timezone(JsonNullable<String> timezone) {
+            Utils.checkNotNull(timezone, "timezone");
+            this.timezone = timezone;
             return this;
         }
 
@@ -1510,6 +1637,35 @@ public class UpdateUserRequestBody {
 
 
         /**
+         * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+         * instance has Device Trust enabled.
+         * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+         * challenge and trigger the new device email.
+         * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+         * to `true`, otherwise a 422 is returned and the user is not updated.
+         */
+        public Builder resetClientTrust(boolean resetClientTrust) {
+            Utils.checkNotNull(resetClientTrust, "resetClientTrust");
+            this.resetClientTrust = JsonNullable.of(resetClientTrust);
+            return this;
+        }
+
+        /**
+         * When set to `true`, also clears Device Trust for the user on every client, whether or not the
+         * instance has Device Trust enabled.
+         * The next sign-in by this user on any client counts as a new device: it can require a Device Trust
+         * challenge and trigger the new device email.
+         * This parameter can only be used when providing a `password` and setting `sign_out_of_other_sessions`
+         * to `true`, otherwise a 422 is returned and the user is not updated.
+         */
+        public Builder resetClientTrust(JsonNullable<Boolean> resetClientTrust) {
+            Utils.checkNotNull(resetClientTrust, "resetClientTrust");
+            this.resetClientTrust = resetClientTrust;
+            return this;
+        }
+
+
+        /**
          * In case TOTP is configured on the instance, you can provide the secret to enable it on the specific
          * user without the need to reset it.
          */
@@ -1692,13 +1848,14 @@ public class UpdateUserRequestBody {
 
             return new UpdateUserRequestBody(
                 externalId, firstName, lastName,
-                locale, primaryEmailAddressId, notifyPrimaryEmailAddressChanged,
-                primaryPhoneNumberId, primaryWeb3WalletId, username,
-                profileImageId, password, passwordDigest,
-                passwordHasher, skipPasswordChecks, signOutOfOtherSessions,
-                totpSecret, backupCodes, deleteSelfEnabled,
-                createOrganizationEnabled, legalAcceptedAt, skipLegalChecks,
-                createOrganizationsLimit, createdAt, bypassClientTrust);
+                locale, timezone, primaryEmailAddressId,
+                notifyPrimaryEmailAddressChanged, primaryPhoneNumberId, primaryWeb3WalletId,
+                username, profileImageId, password,
+                passwordDigest, passwordHasher, skipPasswordChecks,
+                signOutOfOtherSessions, resetClientTrust, totpSecret,
+                backupCodes, deleteSelfEnabled, createOrganizationEnabled,
+                legalAcceptedAt, skipLegalChecks, createOrganizationsLimit,
+                createdAt, bypassClientTrust);
         }
 
 

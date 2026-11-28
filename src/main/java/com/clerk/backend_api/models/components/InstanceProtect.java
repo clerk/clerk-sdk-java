@@ -29,7 +29,9 @@ public class InstanceProtect {
     @JsonProperty("rules_enabled")
     private boolean rulesEnabled;
 
-
+    /**
+     * Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
+     */
     @JsonProperty("specter_enabled")
     private boolean specterEnabled;
 
@@ -91,6 +93,9 @@ public class InstanceProtect {
         return rulesEnabled;
     }
 
+    /**
+     * Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
+     */
     @JsonIgnore
     public boolean specterEnabled() {
         return specterEnabled;
@@ -145,6 +150,9 @@ public class InstanceProtect {
         return this;
     }
 
+    /**
+     * Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
+     */
     public InstanceProtect withSpecterEnabled(boolean specterEnabled) {
         Utils.checkNotNull(specterEnabled, "specterEnabled");
         this.specterEnabled = specterEnabled;
@@ -256,6 +264,9 @@ public class InstanceProtect {
         }
 
 
+        /**
+         * Whether Device Intelligence is enabled. Managed automatically or by Clerk support.
+         */
         public Builder specterEnabled(boolean specterEnabled) {
             Utils.checkNotNull(specterEnabled, "specterEnabled");
             this.specterEnabled = specterEnabled;

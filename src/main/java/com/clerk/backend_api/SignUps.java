@@ -104,6 +104,20 @@ public class SignUps {
      * 
      * @param id The ID of the sign-up to update
      * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateSignUpResponse update(String id, Optional<? extends UpdateSignUpRequestBody> requestBody) {
+        return update(id, requestBody, Optional.empty());
+    }
+
+    /**
+     * Update a sign-up
+     * 
+     * <p>Update the sign-up with the given ID
+     * 
+     * @param id The ID of the sign-up to update
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

@@ -12,6 +12,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class RevokeM2MTokenRequestBuilder {
@@ -19,6 +20,7 @@ public class RevokeM2MTokenRequestBuilder {
     private String m2mTokenId;
     private RevokeM2MTokenRequestBody requestBody;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -49,6 +51,18 @@ public class RevokeM2MTokenRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public RevokeM2MTokenRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public RevokeM2MTokenRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private RevokeM2MTokenRequest buildRequest() {
@@ -62,6 +76,7 @@ public class RevokeM2MTokenRequestBuilder {
     public RevokeM2MTokenResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<RevokeM2MTokenRequest, RevokeM2MTokenResponse> operation

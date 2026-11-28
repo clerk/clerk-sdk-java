@@ -64,6 +64,26 @@ public class EmailAndSmsTemplates {
      * @param templateType The type of template to update
      * @param slug The slug of the template to update
      * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public UpsertTemplateResponse upsert(
+            UpsertTemplatePathParamTemplateType templateType, String slug,
+            Optional<? extends UpsertTemplateRequestBody> requestBody) {
+        return upsert(templateType, slug, requestBody,
+            Optional.empty());
+    }
+
+    /**
+     * Update a template for a given type and slug
+     * 
+     * <p>Updates the existing template of the given type and slug
+     * 
+     * @param templateType The type of template to update
+     * @param slug The slug of the template to update
+     * @param requestBody 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

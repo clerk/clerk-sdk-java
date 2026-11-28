@@ -13,6 +13,8 @@ import java.lang.Boolean;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -49,11 +51,17 @@ public class UpdateOrganizationRequestBody {
 
     /**
      * Whether this organization can configure self-serve enterprise SSO.
-     * Requires the instance to have the self-serve SSO entitlement enabled.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("self_serve_sso_enabled")
     private JsonNullable<Boolean> selfServeSsoEnabled;
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("self_serve_directory_sync_enabled")
+    private JsonNullable<Boolean> selfServeDirectorySyncEnabled;
 
     /**
      * A custom date/time denoting _when_ the organization was created, specified in RFC3339 format (e.g.
@@ -71,6 +79,18 @@ public class UpdateOrganizationRequestBody {
     @JsonProperty("role_set_key")
     private JsonNullable<String> roleSetKey;
 
+    /**
+     * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+     * when `role_set_key` changes the role set.
+     * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+     * the request fails with a 422.
+     * Mapping a role that both role sets include moves its members to the destination role.
+     * Memberships are reassigned asynchronously after the response.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("reassignment_mappings")
+    private JsonNullable<? extends Map<String, String>> reassignmentMappings;
+
     @JsonCreator
     public UpdateOrganizationRequestBody(
             @JsonProperty("name") JsonNullable<String> name,
@@ -78,28 +98,34 @@ public class UpdateOrganizationRequestBody {
             @JsonProperty("max_allowed_memberships") JsonNullable<Long> maxAllowedMemberships,
             @JsonProperty("admin_delete_enabled") JsonNullable<Boolean> adminDeleteEnabled,
             @JsonProperty("self_serve_sso_enabled") JsonNullable<Boolean> selfServeSsoEnabled,
+            @JsonProperty("self_serve_directory_sync_enabled") JsonNullable<Boolean> selfServeDirectorySyncEnabled,
             @JsonProperty("created_at") JsonNullable<String> createdAt,
-            @JsonProperty("role_set_key") JsonNullable<String> roleSetKey) {
+            @JsonProperty("role_set_key") JsonNullable<String> roleSetKey,
+            @JsonProperty("reassignment_mappings") JsonNullable<? extends Map<String, String>> reassignmentMappings) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(maxAllowedMemberships, "maxAllowedMemberships");
         Utils.checkNotNull(adminDeleteEnabled, "adminDeleteEnabled");
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(roleSetKey, "roleSetKey");
+        Utils.checkNotNull(reassignmentMappings, "reassignmentMappings");
         this.name = name;
         this.slug = slug;
         this.maxAllowedMemberships = maxAllowedMemberships;
         this.adminDeleteEnabled = adminDeleteEnabled;
         this.selfServeSsoEnabled = selfServeSsoEnabled;
+        this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
         this.createdAt = createdAt;
         this.roleSetKey = roleSetKey;
+        this.reassignmentMappings = reassignmentMappings;
     }
     
     public UpdateOrganizationRequestBody() {
         this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -138,11 +164,18 @@ public class UpdateOrganizationRequestBody {
 
     /**
      * Whether this organization can configure self-serve enterprise SSO.
-     * Requires the instance to have the self-serve SSO entitlement enabled.
      */
     @JsonIgnore
     public JsonNullable<Boolean> selfServeSsoEnabled() {
         return selfServeSsoEnabled;
+    }
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    @JsonIgnore
+    public JsonNullable<Boolean> selfServeDirectorySyncEnabled() {
+        return selfServeDirectorySyncEnabled;
     }
 
     /**
@@ -161,6 +194,20 @@ public class UpdateOrganizationRequestBody {
     @JsonIgnore
     public JsonNullable<String> roleSetKey() {
         return roleSetKey;
+    }
+
+    /**
+     * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+     * when `role_set_key` changes the role set.
+     * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+     * the request fails with a 422.
+     * Mapping a role that both role sets include moves its members to the destination role.
+     * Memberships are reassigned asynchronously after the response.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Map<String, String>> reassignmentMappings() {
+        return (JsonNullable<Map<String, String>>) reassignmentMappings;
     }
 
     public static Builder builder() {
@@ -246,7 +293,6 @@ public class UpdateOrganizationRequestBody {
 
     /**
      * Whether this organization can configure self-serve enterprise SSO.
-     * Requires the instance to have the self-serve SSO entitlement enabled.
      */
     public UpdateOrganizationRequestBody withSelfServeSsoEnabled(boolean selfServeSsoEnabled) {
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
@@ -256,11 +302,28 @@ public class UpdateOrganizationRequestBody {
 
     /**
      * Whether this organization can configure self-serve enterprise SSO.
-     * Requires the instance to have the self-serve SSO entitlement enabled.
      */
     public UpdateOrganizationRequestBody withSelfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
         Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
         this.selfServeSsoEnabled = selfServeSsoEnabled;
+        return this;
+    }
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    public UpdateOrganizationRequestBody withSelfServeDirectorySyncEnabled(boolean selfServeDirectorySyncEnabled) {
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+        this.selfServeDirectorySyncEnabled = JsonNullable.of(selfServeDirectorySyncEnabled);
+        return this;
+    }
+
+    /**
+     * Whether this organization can configure self-serve Directory Sync (SCIM).
+     */
+    public UpdateOrganizationRequestBody withSelfServeDirectorySyncEnabled(JsonNullable<Boolean> selfServeDirectorySyncEnabled) {
+        Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+        this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
         return this;
     }
 
@@ -304,6 +367,34 @@ public class UpdateOrganizationRequestBody {
         return this;
     }
 
+    /**
+     * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+     * when `role_set_key` changes the role set.
+     * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+     * the request fails with a 422.
+     * Mapping a role that both role sets include moves its members to the destination role.
+     * Memberships are reassigned asynchronously after the response.
+     */
+    public UpdateOrganizationRequestBody withReassignmentMappings(Map<String, String> reassignmentMappings) {
+        Utils.checkNotNull(reassignmentMappings, "reassignmentMappings");
+        this.reassignmentMappings = JsonNullable.of(reassignmentMappings);
+        return this;
+    }
+
+    /**
+     * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+     * when `role_set_key` changes the role set.
+     * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+     * the request fails with a 422.
+     * Mapping a role that both role sets include moves its members to the destination role.
+     * Memberships are reassigned asynchronously after the response.
+     */
+    public UpdateOrganizationRequestBody withReassignmentMappings(JsonNullable<? extends Map<String, String>> reassignmentMappings) {
+        Utils.checkNotNull(reassignmentMappings, "reassignmentMappings");
+        this.reassignmentMappings = reassignmentMappings;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -319,16 +410,18 @@ public class UpdateOrganizationRequestBody {
             Utils.enhancedDeepEquals(this.maxAllowedMemberships, other.maxAllowedMemberships) &&
             Utils.enhancedDeepEquals(this.adminDeleteEnabled, other.adminDeleteEnabled) &&
             Utils.enhancedDeepEquals(this.selfServeSsoEnabled, other.selfServeSsoEnabled) &&
+            Utils.enhancedDeepEquals(this.selfServeDirectorySyncEnabled, other.selfServeDirectorySyncEnabled) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
-            Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey);
+            Utils.enhancedDeepEquals(this.roleSetKey, other.roleSetKey) &&
+            Utils.enhancedDeepEquals(this.reassignmentMappings, other.reassignmentMappings);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             name, slug, maxAllowedMemberships,
-            adminDeleteEnabled, selfServeSsoEnabled, createdAt,
-            roleSetKey);
+            adminDeleteEnabled, selfServeSsoEnabled, selfServeDirectorySyncEnabled,
+            createdAt, roleSetKey, reassignmentMappings);
     }
     
     @Override
@@ -339,8 +432,10 @@ public class UpdateOrganizationRequestBody {
                 "maxAllowedMemberships", maxAllowedMemberships,
                 "adminDeleteEnabled", adminDeleteEnabled,
                 "selfServeSsoEnabled", selfServeSsoEnabled,
+                "selfServeDirectorySyncEnabled", selfServeDirectorySyncEnabled,
                 "createdAt", createdAt,
-                "roleSetKey", roleSetKey);
+                "roleSetKey", roleSetKey,
+                "reassignmentMappings", reassignmentMappings);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -356,9 +451,13 @@ public class UpdateOrganizationRequestBody {
 
         private JsonNullable<Boolean> selfServeSsoEnabled = JsonNullable.undefined();
 
+        private JsonNullable<Boolean> selfServeDirectorySyncEnabled = JsonNullable.undefined();
+
         private JsonNullable<String> createdAt = JsonNullable.undefined();
 
         private JsonNullable<String> roleSetKey = JsonNullable.undefined();
+
+        private JsonNullable<? extends Map<String, String>> reassignmentMappings = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -447,7 +546,6 @@ public class UpdateOrganizationRequestBody {
 
         /**
          * Whether this organization can configure self-serve enterprise SSO.
-         * Requires the instance to have the self-serve SSO entitlement enabled.
          */
         public Builder selfServeSsoEnabled(boolean selfServeSsoEnabled) {
             Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
@@ -457,11 +555,29 @@ public class UpdateOrganizationRequestBody {
 
         /**
          * Whether this organization can configure self-serve enterprise SSO.
-         * Requires the instance to have the self-serve SSO entitlement enabled.
          */
         public Builder selfServeSsoEnabled(JsonNullable<Boolean> selfServeSsoEnabled) {
             Utils.checkNotNull(selfServeSsoEnabled, "selfServeSsoEnabled");
             this.selfServeSsoEnabled = selfServeSsoEnabled;
+            return this;
+        }
+
+
+        /**
+         * Whether this organization can configure self-serve Directory Sync (SCIM).
+         */
+        public Builder selfServeDirectorySyncEnabled(boolean selfServeDirectorySyncEnabled) {
+            Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+            this.selfServeDirectorySyncEnabled = JsonNullable.of(selfServeDirectorySyncEnabled);
+            return this;
+        }
+
+        /**
+         * Whether this organization can configure self-serve Directory Sync (SCIM).
+         */
+        public Builder selfServeDirectorySyncEnabled(JsonNullable<Boolean> selfServeDirectorySyncEnabled) {
+            Utils.checkNotNull(selfServeDirectorySyncEnabled, "selfServeDirectorySyncEnabled");
+            this.selfServeDirectorySyncEnabled = selfServeDirectorySyncEnabled;
             return this;
         }
 
@@ -507,12 +623,41 @@ public class UpdateOrganizationRequestBody {
             return this;
         }
 
+
+        /**
+         * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+         * when `role_set_key` changes the role set.
+         * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+         * the request fails with a 422.
+         * Mapping a role that both role sets include moves its members to the destination role.
+         * Memberships are reassigned asynchronously after the response.
+         */
+        public Builder reassignmentMappings(Map<String, String> reassignmentMappings) {
+            Utils.checkNotNull(reassignmentMappings, "reassignmentMappings");
+            this.reassignmentMappings = JsonNullable.of(reassignmentMappings);
+            return this;
+        }
+
+        /**
+         * Maps role keys in the organization's current role set to role keys in the new role set. Only applies
+         * when `role_set_key` changes the role set.
+         * Every role that a member holds and that the new role set does not include must be mapped, otherwise
+         * the request fails with a 422.
+         * Mapping a role that both role sets include moves its members to the destination role.
+         * Memberships are reassigned asynchronously after the response.
+         */
+        public Builder reassignmentMappings(JsonNullable<? extends Map<String, String>> reassignmentMappings) {
+            Utils.checkNotNull(reassignmentMappings, "reassignmentMappings");
+            this.reassignmentMappings = reassignmentMappings;
+            return this;
+        }
+
         public UpdateOrganizationRequestBody build() {
 
             return new UpdateOrganizationRequestBody(
                 name, slug, maxAllowedMemberships,
-                adminDeleteEnabled, selfServeSsoEnabled, createdAt,
-                roleSetKey);
+                adminDeleteEnabled, selfServeSsoEnabled, selfServeDirectorySyncEnabled,
+                createdAt, roleSetKey, reassignmentMappings);
         }
 
     }

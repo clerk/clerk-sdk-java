@@ -10,7 +10,9 @@ import com.clerk.backend_api.utils.Hook.SdkInitData;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.SpeakeasyHTTPClient;
 import com.clerk.backend_api.utils.Utils;
+import java.lang.IllegalArgumentException;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -141,6 +143,9 @@ public class Clerk {
     private final EnterpriseConnections enterpriseConnections;
 
 
+    private final SsoBypassAllowlistUsers ssoBypassAllowlistUsers;
+
+
     private final TestingTokens testingTokens;
 
 
@@ -157,6 +162,9 @@ public class Clerk {
 
 
     private final RoleSets roleSets;
+
+
+    private final Logs logs;
 
 
     private final ScimDirectories scimDirectories;
@@ -341,6 +349,11 @@ public class Clerk {
     }
 
 
+    public SsoBypassAllowlistUsers ssoBypassAllowlistUsers() {
+        return ssoBypassAllowlistUsers;
+    }
+
+
     public TestingTokens testingTokens() {
         return testingTokens;
     }
@@ -368,6 +381,11 @@ public class Clerk {
 
     public RoleSets roleSets() {
         return roleSets;
+    }
+
+
+    public Logs logs() {
+        return logs;
     }
 
 
@@ -497,6 +515,23 @@ public class Clerk {
         }
 
         /**
+         * Sets the default timeout for each request attempt. A per-call {@code timeout}
+         * takes precedence; this takes precedence over {@code x-speakeasy-timeout}.
+         * It bounds the whole call, including reading the response body.
+         *
+         * @param timeout The timeout to apply to every request; must be positive.
+         * @return The builder instance.
+         */
+        public Builder timeout(Duration timeout) {
+            Utils.checkNotNull(timeout, "timeout");
+            if (timeout.isZero() || timeout.isNegative()) {
+                throw new IllegalArgumentException("timeout must be positive");
+            }
+            this.sdkConfiguration.setTimeout(Optional.of(timeout));
+            return this;
+        }
+
+        /**
          * Enables debug logging for HTTP requests and responses, including JSON body content.
          * <p>
          * Convenience method that calls {@link HTTPClient#enableDebugLogging(boolean)}.
@@ -582,12 +617,14 @@ public class Clerk {
         this.oauthApplications = new OauthApplications(sdkConfiguration);
         this.samlConnections = new SamlConnections(sdkConfiguration);
         this.enterpriseConnections = new EnterpriseConnections(sdkConfiguration);
+        this.ssoBypassAllowlistUsers = new SsoBypassAllowlistUsers(sdkConfiguration);
         this.testingTokens = new TestingTokens(sdkConfiguration);
         this.agentTasks = new AgentTasks(sdkConfiguration);
         this.waitlistEntries = new WaitlistEntries(sdkConfiguration);
         this.billing = new Billing(sdkConfiguration);
         this.organizationPermissions = new OrganizationPermissions(sdkConfiguration);
         this.roleSets = new RoleSets(sdkConfiguration);
+        this.logs = new Logs(sdkConfiguration);
         this.scimDirectories = new ScimDirectories(sdkConfiguration);
         this.directories = new Directories(sdkConfiguration);
         this.adminPortalLinkTokens = new AdminPortalLinkTokens(sdkConfiguration);

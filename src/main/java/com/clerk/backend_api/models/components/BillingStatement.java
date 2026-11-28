@@ -58,7 +58,7 @@ public class BillingStatement {
      * Array of statement groups.
      */
     @JsonProperty("groups")
-    private List<Groups> groups;
+    private List<BillingStatementGroups> groups;
 
     @JsonCreator
     public BillingStatement(
@@ -69,7 +69,7 @@ public class BillingStatement {
             @JsonProperty("payer") CommercePayerResponse payer,
             @JsonProperty("status") BillingStatementStatus status,
             @JsonProperty("totals") BillingStatementTotals totals,
-            @JsonProperty("groups") List<Groups> groups) {
+            @JsonProperty("groups") List<BillingStatementGroups> groups) {
         Utils.checkNotNull(object, "object");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(instanceId, "instanceId");
@@ -145,7 +145,7 @@ public class BillingStatement {
      * Array of statement groups.
      */
     @JsonIgnore
-    public List<Groups> groups() {
+    public List<BillingStatementGroups> groups() {
         return groups;
     }
 
@@ -217,7 +217,7 @@ public class BillingStatement {
     /**
      * Array of statement groups.
      */
-    public BillingStatement withGroups(List<Groups> groups) {
+    public BillingStatement withGroups(List<BillingStatementGroups> groups) {
         Utils.checkNotNull(groups, "groups");
         this.groups = groups;
         return this;
@@ -281,7 +281,7 @@ public class BillingStatement {
 
         private BillingStatementTotals totals;
 
-        private List<Groups> groups;
+        private List<BillingStatementGroups> groups;
 
         private Builder() {
           // force use of static builder() method
@@ -358,7 +358,7 @@ public class BillingStatement {
         /**
          * Array of statement groups.
          */
-        public Builder groups(List<Groups> groups) {
+        public Builder groups(List<BillingStatementGroups> groups) {
             Utils.checkNotNull(groups, "groups");
             this.groups = groups;
             return this;

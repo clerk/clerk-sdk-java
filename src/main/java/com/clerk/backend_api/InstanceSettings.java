@@ -131,6 +131,19 @@ public class InstanceSettings {
      * <p>Updates the settings of an instance
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceResponse update(Optional<? extends UpdateInstanceRequestBody> request) {
+        return update(request, Optional.empty());
+    }
+
+    /**
+     * Update instance settings
+     * 
+     * <p>Updates the settings of an instance
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -162,6 +175,19 @@ public class InstanceSettings {
      */
     public UpdateInstanceRestrictionsResponse updateRestrictionsDirect() {
         return updateRestrictions(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update instance restrictions
+     * 
+     * <p>Updates the restriction settings of an instance
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceRestrictionsResponse updateRestrictions(Optional<? extends UpdateInstanceRestrictionsRequestBody> request) {
+        return updateRestrictions(request, Optional.empty());
     }
 
     /**
@@ -256,6 +282,22 @@ public class InstanceSettings {
      * is a no-op.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceCommunicationResponse updateCommunication(Optional<? extends UpdateInstanceCommunicationRequestBody> request) {
+        return updateCommunication(request, Optional.empty());
+    }
+
+    /**
+     * Update instance communication settings
+     * 
+     * <p>Replaces the SMS country blocklist for this instance. Pass the full set of ISO 3166-1
+     * alpha-2 country codes that should be blocked; codes that aren't recognized as SMS-tier
+     * countries are silently dropped from the persisted list. Omitting `blocked_country_codes`
+     * is a no-op.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -336,6 +378,19 @@ public class InstanceSettings {
      * <p>Updates the OAuth application settings for the instance.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceOAuthApplicationSettingsResponse updateOAuthApplicationSettings(Optional<? extends UpdateInstanceOAuthApplicationSettingsRequestBody> request) {
+        return updateOAuthApplicationSettings(request, Optional.empty());
+    }
+
+    /**
+     * Update OAuth application settings
+     * 
+     * <p>Updates the OAuth application settings for the instance.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -359,6 +414,9 @@ public class InstanceSettings {
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
      * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
+     * 
      * @return The call builder
      */
     public ChangeProductionInstanceDomainRequestBuilder changeDomain() {
@@ -377,6 +435,9 @@ public class InstanceSettings {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -397,6 +458,33 @@ public class InstanceSettings {
      * 
      * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
      * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ChangeProductionInstanceDomainResponse changeDomain(Optional<? extends ChangeProductionInstanceDomainRequestBody> request) {
+        return changeDomain(request, Optional.empty());
+    }
+
+    /**
+     * Update production instance domain
+     * 
+     * <p>Change the domain of a production instance.
+     * 
+     * <p>Changing the domain requires updating the [DNS
+     * records](https://clerk.com/docs/deployments/overview#dns-records) accordingly, deploying new [SSL
+     * certificates](https://clerk.com/docs/deployments/overview#deploy-certificates), updating your Social
+     * Connection's redirect URLs and setting the new keys in your code.
+     * 
+     * <p>WARNING: Changing your domain will invalidate all current user sessions (i.e. users will be logged
+     * out). Also, while your application is being deployed, a small downtime is expected to occur.
+     * 
+     * <p>Returns 403 `domain_managed_by_integration` for applications in a Vercel-managed workspace; change
+     * the domain from the Vercel integration instead.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -476,6 +564,19 @@ public class InstanceSettings {
      * <p>Updates the organization settings of the instance
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceOrganizationSettingsResponse updateOrganizationSettings(Optional<? extends UpdateInstanceOrganizationSettingsRequestBody> request) {
+        return updateOrganizationSettings(request, Optional.empty());
+    }
+
+    /**
+     * Update instance organization settings
+     * 
+     * <p>Updates the organization settings of the instance
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -535,6 +636,17 @@ public class InstanceSettings {
      */
     public UpdateInstanceProtectResponse updateInstanceProtectDirect() {
         return updateInstanceProtect(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Update instance protect settings
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateInstanceProtectResponse updateInstanceProtect(Optional<? extends UpdateInstanceProtectRequestBody> request) {
+        return updateInstanceProtect(request, Optional.empty());
     }
 
     /**

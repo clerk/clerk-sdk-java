@@ -15,6 +15,7 @@ import com.clerk.backend_api.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Long;
+import java.time.Duration;
 import java.util.Optional;
 
 public class GetCommercePlanListRequestBuilder {
@@ -30,6 +31,7 @@ public class GetCommercePlanListRequestBuilder {
                             new TypeReference<Optional<Long>>() {});
     private Optional<? extends PayerType> payerType = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -96,6 +98,18 @@ public class GetCommercePlanListRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public GetCommercePlanListRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public GetCommercePlanListRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private GetCommercePlanListRequest buildRequest() {
@@ -117,6 +131,7 @@ public class GetCommercePlanListRequestBuilder {
     public GetCommercePlanListResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<GetCommercePlanListRequest, GetCommercePlanListResponse> operation

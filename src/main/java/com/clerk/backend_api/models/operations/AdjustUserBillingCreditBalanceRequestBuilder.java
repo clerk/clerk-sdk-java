@@ -13,6 +13,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class AdjustUserBillingCreditBalanceRequestBuilder {
@@ -20,6 +21,7 @@ public class AdjustUserBillingCreditBalanceRequestBuilder {
     private String userId;
     private AdjustCreditBalanceRequest adjustCreditBalanceRequest;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -50,6 +52,18 @@ public class AdjustUserBillingCreditBalanceRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public AdjustUserBillingCreditBalanceRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public AdjustUserBillingCreditBalanceRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private AdjustUserBillingCreditBalanceRequest buildRequest() {
@@ -63,6 +77,7 @@ public class AdjustUserBillingCreditBalanceRequestBuilder {
     public AdjustUserBillingCreditBalanceResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<AdjustUserBillingCreditBalanceRequest, AdjustUserBillingCreditBalanceResponse> operation

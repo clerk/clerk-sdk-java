@@ -141,6 +141,23 @@ public class SamlConnections {
      * versions.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public CreateSAMLConnectionResponse create(Optional<? extends CreateSAMLConnectionRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create a SAML Connection
+     * 
+     * <p>Create a new SAML Connection.
+     * Deprecated: Use the Enterprise Connections API instead. This endpoint will be removed in future
+     * versions.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

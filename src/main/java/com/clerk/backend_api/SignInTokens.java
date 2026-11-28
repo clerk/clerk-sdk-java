@@ -62,6 +62,21 @@ public class SignInTokens {
      * You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateSignInTokenResponse create(Optional<? extends CreateSignInTokenRequestBody> request) {
+        return create(request, Optional.empty());
+    }
+
+    /**
+     * Create sign-in token
+     * 
+     * <p>Creates a new sign-in token and associates it with the given user.
+     * By default, sign-in tokens expire in 30 days.
+     * You can optionally supply a different duration in seconds using the `expires_in_seconds` property.
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

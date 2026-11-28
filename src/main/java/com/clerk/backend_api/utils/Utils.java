@@ -1634,6 +1634,8 @@ public final class Utils {
             return mapper().readValue(
                     Utils.extractByteArrayFromBody(response),
                     typeReference);
+        } catch (java.io.InterruptedIOException | java.net.http.HttpTimeoutException e) {
+            throw new java.io.UncheckedIOException(e);
         } catch (Exception e) {
             throw SDKError.from(
                     "Error deserializing response body: " + e.getMessage(), response, e);

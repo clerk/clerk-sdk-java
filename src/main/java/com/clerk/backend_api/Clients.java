@@ -11,11 +11,15 @@ import com.clerk.backend_api.models.operations.GetClientListResponse;
 import com.clerk.backend_api.models.operations.GetClientRequest;
 import com.clerk.backend_api.models.operations.GetClientRequestBuilder;
 import com.clerk.backend_api.models.operations.GetClientResponse;
+import com.clerk.backend_api.models.operations.RevokeClientRequest;
+import com.clerk.backend_api.models.operations.RevokeClientRequestBuilder;
+import com.clerk.backend_api.models.operations.RevokeClientResponse;
 import com.clerk.backend_api.models.operations.VerifyClientRequestBody;
 import com.clerk.backend_api.models.operations.VerifyClientRequestBuilder;
 import com.clerk.backend_api.models.operations.VerifyClientResponse;
 import com.clerk.backend_api.operations.GetClient;
 import com.clerk.backend_api.operations.GetClientList;
+import com.clerk.backend_api.operations.RevokeClient;
 import com.clerk.backend_api.operations.VerifyClient;
 import com.clerk.backend_api.utils.Headers;
 import com.clerk.backend_api.utils.Options;
@@ -63,6 +67,33 @@ public class Clients {
     @Deprecated
     public GetClientListResponse listDirect() {
         return list(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * List all clients
+     * 
+     * <p>Returns a list of all clients. The clients are returned sorted by creation date,
+     * with the newest clients appearing first.
+     * Warning: the endpoint is being deprecated and will be removed in future versions.
+     * 
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public GetClientListResponse list(
+            Optional<Boolean> paginated, Optional<Long> limit,
+            Optional<Long> offset) {
+        return list(paginated, limit, offset,
             Optional.empty());
     }
 
@@ -131,6 +162,19 @@ public class Clients {
      * <p>Verifies the client in the provided token
      * 
      * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public VerifyClientResponse verify(Optional<? extends VerifyClientRequestBody> request) {
+        return verify(request, Optional.empty());
+    }
+
+    /**
+     * Verify a client
+     * 
+     * <p>Verifies the client in the provided token
+     * 
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -183,6 +227,75 @@ public class Clients {
                 .build();
         RequestOperation<GetClientRequest, GetClientResponse> operation
               = new GetClient.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Revoke a client
+     * 
+     * <p>Permanently revokes a client in a development or production instance, including its active and
+     * pending sessions and its linked development browser tokens. Other clients are unaffected. Repeating
+     * the request is safe.
+     * Returns the client with a non-null revoked_at timestamp and no current sessions. Revoked development
+     * browser tokens receive dev_browser_unauthenticated on authenticated Frontend API routes. Previously
+     * issued session JWTs remain valid until their expiration.
+     * To sign in again, the browser must initialize a new client. Unlike Frontend API DELETE /client, this
+     * operation requires a backend credential and the target client ID, not the affected browser's
+     * cookies.
+     * 
+     * @return The call builder
+     */
+    public RevokeClientRequestBuilder revoke() {
+        return new RevokeClientRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Revoke a client
+     * 
+     * <p>Permanently revokes a client in a development or production instance, including its active and
+     * pending sessions and its linked development browser tokens. Other clients are unaffected. Repeating
+     * the request is safe.
+     * Returns the client with a non-null revoked_at timestamp and no current sessions. Revoked development
+     * browser tokens receive dev_browser_unauthenticated on authenticated Frontend API routes. Previously
+     * issued session JWTs remain valid until their expiration.
+     * To sign in again, the browser must initialize a new client. Unlike Frontend API DELETE /client, this
+     * operation requires a backend credential and the target client ID, not the affected browser's
+     * cookies.
+     * 
+     * @param clientId 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeClientResponse revoke(String clientId) {
+        return revoke(clientId, Optional.empty());
+    }
+
+    /**
+     * Revoke a client
+     * 
+     * <p>Permanently revokes a client in a development or production instance, including its active and
+     * pending sessions and its linked development browser tokens. Other clients are unaffected. Repeating
+     * the request is safe.
+     * Returns the client with a non-null revoked_at timestamp and no current sessions. Revoked development
+     * browser tokens receive dev_browser_unauthenticated on authenticated Frontend API routes. Previously
+     * issued session JWTs remain valid until their expiration.
+     * To sign in again, the browser must initialize a new client. Unlike Frontend API DELETE /client, this
+     * operation requires a backend credential and the target client ID, not the affected browser's
+     * cookies.
+     * 
+     * @param clientId 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public RevokeClientResponse revoke(String clientId, Optional<Options> options) {
+        RevokeClientRequest request =
+            RevokeClientRequest
+                .builder()
+                .clientId(clientId)
+                .build();
+        RequestOperation<RevokeClientRequest, RevokeClientResponse> operation
+              = new RevokeClient.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

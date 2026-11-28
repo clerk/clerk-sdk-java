@@ -1,0 +1,22 @@
+# Session2Status
+
+## Example Usage
+
+```java
+import com.clerk.backend_api.models.components.Session2Status;
+
+Session2Status value = Session2Status.ACTIVE;
+```
+
+
+## Values
+
+| Name        | Value       |
+| ----------- | ----------- |
+| `ACTIVE`    | active      |
+| `REVOKED`   | revoked     |
+| `ENDED`     | ended       |
+| `EXPIRED`   | expired     |
+| `REMOVED`   | removed     |
+| `ABANDONED` | abandoned   |
+| `REPLACED`  | replaced    |

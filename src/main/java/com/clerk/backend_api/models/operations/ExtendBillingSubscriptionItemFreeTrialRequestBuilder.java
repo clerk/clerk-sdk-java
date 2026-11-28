@@ -13,6 +13,7 @@ import com.clerk.backend_api.utils.Options;
 import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class ExtendBillingSubscriptionItemFreeTrialRequestBuilder {
@@ -20,6 +21,7 @@ public class ExtendBillingSubscriptionItemFreeTrialRequestBuilder {
     private String subscriptionItemId;
     private ExtendFreeTrialRequest extendFreeTrialRequest;
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -50,6 +52,18 @@ public class ExtendBillingSubscriptionItemFreeTrialRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public ExtendBillingSubscriptionItemFreeTrialRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public ExtendBillingSubscriptionItemFreeTrialRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private ExtendBillingSubscriptionItemFreeTrialRequest buildRequest() {
@@ -63,6 +77,7 @@ public class ExtendBillingSubscriptionItemFreeTrialRequestBuilder {
     public ExtendBillingSubscriptionItemFreeTrialResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<ExtendBillingSubscriptionItemFreeTrialRequest, ExtendBillingSubscriptionItemFreeTrialResponse> operation

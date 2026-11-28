@@ -13,6 +13,7 @@ import com.clerk.backend_api.utils.RetryConfig;
 import com.clerk.backend_api.utils.Utils;
 import java.lang.Boolean;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Optional;
 
 public class GetOrganizationRequestBuilder {
@@ -21,6 +22,7 @@ public class GetOrganizationRequestBuilder {
     private Optional<Boolean> includeMembersCount = Optional.empty();
     private Optional<Boolean> includeMissingMemberWithElevatedPermissions = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
+    private Optional<Duration> timeout = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -69,6 +71,18 @@ public class GetOrganizationRequestBuilder {
         this.retryConfig = retryConfig;
         return this;
     }
+                
+    public GetOrganizationRequestBuilder timeout(Duration timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = Optional.of(timeout);
+        return this;
+    }
+
+    public GetOrganizationRequestBuilder timeout(Optional<Duration> timeout) {
+        Utils.checkNotNull(timeout, "timeout");
+        this.timeout = timeout;
+        return this;
+    }
 
 
     private GetOrganizationRequest buildRequest() {
@@ -83,6 +97,7 @@ public class GetOrganizationRequestBuilder {
     public GetOrganizationResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
+            .timeout(timeout)
             .build());
 
         RequestOperation<GetOrganizationRequest, GetOrganizationResponse> operation

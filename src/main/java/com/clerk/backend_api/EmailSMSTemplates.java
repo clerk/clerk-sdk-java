@@ -89,6 +89,33 @@ public class EmailSMSTemplates {
      * @param offset Skip the first `offset` results when paginating.
      *         Needs to be an integer greater or equal to zero.
      *         To be used in conjunction with `limit`.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public GetTemplateListResponse list(
+            TemplateType templateType, Optional<Boolean> paginated,
+            Optional<Long> limit, Optional<Long> offset) {
+        return list(templateType, paginated, limit,
+            offset, Optional.empty());
+    }
+
+    /**
+     * List all templates
+     * 
+     * <p>Returns a list of all templates.
+     * The templates are returned sorted by position.
+     * 
+     * @param templateType The type of templates to list (email or SMS)
+     * @param paginated Whether to paginate the results.
+     *         If true, the results will be paginated.
+     *         If false, the results will not be paginated.
+     * @param limit Applies a limit to the number of results returned.
+     *         Can be used for paginating the results together with `offset`.
+     * @param offset Skip the first `offset` results when paginating.
+     *         Needs to be an integer greater or equal to zero.
+     *         To be used in conjunction with `limit`.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -257,6 +284,29 @@ public class EmailSMSTemplates {
     @Deprecated
     public ToggleTemplateDeliveryResponse toggleTemplateDelivery(ToggleTemplateDeliveryPathParamTemplateType templateType, String slug) {
         return toggleTemplateDelivery(templateType, slug, Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * Toggle the delivery by Clerk for a template of a given type and slug
+     * 
+     * <p>Toggles the delivery by Clerk for a template of a given type and slug.
+     * If disabled, Clerk will not deliver the resulting email or SMS.
+     * The app developer will need to listen to the `email.created` or `sms.created` webhooks in order to
+     * handle delivery themselves.
+     * 
+     * @param templateType The type of template to toggle delivery for
+     * @param slug The slug of the template for which to toggle delivery
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public ToggleTemplateDeliveryResponse toggleTemplateDelivery(
+            ToggleTemplateDeliveryPathParamTemplateType templateType, String slug,
+            Optional<? extends ToggleTemplateDeliveryRequestBody> requestBody) {
+        return toggleTemplateDelivery(templateType, slug, requestBody,
             Optional.empty());
     }
 
